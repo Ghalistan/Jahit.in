@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Jahitin</string>
+    <string name="Pembayaran">Segera Lakukan Pembayaran Sebelum :</string>
+    <string name="Tanggal">Sabtu, 13 Oktober 2018, 01:34 WIB</string>
+    <string name="Transfer">Transfer Pembayaran ke Nomor Rekening :</string>
 </resources>

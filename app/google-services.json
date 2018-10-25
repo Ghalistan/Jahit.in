@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "956980192606",
+    "firebase_url": "https://jahitin-61346.firebaseio.com",
+    "project_id": "jahitin-61346",
+    "storage_bucket": "jahitin-61346.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956980192606:android:f97cfb300721d670",
+        "android_client_info": {
+          "package_name": "protel.jahitin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "956980192606-9pus1gbgp48neqlm31aqbhqcbjkkumd4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "protel.jahitin",
+            "certificate_hash": "c3c7198514e8e258077c3759ec260eab923e27e2"
+          }
+        },
+        {
+          "client_id": "956980192606-c9n4s93ojb9n6cgqov1cvrldrhm72bje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9b9sCWETAyKBPaV6us8ccOYqnSb4f_t0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "956980192606-c9n4s93ojb9n6cgqov1cvrldrhm72bje.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/Bayar_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+            android:id="@+id/expandable"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:ael_expanded="false"
+            app:ael_duration="500"
+            app:ael_interpolator="bounce"
+            app:ael_orientation="vertical">
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sample"/>
+            <TextView
+                android:layout_below="@id/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sample2"/>
+        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+        <Button
+            style="@style/StatButton"
+            android:id="@+id/BayarButton"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:text="Bayar"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+</LinearLayout>

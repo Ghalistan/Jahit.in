@@ -9,14 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Beranda">
+        <activity android:name=".Beranda"></activity>
+        <activity
+            android:name=".Bayar"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".KonfirmasiPembayaran"></activity>
-    </application>
+        <activity
+            android:name=".Bayar2"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:parentActivityName=".Bayar">
 
+        </activity>
+    </application>
 </manifest>

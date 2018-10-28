@@ -3,4 +3,10 @@
     <string name="Pembayaran">Segera Lakukan Pembayaran Sebelum :</string>
     <string name="Tanggal">Sabtu, 13 Oktober 2018, 01:34 WIB</string>
     <string name="Transfer">Transfer Pembayaran ke Nomor Rekening :</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Header di beranda !-->
+    <string name="header_beranda">Rekomendasi</string>
 </resources>

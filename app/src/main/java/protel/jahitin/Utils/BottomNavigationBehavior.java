@@ -1,4 +1,4 @@
-package protel.jahitin;
+package protel.jahitin.Utils;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

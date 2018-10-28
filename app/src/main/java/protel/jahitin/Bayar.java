@@ -28,7 +28,6 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 finish();
-                return;
             }
         });
         setSupportActionBar(myToolbar);

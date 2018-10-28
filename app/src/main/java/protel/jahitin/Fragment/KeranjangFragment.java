@@ -1,7 +1,6 @@
 package protel.jahitin.Fragment;
 
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import protel.jahitin.R;
 
 /**
  * A simple {@link Fragment} subclass.
- *
  */
 public class KeranjangFragment extends Fragment {
 

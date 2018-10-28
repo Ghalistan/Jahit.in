@@ -8,7 +8,7 @@
         android:id="@+id/cv_toko"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="6dp"
+        app:cardCornerRadius="3dp"
         android:layout_margin="10dp">
 
         <RelativeLayout
@@ -30,7 +30,8 @@
                 android:layout_below="@id/iv_item_toko"
                 android:paddingEnd="8dp"
                 android:paddingStart="8dp"
-                android:textSize="20sp"/>
+                android:text="aaaaa"
+                style="@style/NamaToko"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -38,23 +39,29 @@
                 android:layout_below="@id/tv_nama_toko"
                 android:paddingEnd="8dp"
                 android:paddingStart="8dp">
+
                 <ImageView
                     android:id="@+id/iv_rating_toko"
                     android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/star"/>
+                    android:layout_height="18dp"
+                    android:src="@drawable/star"
+                    android:layout_marginEnd="6dp"/>
+
                 <TextView
                     android:id="@+id/tv_rating_toko"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/iv_rating_toko"
-                    android:textSize="17sp"/>
+                    android:text="aaaaaa"
+                    style="@style/RatingToko"/>
+
                 <TextView
                     android:id="@+id/tv_status_toko"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:layout_alignParentEnd="true"/>
+                    android:text="aaaaa"
+                    android:layout_alignParentEnd="true"
+                    style="@style/StatusToko"/>
             </RelativeLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>

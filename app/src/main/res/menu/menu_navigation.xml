@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <item
+        android:id="@+id/nav_beranda"
+        android:icon="@drawable/beranda"
+        android:title="Beranda"/>
+    <item
+        android:id="@+id/nav_keranjang"
+        android:icon="@drawable/keranjang"
+        android:title="Keranjang"/>
+    <item
+        android:id="@+id/nav_transaksi"
+        android:icon="@drawable/transaksi"
+        android:title="Transaksi"/>
+    <item
+        android:id="@+id/nav_akun"
+        android:icon="@drawable/akun"
+        android:title="Akun"/>
 </menu>

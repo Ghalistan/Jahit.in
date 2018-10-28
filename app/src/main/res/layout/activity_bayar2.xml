@@ -27,7 +27,7 @@
             android:text="@string/Pembayaran"
             android:layout_marginRight="21dp" />
         <TextView
-            style="@style/konfirmasiTanggal"
+            style="@style/poppinsregular14sp"
             android:id="@+id/konf_tanggal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                 android:layout_toRightOf="@+id/Bank_icon"
                 android:layout_below="@id/pesankonf"/>
             <TextView
-                style="@style/namRek"
+                style="@style/poppinsregular14sp"
                 android:id="@+id/nam_rek"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

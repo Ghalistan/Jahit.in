@@ -20,12 +20,7 @@ public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
         myToolbar = findViewById(R.id.Bayar2_toolbar);
         myToolbar.setTitle("Konfirmasi Pembayaran");
         myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        myToolbar.setNavigationOnClickListener(this);
         setSupportActionBar(myToolbar);
 
         btnMove = findViewById(R.id.Bayar2Button);
@@ -37,6 +32,8 @@ public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
         switch (v.getId()) {
             case R.id.Bayar2Button:
                 break;
+            case R.drawable.ic_arrow_back_black_24dp:
+                finish();
         }
     }
 }

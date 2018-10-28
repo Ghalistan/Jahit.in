@@ -54,8 +54,7 @@ public class TokoAdapter extends RecyclerView.Adapter<TokoAdapter.TokoViewHolder
     /**
      * View Holder
      */
-    public class TokoViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener{
+    public class TokoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView gambarToko;
         private TextView namaToko, ratingToko, statusToko;
 

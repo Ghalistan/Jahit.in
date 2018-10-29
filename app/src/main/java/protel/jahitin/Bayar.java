@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,18 +15,16 @@ import android.widget.RelativeLayout;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
+import java.util.ArrayList;
+
 public class Bayar extends AppCompatActivity implements View.OnClickListener{
     Button BayarButton;
     Toolbar myToolbar;
-    RelativeLayout expandButton, title;
-    ExpandableRelativeLayout cara_expand;
+    RelativeLayout expand_cara, expand_kurir, title_cara, title_kurir;
+    ExpandableRelativeLayout cara_expand, kurir_expand;
     boolean cek_expand = false;
-
-    RecyclerView rvCara;
-    RecyclerView.Adapter rvCaraAdapter;
-    RecyclerView.LayoutManager rvCaraManager;
-
-    private String[] data = {"mbleh1", "mbleh2", "mbleh3"};
+    BayarAdapter adapter;
+    RecyclerView rvCara, rvKurir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +43,45 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
         });
         setSupportActionBar(myToolbar);
 
+        setCara();
+        setKurir();
+
         BayarButton = findViewById(R.id.BayarButton);
         BayarButton.setOnClickListener(this);
-        expandButton = findViewById(R.id.expand_icon);
-        expandButton.setOnClickListener(this);
-        title = findViewById(R.id.cara_title);
-        title.setOnClickListener(this);
-        cara_expand = findViewById(R.id.expandable);
+    }
+
+    private void setCara() {
+        ArrayList<String>caraPembayaran = new ArrayList<>();
+        caraPembayaran.add("Transfer Mandiri");
+        caraPembayaran.add("Transfer BNI");
+
+        expand_cara = findViewById(R.id.cara_expand_icon);
+        title_cara = findViewById(R.id.cara_title);
+        title_cara.setOnClickListener(this);
+        cara_expand = findViewById(R.id.cara_expandable);
         cara_expand.collapse();
+
+        rvCara = findViewById(R.id.cara_data);
+        rvCara.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new BayarAdapter(this, caraPembayaran);
+        rvCara.setAdapter(adapter);
+    }
+
+    private void setKurir() {
+        ArrayList<String>kurirPengiriman = new ArrayList<>();
+        kurirPengiriman.add("JNE");
+        kurirPengiriman.add("TIKI");
+
+        expand_kurir = findViewById(R.id.kurir_expand_icon);
+        title_kurir = findViewById(R.id.kurir_title);
+        title_kurir.setOnClickListener(this);
+        kurir_expand = findViewById(R.id.kurir_expandable);
+        kurir_expand.collapse();
+
+        rvKurir = findViewById(R.id.kurir_data);
+        rvKurir.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new BayarAdapter(this, kurirPengiriman);
+        rvKurir.setAdapter(adapter);
     }
 
     private ObjectAnimator createRotateAnimator(final View target, final float from, final float to) {
@@ -61,15 +91,15 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
         return animator;
     }
 
-    private void toggleCara() {
+    private void toggleDropdown(RelativeLayout layout, ExpandableRelativeLayout dropdown) {
         if (cek_expand == false) {
-            createRotateAnimator(expandButton, 0f, 180f).start();
+            createRotateAnimator(layout, 0f, 180f).start();
             cek_expand = true;
-            cara_expand.toggle();
+            dropdown.toggle();
         } else {
-            createRotateAnimator(expandButton, 180f, 0f).start();
+            createRotateAnimator(layout, 180f, 0f).start();
             cek_expand = false;
-            cara_expand.toggle();
+            dropdown.toggle();
         }
     }
 
@@ -79,10 +109,10 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
             case R.id.BayarButton:
                 startActivity(new Intent(Bayar.this, Bayar2.class));
                 break;
-            case R.id.expand_icon:
-                toggleCara();
             case R.id.cara_title:
-                toggleCara();
+                toggleDropdown(expand_cara, cara_expand);
+            case R.id.kurir_title:
+                toggleDropdown(expand_kurir, kurir_expand);
         }
     }
 }

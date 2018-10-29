@@ -27,7 +27,9 @@
                     android:orientation="horizontal"
                     android:background="#1a787878"
                     android:paddingVertical="8dp"
-                    android:paddingLeft="8dp">
+                    android:paddingLeft="8dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
 
                     <ImageView
                         android:layout_width="20dp"

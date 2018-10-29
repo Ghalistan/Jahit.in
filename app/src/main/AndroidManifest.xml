@@ -28,6 +28,7 @@
             android:name=".Activity.Home"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
+        <activity android:name=".Activity.PembelianActivity"></activity>
     </application>
 
 </manifest>

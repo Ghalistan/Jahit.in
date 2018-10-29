@@ -123,6 +123,6 @@ public class BerandaFragment extends Fragment
 
     @Override
     public void onTokoItemClick(int clickedItemIndex) {
-
+        
     }
 }

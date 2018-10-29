@@ -25,10 +25,6 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
         <activity
-            android:name=".Bayar2"
-            android:parentActivityName=".Bayar"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
             android:name=".Activity.Home"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>

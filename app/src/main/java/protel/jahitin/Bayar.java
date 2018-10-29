@@ -130,18 +130,24 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
                     cara.setText("false");
                     expand_cara.toggle();
                 }
+                // Jangan lupa tiap case ada break
+                break;
             case R.id.kurir_title:
-                if (!cek_expand_cara) {
+                if (!cek_expand_kurir) {
                     createRotateAnimator(icon_kurir, 0f, 180f).start();
-                    cek_expand_cara = true;
+                    // nih ganti jadi cek_expand_kurir
+                    cek_expand_kurir = true;
                     kurir.setText("true");
                     expand_kurir.toggle();
                 } else {
                     createRotateAnimator(icon_kurir, 180f, 0f).start();
-                    cek_expand_cara = false;
+                    // nih ganti jadi cek_expand_kurir
+                    cek_expand_kurir = false;
                     kurir.setText("false");
                     expand_kurir.toggle();
                 }
+                // Jangan lupa tiap case ada break
+                break;
         }
     }
 }

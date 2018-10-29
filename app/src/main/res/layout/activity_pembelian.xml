@@ -14,12 +14,31 @@
             android:id="@+id/pembelian_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="?homeAsUpIndicator"/>
+            app:navigationIcon="?homeAsUpIndicator"
+            android:elevation="6dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/horizontal_toolbar_padding"
+                android:paddingVertical="@dimen/vertical_toolbar_padding">
+
+                <Button
+                    android:id="@+id/btnInformasiToko"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/logo_toko"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/sliding_tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:elevation="4dp"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -28,51 +47,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/bottom_toolbar_pembelian"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="bottom"
-        android:padding="8dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageButton
-                android:id="@+id/iv_icon_checkout"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:id="@+id/tv_label_checkout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/iv_icon_checkout"
-                android:text="Total Harga"
-                android:textAllCaps="false"/>
-
-            <TextView
-                android:id="@+id/tv_total_checkout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/iv_icon_checkout"
-                android:layout_below="@id/tv_label_checkout"
-                android:text="160000"/>
-
-            <Button
-                android:id="@+id/btn_checkout"
-                android:layout_width="60dp"
-                android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:text="Checkout"
-                android:background="@color/colorAccent"
-                android:textAllCaps="false"
-                style="@style/Widget.AppCompat.Button"/>
-        </RelativeLayout>
-
-    </android.support.v7.widget.Toolbar>
 
 </android.support.design.widget.CoordinatorLayout>

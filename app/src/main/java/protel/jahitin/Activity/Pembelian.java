@@ -5,10 +5,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 
 import protel.jahitin.Adapter.PembelianFragmentPagerAdapter;
 import protel.jahitin.Fragment.BerandaFragment;
@@ -33,11 +31,6 @@ public class Pembelian extends AppCompatActivity
             String namaToko = intentAsal.getStringExtra(BerandaFragment.EXTRA_NAMA_TOKO);
             setTitle(namaToko);
         }
-
-        Toolbar bottomToolbar = findViewById(R.id.bottom_toolbar_pembelian);
-        setSupportActionBar(bottomToolbar);
-        Button btnCheckout = bottomToolbar.findViewById(R.id.btn_checkout);
-        btnCheckout.setOnClickListener(this);
 
         ViewPager viewPager = findViewById(R.id.vp_pembelian);
         setupViewPager(viewPager);

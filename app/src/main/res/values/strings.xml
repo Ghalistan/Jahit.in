@@ -9,7 +9,7 @@
 
     <!-- Header di beranda !-->
     <string name="header_beranda">Rekomendasi</string>
-    <string name="dummy_alamat">Jl. Sukabirus Gang. Selamet Rt.4 Rw.8 Citereup, dayeuhkolotm Bandung</string>
+    <string name="dummy_alamat">Jl. Sukabirus Gang. Selamet Rt.4 Rw.8 Citereup, dayeuhkolot, Bandung</string>
     <string name="Cara_pembayaran">Cara Pembayaran</string>
     <string name="kurir_pengiriman">Kurir Pengiriman</string>
 </resources>

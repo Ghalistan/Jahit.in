@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -16,7 +16,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_below="@id/Bayar_toolbar"
+        android:layout_above="@id/BayarButton">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,12 +76,12 @@
                         android:background="?android:attr/selectableItemBackground">
                         <TextView
                             style="@style/konfirmasi2"
+                            android:id="@+id/tvCara"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/Cara_pembayaran"
                             android:layout_marginLeft="14dp"
                             android:layout_marginTop="11dp"
-                            android:layout_marginBottom="11dp"/>
+                            android:text="@string/Cara_pembayaran" />
                         <RelativeLayout
                             android:id="@+id/cara_expand_icon"
                             android:layout_width="48dp"
@@ -136,6 +138,7 @@
                         android:background="?android:attr/selectableItemBackground">
                         <TextView
                             style="@style/konfirmasi2"
+                            android:id="@+id/tvKurir"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/kurir_pengiriman"
@@ -186,6 +189,7 @@
                 android:layout_marginLeft="17dp"
                 android:layout_marginRight="17dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
                 app:cardCornerRadius="5dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -195,55 +199,93 @@
                         android:id="@+id/ringkasan_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Alamat Pengiriman"
+                        android:text="Ringkasan Belanja"
                         android:layout_marginLeft="14dp"
-                        android:layout_marginTop="11dp"
-                        android:layout_marginBottom="11dp"/>
-                    <TextView
-                        android:id="@+id/harga_barang"
+                        android:layout_marginTop="11dp"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_below="@id/ringkasan_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Harga Barang"
-                        android:layout_marginLeft="14dp"
-                        android:layout_marginRight="14dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="14dp"/>
-                    <TextView
-                        android:id="@+id/harga_kurir"
-                        android:layout_below="@id/harga_barang"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Harga Kurir"
-                        android:layout_marginLeft="14dp"
-                        android:layout_marginRight="14dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="14dp"/>
-                    <TextView
-                        android:id="@+id/total_harga"
-                        android:layout_below="@id/harga_kurir"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Total Harga"
-                        android:layout_marginLeft="14dp"
-                        android:layout_marginRight="14dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="14dp"/>
+                        android:paddingLeft="14dp"
+                        android:paddingRight="14dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="14dp">
+                        <TextView
+                            android:id="@+id/harga_barang"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Harga Barang"
+                            android:fontFamily="@font/poppinsregular"
+                            android:textColor="#a7a7a7"
+                            android:textSize="14sp"
+                            android:lineSpacingExtra="6sp"/>
+                        <TextView
+                            android:id="@+id/nominal_barang"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:textSize="14sp"
+                            android:lineSpacingExtra="6sp"
+                            android:textColor="#f44336"
+                            android:text="Rp 440.000"
+                            android:layout_alignParentRight="true"/>
+                        <TextView
+                            android:id="@+id/harga_kurir"
+                            android:layout_below="@id/harga_barang"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Harga Kurir"
+                            android:fontFamily="@font/poppinsregular"
+                            android:textColor="#a7a7a7"
+                            android:textSize="14sp"
+                            android:lineSpacingExtra="6sp"
+                            android:layout_marginTop="14dp"/>
+                        <TextView
+                            android:id="@+id/nominal_kurir"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:textSize="14sp"
+                            android:lineSpacingExtra="6sp"
+                            android:textColor="#f44336"
+                            android:text="Rp 11.000"
+                            android:layout_below="@id/nominal_barang"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="14dp"/>
+                        <TextView
+                            android:id="@+id/total_harga"
+                            android:layout_below="@id/harga_kurir"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Harga"
+                            android:textSize="14sp"
+                            android:textColor="#707070"
+                            android:lineSpacingExtra="6sp"
+                            android:layout_marginTop="14dp"/>
+                        <TextView
+                            android:id="@+id/nominal_total"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:textSize="14sp"
+                            android:lineSpacingExtra="6sp"
+                            android:textColor="#f44336"
+                            android:text="Rp 451.000"
+                            android:layout_below="@id/nominal_kurir"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="14dp"/>
+                    </RelativeLayout>
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
     </ScrollView>
 
     <!-- Button Bayar -->
-    <RelativeLayout
+    <Button
+        style="@style/StatButton"
+        android:id="@+id/BayarButton"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <Button
-            style="@style/StatButton"
-            android:id="@+id/BayarButton"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:text="Bayar"
-            android:layout_alignParentBottom="true"/>
-    </RelativeLayout>
-</LinearLayout>
+        android:layout_height="?attr/actionBarSize"
+        android:text="Bayar"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

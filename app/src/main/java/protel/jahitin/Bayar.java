@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
@@ -20,11 +21,14 @@ import java.util.ArrayList;
 public class Bayar extends AppCompatActivity implements View.OnClickListener{
     Button BayarButton;
     Toolbar myToolbar;
-    RelativeLayout expand_cara, expand_kurir, title_cara, title_kurir;
-    ExpandableRelativeLayout cara_expand, kurir_expand;
-    boolean cek_expand = false;
+    RelativeLayout icon_cara, icon_kurir, title_cara, title_kurir;
+    ExpandableRelativeLayout expand_cara, expand_kurir;
+    boolean cek_expand_cara = false;
+    boolean cek_expand_kurir = false;
     BayarAdapter adapter;
     RecyclerView rvCara, rvKurir;
+
+    TextView cara, kurir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,9 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
 
         BayarButton = findViewById(R.id.BayarButton);
         BayarButton.setOnClickListener(this);
+
+        cara = findViewById(R.id.tvCara);
+        kurir = findViewById(R.id.tvKurir);
     }
 
     private void setCara() {
@@ -55,11 +62,11 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
         caraPembayaran.add("Transfer Mandiri");
         caraPembayaran.add("Transfer BNI");
 
-        expand_cara = findViewById(R.id.cara_expand_icon);
+        icon_cara = findViewById(R.id.cara_expand_icon);
         title_cara = findViewById(R.id.cara_title);
         title_cara.setOnClickListener(this);
-        cara_expand = findViewById(R.id.cara_expandable);
-        cara_expand.collapse();
+        expand_cara = findViewById(R.id.cara_expandable);
+        expand_cara.collapse();
 
         rvCara = findViewById(R.id.cara_data);
         rvCara.setLayoutManager(new LinearLayoutManager(this));
@@ -72,11 +79,11 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
         kurirPengiriman.add("JNE");
         kurirPengiriman.add("TIKI");
 
-        expand_kurir = findViewById(R.id.kurir_expand_icon);
+        icon_kurir = findViewById(R.id.kurir_expand_icon);
         title_kurir = findViewById(R.id.kurir_title);
         title_kurir.setOnClickListener(this);
-        kurir_expand = findViewById(R.id.kurir_expandable);
-        kurir_expand.collapse();
+        expand_kurir = findViewById(R.id.kurir_expandable);
+        expand_kurir.collapse();
 
         rvKurir = findViewById(R.id.kurir_data);
         rvKurir.setLayoutManager(new LinearLayoutManager(this));
@@ -92,13 +99,15 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
     }
 
     private void toggleDropdown(RelativeLayout layout, ExpandableRelativeLayout dropdown) {
-        if (cek_expand == false) {
+        if (!cek_expand_cara) {
             createRotateAnimator(layout, 0f, 180f).start();
-            cek_expand = true;
+            cek_expand_cara = true;
+            cara.setText("true");
             dropdown.toggle();
         } else {
             createRotateAnimator(layout, 180f, 0f).start();
-            cek_expand = false;
+            cek_expand_cara = false;
+            cara.setText("false");
             dropdown.toggle();
         }
     }
@@ -110,9 +119,29 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
                 startActivity(new Intent(Bayar.this, Bayar2.class));
                 break;
             case R.id.cara_title:
-                toggleDropdown(expand_cara, cara_expand);
+                if (!cek_expand_cara) {
+                    createRotateAnimator(icon_cara, 0f, 180f).start();
+                    cek_expand_cara = true;
+                    cara.setText("true");
+                    expand_cara.toggle();
+                } else {
+                    createRotateAnimator(icon_cara, 180f, 0f).start();
+                    cek_expand_cara = false;
+                    cara.setText("false");
+                    expand_cara.toggle();
+                }
             case R.id.kurir_title:
-                toggleDropdown(expand_kurir, kurir_expand);
+                if (!cek_expand_cara) {
+                    createRotateAnimator(icon_kurir, 0f, 180f).start();
+                    cek_expand_cara = true;
+                    kurir.setText("true");
+                    expand_kurir.toggle();
+                } else {
+                    createRotateAnimator(icon_kurir, 180f, 0f).start();
+                    cek_expand_cara = false;
+                    kurir.setText("false");
+                    expand_kurir.toggle();
+                }
         }
     }
 }

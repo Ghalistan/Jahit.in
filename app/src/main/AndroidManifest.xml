@@ -12,11 +12,7 @@
         <activity android:name=".Beranda" />
         <activity
             android:name=".Bayar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Bayar2"
@@ -24,11 +20,14 @@
         </activity>
         <activity
             android:name=".Activity.Home">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.Pembelian"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
             android:parentActivityName=".Activity.Home">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

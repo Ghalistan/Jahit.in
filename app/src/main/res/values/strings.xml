@@ -5,6 +5,7 @@
     <string name="Transfer">Transfer Pembayaran ke Nomor Rekening :</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <!-- cuma coba-coba ntar gua ganti -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Header di beranda !-->
@@ -12,4 +13,8 @@
     <string name="dummy_alamat">Jl. Sukabirus Gang. Selamet Rt.4 Rw.8 Citereup, dayeuhkolot, Bandung</string>
     <string name="Cara_pembayaran">Cara Pembayaran</string>
     <string name="kurir_pengiriman">Kurir Pengiriman</string>
+
+    <!-- Label Tab Layout Pembelian -->
+    <string name="pakaian_custom_title">Custom Pakaian</string>
+    <string name="pakaian_jadi_title">Pakaian Jadi</string>
 </resources>

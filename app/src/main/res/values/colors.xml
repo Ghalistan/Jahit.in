@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#f44336</color>
 
     <!-- Bottom bar icon tint -->
     <color name="icon_pressed">#f44336</color>

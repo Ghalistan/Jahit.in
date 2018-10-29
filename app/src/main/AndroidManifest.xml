@@ -11,8 +11,15 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Beranda" />
         <activity
-            android:name=".Bayar"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:name=".Bayar">
+
+        </activity>
+        <activity
+            android:name=".Bayar2"
+            android:parentActivityName=".Bayar">
+        </activity>
+        <activity
+            android:name=".Activity.Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,15 +27,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Bayar2"
-            android:parentActivityName=".Bayar"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:name=".Activity.Pembelian"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+            android:parentActivityName=".Activity.Home">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.Home" />
         </activity>
-        <activity
-            android:name=".Activity.Home"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
-        <activity android:name=".Activity.PembelianActivity"></activity>
     </application>
 
 </manifest>

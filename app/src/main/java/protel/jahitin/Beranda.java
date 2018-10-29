@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
-
+// Gal Beranda nya yang di folder Activity aja ya
 public class Beranda extends Activity {
 
     @Override

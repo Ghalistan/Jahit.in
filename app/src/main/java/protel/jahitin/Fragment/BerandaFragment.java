@@ -1,8 +1,10 @@
 package protel.jahitin.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import protel.jahitin.Activity.Pembelian;
 import protel.jahitin.Adapter.OverviewPagerAdapter;
 import protel.jahitin.Adapter.TokoAdapter;
 import protel.jahitin.Model.Toko;
@@ -25,10 +28,11 @@ public class BerandaFragment extends Fragment
     private List<Toko> listToko;
     private List<Integer> listCarousel;
     private OverviewPagerAdapter pagerAdapter;
+    private View view;
 
-    public BerandaFragment() {
-        // Required empty public constructor
-    }
+    public static final String EXTRA_NAMA_TOKO = "nama_toko";
+
+    public BerandaFragment() {}
 
 
     public static BerandaFragment newInstance(String param1, String param2) {
@@ -46,12 +50,14 @@ public class BerandaFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_beranda, container, false);
+        view = inflater.inflate(R.layout.fragment_beranda, container, false);
 
         // Recycler view
         tokoRecyclerView = view.findViewById(R.id.rv_beranda_toko);
         listToko = new ArrayList<>();
         tokoAdapter = new TokoAdapter(listToko, getActivity(),  this);
+        // Make smooth scroll
+        ViewCompat.setNestedScrollingEnabled(tokoRecyclerView, false);
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         tokoRecyclerView.setLayoutManager(layoutManager);
@@ -123,6 +129,10 @@ public class BerandaFragment extends Fragment
 
     @Override
     public void onTokoItemClick(int clickedItemIndex) {
-        
+        String namaToko = listToko.get(clickedItemIndex).getNama();
+
+        Intent intent = new Intent(getActivity(), Pembelian.class);
+        intent.putExtra(EXTRA_NAMA_TOKO, namaToko);
+        startActivity(intent);
     }
 }

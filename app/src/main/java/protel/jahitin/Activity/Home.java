@@ -41,15 +41,19 @@ public class Home extends AppCompatActivity {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment;
+                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fm_container);
                 switch(item.getItemId()){
                     case R.id.nav_beranda:
-                        fragment = new BerandaFragment();
-                        loadFragment(fragment);
+                        if(!(fragment instanceof BerandaFragment)){
+                            fragment = new BerandaFragment();
+                            loadFragment(fragment);
+                        }
                         return true;
                     case R.id.nav_keranjang:
-                        fragment = new KeranjangFragment();
-                        loadFragment(fragment);
+                        if(!(fragment instanceof KeranjangFragment)) {
+                            fragment = new KeranjangFragment();
+                            loadFragment(fragment);
+                        }
                         return true;
                     case R.id.nav_transaksi:
                         return true;
@@ -64,9 +68,6 @@ public class Home extends AppCompatActivity {
     private void loadFragment(Fragment fragment){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fm_container, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
-
-
 }

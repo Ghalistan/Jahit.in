@@ -19,7 +19,7 @@
             android:layout_height="60dp"
             android:layout_gravity="bottom"
             android:padding="8dp"
-            app:elevation="6dp"
+            android:elevation="6dp"
             android:layout_alignParentBottom="true"
             android:background="#FFFFFF">
 
@@ -29,8 +29,9 @@
 
                 <ImageView
                     android:id="@+id/iv_icon_checkout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/keranjang"
                     android:tint="@color/colorAccent"
                     android:layout_marginRight="16dp"/>
@@ -53,7 +54,8 @@
                     android:fontFamily="@font/poppins"
                     android:layout_toEndOf="@id/iv_icon_checkout"
                     android:layout_below="@id/tv_label_checkout"
-                    android:text="160000"/>
+                    android:textColor="@color/colorAccent"
+                    android:text="Rp 160000" />
 
                 <Button
                     android:id="@+id/btn_checkout"

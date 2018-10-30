@@ -1,5 +1,6 @@
 package protel.jahitin.Activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
@@ -7,9 +8,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
+import android.widget.Button;
 
+import protel.jahitin.Fragment.PakaianJadiFragment;
 import protel.jahitin.Utils.BottomNavigationBehavior;
 import protel.jahitin.Fragment.BerandaFragment;
 import protel.jahitin.Fragment.KeranjangFragment;
@@ -17,19 +21,28 @@ import protel.jahitin.R;
 
 public class Beranda extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beranda);
 
-        loadFragment(new BerandaFragment());
-
-        Toolbar toolbar = findViewById(R.id.beranda_toolbar);
-        setSupportActionBar(toolbar);
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(mNavigationListener);
+
+        Intent intentAsal = getIntent();
+        if(intentAsal != null && intentAsal.hasExtra(Intent.EXTRA_TEXT)){
+            Log.d("Beranda", String.valueOf(intentAsal.getIntExtra(Intent.EXTRA_TEXT, -1)));
+            if(intentAsal.getIntExtra(Intent.EXTRA_TEXT, -1) == PakaianJadiFragment.EXTRA_PAKAIAN_JADI_FRAGMENT){
+                loadFragment(new KeranjangFragment());
+
+                MenuItem item = bottomNavigationView.getMenu().getItem(1);
+                Log.d("Beranda", String.valueOf(item.getItemId()));
+                item.setChecked(true);
+            }
+        }else{
+            loadFragment(new BerandaFragment());
+        }
+
 
         CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) bottomNavigationView.getLayoutParams();
         layoutParams.setBehavior(new BottomNavigationBehavior());

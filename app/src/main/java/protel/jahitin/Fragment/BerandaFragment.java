@@ -6,8 +6,10 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,14 +49,17 @@ public class BerandaFragment extends Fragment
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_beranda, container, false);
 
+        Toolbar toolbar = view.findViewById(R.id.beranda_toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
         // Recycler view
         tokoRecyclerView = view.findViewById(R.id.rv_beranda_toko);
         listToko = new ArrayList<>();
         tokoAdapter = new TokoAdapter(listToko, getActivity(),  this);
         // Make smooth scroll
         ViewCompat.setNestedScrollingEnabled(tokoRecyclerView, false);
-
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+
         tokoRecyclerView.setLayoutManager(layoutManager);
         tokoRecyclerView.setAdapter(tokoAdapter);
 

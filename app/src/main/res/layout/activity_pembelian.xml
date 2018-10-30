@@ -7,7 +7,6 @@
     tools:context=".Activity.Pembelian"
     android:orientation="vertical">
 
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/pembelian_toolbar"
         android:layout_width="match_parent"

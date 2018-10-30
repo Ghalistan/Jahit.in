@@ -1,8 +1,8 @@
 package protel.jahitin.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,10 +15,10 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
+import protel.jahitin.Activity.Beranda;
 import protel.jahitin.Adapter.PakaianJadiAdapter;
 import protel.jahitin.Model.Pakaian;
 import protel.jahitin.R;
-import protel.jahitin.Utils.BottomNavigationBehavior;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +30,8 @@ public class PakaianJadiFragment extends Fragment
     private List<Pakaian> listPakaian = new ArrayList<>();
     private List<Boolean> listBeli = new ArrayList<>();
 
+    public static int EXTRA_PAKAIAN_JADI_FRAGMENT = 1;
+
     public PakaianJadiFragment() {}
 
 
@@ -40,8 +42,6 @@ public class PakaianJadiFragment extends Fragment
         // Inflate the layout for this fragment
 
         Toolbar bottomToolbar = view.findViewById(R.id.bottom_toolbar_pembelian);
-        //CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) bottomToolbar.getLayoutParams();
-        //layoutParams.setBehavior(new BottomNavigationBehavior());
 
         Button btnCheckout = bottomToolbar.findViewById(R.id.btn_checkout);
         btnCheckout.setOnClickListener(this);
@@ -52,7 +52,6 @@ public class PakaianJadiFragment extends Fragment
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         pakaianJadiRecyclerView.setLayoutManager(layoutManager);
         pakaianJadiRecyclerView.setAdapter(adapter);
-
         prepareDummyList();
 
         return view;
@@ -60,7 +59,13 @@ public class PakaianJadiFragment extends Fragment
 
     @Override
     public void onClick(View view) {
-
+        switch (view.getId()){
+            case R.id.btn_checkout:
+                Intent intent = new Intent(getActivity(), Beranda.class);
+                intent.putExtra(Intent.EXTRA_TEXT, EXTRA_PAKAIAN_JADI_FRAGMENT);
+                getActivity().startActivity(intent);
+                break;
+        }
     }
 
     @Override

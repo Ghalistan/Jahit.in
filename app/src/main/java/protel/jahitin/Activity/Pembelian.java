@@ -1,11 +1,14 @@
 package protel.jahitin.Activity;
 
 import android.content.Intent;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 
 import protel.jahitin.Adapter.PembelianFragmentPagerAdapter;
@@ -27,7 +30,7 @@ public class Pembelian extends AppCompatActivity
 
         Intent intentAsal = getIntent();
         if(intentAsal.hasExtra(BerandaFragment.EXTRA_NAMA_TOKO)){
-            //Log.d(Pembelian.class.getSimpleName(), intentAsal.getStringExtra(BerandaFragment.EXTRA_NAMA_TOKO));
+            Log.d(Pembelian.class.getSimpleName(), intentAsal.getStringExtra(BerandaFragment.EXTRA_NAMA_TOKO));
             String namaToko = intentAsal.getStringExtra(BerandaFragment.EXTRA_NAMA_TOKO);
             setTitle(namaToko);
         }
@@ -49,5 +52,11 @@ public class Pembelian extends AppCompatActivity
         fragmentPagerAdapter.addFrag(new PakaianCustomFragment());
         fragmentPagerAdapter.addFrag(new PakaianJadiFragment());
         viewPager.setAdapter(fragmentPagerAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_pembelian, menu);
+        return true;
     }
 }

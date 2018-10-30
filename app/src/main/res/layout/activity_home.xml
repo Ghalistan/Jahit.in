@@ -83,7 +83,7 @@
         android:background="@color/colorPrimary"
         android:layout_gravity="bottom"
         app:menu="@menu/menu_navigation"
-        app:itemIconTint="@color/bottom_bar"
+        app:itemIconTint="@drawable/bottom_bar"
         app:itemTextColor="@color/icon_pressed"/>
     
 </android.support.design.widget.CoordinatorLayout>

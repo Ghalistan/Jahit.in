@@ -17,4 +17,9 @@
     <!-- Label Tab Layout Pembelian -->
     <string name="pakaian_custom_title">Custom Pakaian</string>
     <string name="pakaian_jadi_title">Pakaian Jadi</string>
+    <string name="menu_label_informasi_toko">Informasi Toko</string>
+
+    <!-- Button tambah -->
+    <string name="button_tambah_default">Tambah</string>
+    <string name="button_tambah_batal">Batal</string>
 </resources>

@@ -22,4 +22,5 @@
     <!-- Button tambah -->
     <string name="button_tambah_default">Tambah</string>
     <string name="button_tambah_batal">Batal</string>
+    <string name="jenis_pakaian">Jenis Pakaian</string>
 </resources>

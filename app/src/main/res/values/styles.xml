@@ -7,6 +7,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="isi_pcustom">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#a7a7a7</item>
+        <item name="android:fontFamily">@font/poppinsregular</item>
+    </style>
+
     <!-- Bayar2.xml -->
     <style name="konf_toolbar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:fontFamily">@font/poppinssemibold</item>

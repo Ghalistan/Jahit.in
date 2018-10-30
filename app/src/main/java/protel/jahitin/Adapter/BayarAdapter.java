@@ -1,4 +1,4 @@
-package protel.jahitin;
+package protel.jahitin.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,11 +9,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import protel.jahitin.R;
+
 public class BayarAdapter extends RecyclerView.Adapter<BayarAdapter.ViewHolder> {
     private List<String> mData;
     private LayoutInflater mInflater;
 
-    BayarAdapter(Context context, List<String> data) {
+    public BayarAdapter(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }

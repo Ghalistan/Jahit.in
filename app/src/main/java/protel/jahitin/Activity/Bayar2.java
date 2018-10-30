@@ -1,4 +1,4 @@
-package protel.jahitin;
+package protel.jahitin.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.Window;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
+
+import protel.jahitin.R;
 
 public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
     Toolbar myToolbar;

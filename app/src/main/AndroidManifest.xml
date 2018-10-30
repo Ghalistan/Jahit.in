@@ -9,17 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Beranda" />
         <activity
-            android:name=".Bayar">
-
+            android:name=".Activity.Bayar"
+            >
         </activity>
         <activity
-            android:name=".Bayar2"
-            android:parentActivityName=".Bayar">
+            android:name=".Activity.Bayar2"
+            android:parentActivityName=".Activity.Bayar">
         </activity>
         <activity
-            android:name=".Activity.Home">
+            android:name=".Activity.Beranda">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,10 +27,10 @@
         </activity>
         <activity
             android:name=".Activity.Pembelian"
-            android:parentActivityName=".Activity.Home">
+            android:parentActivityName=".Activity.Beranda">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.Home" />
+                android:value=".Activity.Beranda" />
         </activity>
     </application>
 

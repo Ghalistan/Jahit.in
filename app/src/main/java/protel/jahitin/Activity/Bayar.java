@@ -1,4 +1,4 @@
-package protel.jahitin;
+package protel.jahitin.Activity;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
@@ -17,6 +17,9 @@ import android.widget.TextView;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
 import java.util.ArrayList;
+
+import protel.jahitin.Adapter.BayarAdapter;
+import protel.jahitin.R;
 
 public class Bayar extends AppCompatActivity implements View.OnClickListener{
     Button BayarButton;
@@ -58,7 +61,7 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
     }
 
     private void setCara() {
-        ArrayList<String>caraPembayaran = new ArrayList<>();
+        ArrayList<String> caraPembayaran = new ArrayList<>();
         caraPembayaran.add("Transfer Mandiri");
         caraPembayaran.add("Transfer BNI");
 

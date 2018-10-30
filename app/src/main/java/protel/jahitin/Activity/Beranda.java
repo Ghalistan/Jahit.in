@@ -15,13 +15,13 @@ import protel.jahitin.Fragment.BerandaFragment;
 import protel.jahitin.Fragment.KeranjangFragment;
 import protel.jahitin.R;
 
-public class Home extends AppCompatActivity {
+public class Beranda extends AppCompatActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_beranda);
 
         loadFragment(new BerandaFragment());
 

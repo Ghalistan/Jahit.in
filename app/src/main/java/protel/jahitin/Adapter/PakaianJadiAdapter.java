@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import protel.jahitin.Model.Pakaian;
@@ -41,12 +42,14 @@ public class PakaianJadiAdapter extends RecyclerView.Adapter<PakaianJadiAdapter.
         Pakaian pakaian = listPakaian.get(position);
         holder.namaItem.setText(pakaian.getNama());
         holder.bahanItem.setText(pakaian.getBahan());
-        holder.ukuranItem.setText(pakaian.getUkuran());
+
+        List<String> listUkuran = new ArrayList<>(pakaian.getUkuranTersedia().values());
+        holder.ukuranItem.setText(listUkuran.get(0));
 
         String harga = "Rp " + String.valueOf(pakaian.getHarga());
         holder.hargaItem.setText(harga);
 
-        Glide.with(mContext).load(pakaian.getIdGambar())
+        Glide.with(mContext).load(pakaian.getImageUrl())
                 .into(holder.gambarItem);
     }
 

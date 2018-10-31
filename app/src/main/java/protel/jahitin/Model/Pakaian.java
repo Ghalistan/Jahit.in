@@ -1,22 +1,30 @@
 package protel.jahitin.Model;
 
+import java.util.HashMap;
+import java.util.List;
+
 public class Pakaian {
-    private String nama, bahan, ukuran, jenis, warna;
-    private int harga, idGambar, gender;
+    private String nama, bahan, jenis, imageUrl;
+    private int harga, gender;
+    private HashMap<String, String> ukuranTersedia, warnaTersedia;
 
-    public static final int GENDER_PRIA = 1;
-    public static final int GENDER_WANITA = 2;
+    public static final int GENDER_PRIA = 0;
+    public static final int GENDER_WANITA = 1;
 
-    public Pakaian(String nama, String bahan, String ukuran, String jenis,
-                   String warna, int harga, int idGambar, int gender) {
+    public Pakaian() {
+    }
+
+    public Pakaian(String nama, String bahan, String jenis, String imageUrl, int harga, int gender,
+                   HashMap<String, String> ukuranTersedia, HashMap<String, String> warnaTersedia)
+    {
         this.nama = nama;
         this.bahan = bahan;
-        this.ukuran = ukuran;
         this.jenis = jenis;
-        this.warna = warna;
+        this.imageUrl = imageUrl;
         this.harga = harga;
-        this.idGambar = idGambar;
         this.gender = gender;
+        this.ukuranTersedia = ukuranTersedia;
+        this.warnaTersedia = warnaTersedia;
     }
 
     public String getNama() {
@@ -35,14 +43,6 @@ public class Pakaian {
         this.bahan = bahan;
     }
 
-    public String getUkuran() {
-        return ukuran;
-    }
-
-    public void setUkuran(String ukuran) {
-        this.ukuran = ukuran;
-    }
-
     public String getJenis() {
         return jenis;
     }
@@ -51,12 +51,12 @@ public class Pakaian {
         this.jenis = jenis;
     }
 
-    public String getWarna() {
-        return warna;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setWarna(String warna) {
-        this.warna = warna;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public int getHarga() {
@@ -67,19 +67,27 @@ public class Pakaian {
         this.harga = harga;
     }
 
-    public int getIdGambar() {
-        return idGambar;
-    }
-
-    public void setIdGambar(int idGambar) {
-        this.idGambar = idGambar;
-    }
-
     public int getGender() {
         return gender;
     }
 
     public void setGender(int gender) {
         this.gender = gender;
+    }
+
+    public HashMap<String, String> getUkuranTersedia() {
+        return ukuranTersedia;
+    }
+
+    public void setUkuranTersedia(HashMap<String, String> ukuranTersedia) {
+        this.ukuranTersedia = ukuranTersedia;
+    }
+
+    public HashMap<String, String> getWarnaTersedia() {
+        return warnaTersedia;
+    }
+
+    public void setWarnaTersedia(HashMap<String, String> warnaTersedia) {
+        this.warnaTersedia = warnaTersedia;
     }
 }

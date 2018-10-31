@@ -29,11 +29,14 @@ public class Pembelian extends AppCompatActivity
         setSupportActionBar(topToolbar);
 
         Intent intentAsal = getIntent();
-        if(intentAsal.hasExtra(BerandaFragment.EXTRA_NAMA_TOKO)){
-            Log.d(Pembelian.class.getSimpleName(), intentAsal.getStringExtra(BerandaFragment.EXTRA_NAMA_TOKO));
-            String namaToko = intentAsal.getStringExtra(BerandaFragment.EXTRA_NAMA_TOKO);
-            setTitle(namaToko);
+        if(intentAsal != null){
+            if(intentAsal.hasExtra(BerandaFragment.EXTRA_NAMA_TOKO)){
+                Log.d(Pembelian.class.getSimpleName(), intentAsal.getStringExtra(BerandaFragment.EXTRA_NAMA_TOKO));
+                String namaToko = intentAsal.getStringExtra(BerandaFragment.EXTRA_NAMA_TOKO);
+                setTitle(namaToko);
+            }
         }
+
 
         ViewPager viewPager = findViewById(R.id.vp_pembelian);
         setupViewPager(viewPager);

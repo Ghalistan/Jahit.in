@@ -40,9 +40,8 @@ public class TokoAdapter extends RecyclerView.Adapter<TokoAdapter.TokoViewHolder
         Toko toko = listToko.get(position);
         holder.namaToko.setText(toko.getNama());
         holder.ratingToko.setText(String.valueOf(toko.getRating()));
-        holder.statusToko.setText(toko.getStatus());
 
-        Glide.with(mContext).load(toko.getImageId())
+        Glide.with(mContext).load(toko.getImageUrl())
                 .into(holder.gambarToko);
     }
 
@@ -64,7 +63,7 @@ public class TokoAdapter extends RecyclerView.Adapter<TokoAdapter.TokoViewHolder
             gambarToko = itemView.findViewById(R.id.iv_item_toko);
             namaToko = itemView.findViewById(R.id.tv_nama_toko);
             ratingToko = itemView.findViewById(R.id.tv_rating_toko);
-            statusToko = itemView.findViewById(R.id.tv_status_toko);
+            //statusToko = itemView.findViewById(R.id.tv_status_toko);
             itemView.setOnClickListener(this);
         }
 

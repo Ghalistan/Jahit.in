@@ -42,7 +42,7 @@ public class KeranjangAdapter extends RecyclerView.Adapter<KeranjangAdapter.Kera
         holder.nama.setText(pakaian.getNama());
         holder.harga.setText(String.valueOf(pakaian.getHarga()));
 
-        Glide.with(mContext).load(pakaian.getIdGambar())
+        Glide.with(mContext).load(pakaian.getImageUrl())
                 .into(holder.gambar);
     }
 

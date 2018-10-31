@@ -13,7 +13,9 @@ import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 
+import protel.jahitin.Fragment.AkunFragment;
 import protel.jahitin.Fragment.PakaianJadiFragment;
+import protel.jahitin.Fragment.TransaksiFragment;
 import protel.jahitin.Utils.BottomNavigationBehavior;
 import protel.jahitin.Fragment.BerandaFragment;
 import protel.jahitin.Fragment.KeranjangFragment;
@@ -69,12 +71,19 @@ public class Beranda extends AppCompatActivity {
                         }
                         return true;
                     case R.id.nav_transaksi:
+                        if(!(fragment instanceof TransaksiFragment)) {
+                            fragment = new TransaksiFragment();
+                            loadFragment(fragment);
+                        }
                         return true;
                     case R.id.nav_akun:
+                        if(!(fragment instanceof AkunFragment)) {
+                            fragment = new AkunFragment();
+                            loadFragment(fragment);
+                        }
                         return true;
-                    default:
-                        return false;
                 }
+                return false;
             }
         };
 

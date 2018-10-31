@@ -55,13 +55,13 @@
                     android:text="aaaaaa"
                     style="@style/RatingToko"/>
 
-                <TextView
-                    android:id="@+id/tv_status_toko"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="aaaaa"
-                    android:layout_alignParentEnd="true"
-                    style="@style/StatusToko"/>
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_status_toko"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="aaaaa"-->
+                    <!--android:layout_alignParentEnd="true"-->
+                    <!--style="@style/StatusToko"/>-->
             </RelativeLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>

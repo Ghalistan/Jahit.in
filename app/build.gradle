@@ -37,4 +37,10 @@ dependencies {
 
     // Handling image
     implementation 'com.github.bumptech.glide:glide:3.7.0'
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-database:16.0.3'
+    implementation 'com.google.firebase:firebase-storage:16.0.3'
 }
+
+apply plugin: 'com.google.gms.google-services'

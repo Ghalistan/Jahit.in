@@ -89,10 +89,10 @@
         <item name="android:fontFamily">@font/poppinsmedium</item>
     </style>
 
-    <style name="StatusToko">
-        <item name="android:textSize">12sp</item>
-        <item name="android:fontFamily">@font/robotomedium</item>
-    </style>
+    <!--<style name="StatusToko">-->
+        <!--<item name="android:textSize">12sp</item>-->
+        <!--<item name="android:fontFamily">@font/robotomedium</item>-->
+    <!--</style>-->
 
     <!-- item_pakaian_jadi.xml -->
     <style name="NamaPakaianJadi">

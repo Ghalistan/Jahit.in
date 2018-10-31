@@ -42,7 +42,7 @@
                                             android:id="@+id/et_search_beranda"
                                             android:layout_width="225dp"
                                             android:layout_height="wrap_content"
-                                            android:textSize="16sp"
+                                            android:textSize="14sp"
                                             android:hint="Cari Toko"
                                             android:background="@android:color/transparent"/>
                                 </LinearLayout>

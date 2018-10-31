@@ -3,14 +3,14 @@ package protel.jahitin.Model;
 public class Toko {
     private String nama;
     private double rating;
-    private String status;
-    private int imageId;
+    private String imageUrl;
 
-    public Toko(String nama, double rating, String status, int imageId) {
+    public Toko() {}
+
+    public Toko(String nama, double rating, String imageUrl) {
         this.nama = nama;
         this.rating = rating;
-        this.status = status;
-        this.imageId = imageId;
+        this.imageUrl = imageUrl;
     }
 
     public String getNama() {
@@ -29,19 +29,11 @@ public class Toko {
         this.rating = rating;
     }
 
-    public String getStatus() {
-        return status;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public int getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

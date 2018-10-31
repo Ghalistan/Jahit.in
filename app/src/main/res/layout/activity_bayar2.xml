@@ -111,8 +111,10 @@
             android:text="Upload Bukti Pembayaran"/>
         <TextView
             style="@style/buktiadd"
+            android:id="@+id/add_bukti"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
             android:text="add"/>
     </RelativeLayout>
     <RelativeLayout

@@ -4,8 +4,6 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
@@ -16,22 +14,17 @@ import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
-import java.util.ArrayList;
-
-import protel.jahitin.Adapter.BayarAdapter;
 import protel.jahitin.R;
 
 public class Bayar extends AppCompatActivity implements View.OnClickListener{
-    Button BayarButton;
+    TextView bMandiri, bBNI, kJNE, kTIKI, tvCara, tvKurir;
+    ExpandableRelativeLayout expandCara, expandKurir;
+    RelativeLayout caraIcon, kurirIcon, cara_title, kurir_title;
     Toolbar myToolbar;
-    RelativeLayout icon_cara, icon_kurir, title_cara, title_kurir;
-    ExpandableRelativeLayout expand_cara, expand_kurir;
-    boolean cek_expand_cara = false;
-    boolean cek_expand_kurir = false;
-    BayarAdapter adapter;
-    RecyclerView rvCara, rvKurir;
+    Button bayarButton;
 
-    TextView cara, kurir;
+    boolean cekCara = false;
+    boolean cekKurir = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,56 +35,58 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
         myToolbar = findViewById(R.id.Bayar_toolbar);
         myToolbar.setTitle("Pembayaran");
         myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        myToolbar.setNavigationOnClickListener(this);
         setSupportActionBar(myToolbar);
 
-        setCara();
-        setKurir();
+        bMandiri = findViewById(R.id.bMandiri);
+        bMandiri.setOnClickListener(this);
+        bBNI = findViewById(R.id.bBNI);
+        bBNI.setOnClickListener(this);
+        kJNE = findViewById(R.id.kJNE);
+        kJNE.setOnClickListener(this);
+        kTIKI = findViewById(R.id.kTIKI);
+        kTIKI.setOnClickListener(this);
+        expandCara = findViewById(R.id.cara_expandable);
+        expandCara.collapse();
+        expandKurir = findViewById(R.id.kurir_expandable);
+        expandKurir.collapse();
+        cara_title = findViewById(R.id.cara_title);
+        cara_title.setOnClickListener(this);
+        kurir_title = findViewById(R.id.kurir_title);
+        kurir_title.setOnClickListener(this);
+        bayarButton = findViewById(R.id.BayarButton);
+        bayarButton.setOnClickListener(this);
 
-        BayarButton = findViewById(R.id.BayarButton);
-        BayarButton.setOnClickListener(this);
-
-        cara = findViewById(R.id.tvCara);
-        kurir = findViewById(R.id.tvKurir);
+        tvCara = findViewById(R.id.tvCara);
+        tvKurir = findViewById(R.id.tvKurir);
+        caraIcon = findViewById(R.id.cara_expand_icon);
+        kurirIcon = findViewById(R.id.kurir_expand_icon);
     }
 
-    private void setCara() {
-        ArrayList<String> caraPembayaran = new ArrayList<>();
-        caraPembayaran.add("Transfer Mandiri");
-        caraPembayaran.add("Transfer BNI");
-
-        icon_cara = findViewById(R.id.cara_expand_icon);
-        title_cara = findViewById(R.id.cara_title);
-        title_cara.setOnClickListener(this);
-        expand_cara = findViewById(R.id.cara_expandable);
-        expand_cara.collapse();
-
-        rvCara = findViewById(R.id.cara_data);
-        rvCara.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new BayarAdapter(this, caraPembayaran);
-        rvCara.setAdapter(adapter);
-    }
-
-    private void setKurir() {
-        ArrayList<String>kurirPengiriman = new ArrayList<>();
-        kurirPengiriman.add("JNE");
-        kurirPengiriman.add("TIKI");
-
-        icon_kurir = findViewById(R.id.kurir_expand_icon);
-        title_kurir = findViewById(R.id.kurir_title);
-        title_kurir.setOnClickListener(this);
-        expand_kurir = findViewById(R.id.kurir_expandable);
-        expand_kurir.collapse();
-
-        rvKurir = findViewById(R.id.kurir_data);
-        rvKurir.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new BayarAdapter(this, kurirPengiriman);
-        rvKurir.setAdapter(adapter);
+    private void Rotator(View view) {
+        switch (view.getId()) {
+            case R.id.cara_title:
+            case R.id.bMandiri:
+            case R.id.bBNI:
+                if (!cekCara) {
+                    createRotateAnimator(caraIcon, 0f, 180f).start();
+                    cekCara = true;
+                } else {
+                    createRotateAnimator(caraIcon, 180f, 0f).start();
+                    cekCara = false;
+                }
+                break;
+            case R.id.kurir_title:
+            case R.id.kJNE:
+            case R.id.kTIKI:
+                if (!cekKurir) {
+                    createRotateAnimator(kurirIcon, 0f, 180f).start();
+                    cekKurir = true;
+                } else {
+                    createRotateAnimator(kurirIcon, 180f, 0f).start();
+                    cekKurir = false;
+                }
+        }
     }
 
     private ObjectAnimator createRotateAnimator(final View target, final float from, final float to) {
@@ -101,52 +96,41 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
         return animator;
     }
 
-    private void toggleDropdown(RelativeLayout layout, ExpandableRelativeLayout dropdown) {
-        if (!cek_expand_cara) {
-            createRotateAnimator(layout, 0f, 180f).start();
-            cek_expand_cara = true;
-            cara.setText("true");
-            dropdown.toggle();
-        } else {
-            createRotateAnimator(layout, 180f, 0f).start();
-            cek_expand_cara = false;
-            cara.setText("false");
-            dropdown.toggle();
-        }
-    }
-
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.BayarButton:
-                startActivity(new Intent(Bayar.this, Bayar2.class));
-                break;
+    public void onClick(View view) {
+        switch (view.getId()) {
+            //Cara Pembayaran
             case R.id.cara_title:
-                if (!cek_expand_cara) {
-                    createRotateAnimator(icon_cara, 0f, 180f).start();
-                    cek_expand_cara = true;
-                    cara.setText("true");
-                    expand_cara.toggle();
-                } else {
-                    createRotateAnimator(icon_cara, 180f, 0f).start();
-                    cek_expand_cara = false;
-                    cara.setText("false");
-                    expand_cara.toggle();
-                }
+                expandCara.toggle();
                 break;
+            case R.id.bMandiri:
+                tvCara.setText("Mandiri");
+                expandCara.collapse();
+                break;
+            case R.id.bBNI:
+                tvCara.setText("BNI");
+                expandCara.collapse();
+                break;
+            //Kurir
             case R.id.kurir_title:
-                if (!cek_expand_kurir) {
-                    createRotateAnimator(icon_kurir, 0f, 180f).start();
-                    cek_expand_kurir = true;
-                    kurir.setText("true");
-                    expand_kurir.toggle();
-                } else {
-                    createRotateAnimator(icon_kurir, 180f, 0f).start();
-                    cek_expand_kurir = false;
-                    kurir.setText("false");
-                    expand_kurir.toggle();
-                }
+                expandKurir.toggle();
+                break;
+            case R.id.kJNE:
+                tvKurir.setText("JNE");
+                expandKurir.collapse();
+                break;
+            case R.id.kTIKI:
+                tvKurir.setText("TIKI");
+                expandKurir.collapse();
+                break;
+            case R.id.BayarButton:
+                Intent intent = new Intent(Bayar.this, Bayar2.class);
+                startActivity(intent);
+                break;
+            case R.drawable.ic_arrow_back_black_24dp:
+                finish();
                 break;
         }
+        Rotator(view);
     }
 }

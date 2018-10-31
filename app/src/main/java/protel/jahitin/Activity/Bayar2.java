@@ -6,11 +6,13 @@ import android.view.View;
 import android.view.Window;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
+import android.widget.TextView;
 
 import protel.jahitin.R;
 
 public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
     Toolbar myToolbar;
+    TextView addBukti;
     private Button btnMove;
 
     @Override
@@ -27,12 +29,16 @@ public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
 
         btnMove = findViewById(R.id.Bayar2Button);
         btnMove.setOnClickListener(this);
+        addBukti = findViewById(R.id.add_bukti);
+        addBukti.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.Bayar2Button:
+                break;
+            case R.id.add_bukti:
                 break;
             case R.drawable.ic_arrow_back_black_24dp:
                 finish();

@@ -155,7 +155,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="14dp"
                             android:layout_marginTop="11dp"
-                            android:text="@string/jenis_pakaian" />
+                            android:text="Jenis Kelamin"/>
                         <RelativeLayout
                             android:id="@+id/gender_expand_icon"
                             android:layout_width="48dp"
@@ -407,9 +407,242 @@
                                     android:text="Rp 5.000"
                                     android:layout_alignParentEnd="true"/>
                             </RelativeLayout>
+                            <RelativeLayout
+                                android:id="@+id/hijau_warna"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="?android:attr/selectableItemBackground"
+                                android:layout_below="@id/biru_warna"
+                                android:paddingLeft="14dp"
+                                android:paddingRight="14dp"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp">
+                                <TextView
+                                    style="@style/isi_pcustom"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Hijau"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Rp 5.000"
+                                    android:layout_alignParentEnd="true"/>
+                            </RelativeLayout>
                         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
                     </RelativeLayout>
                 </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <!-- Ukuran Pakaian -->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:id="@+id/size_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?android:attr/selectableItemBackground">
+                        <TextView
+                            style="@style/konfirmasi2"
+                            android:id="@+id/tvSize"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="14dp"
+                            android:layout_marginTop="11dp"
+                            android:text="Ukuran Pakaian"/>
+                        <RelativeLayout
+                            android:id="@+id/size_expand_icon"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_alignParentRight="true"
+                            android:gravity="center">
+                            <View
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ic_keyboard_arrow_down_24dp"
+                                android:layout_alignParentRight="false"
+                                android:layout_alignParentEnd="false"/>
+                        </RelativeLayout>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                            android:id="@+id/size_expandable"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:ael_expanded="false"
+                            app:ael_duration="500"
+                            app:ael_interpolator="fastOutLinearIn"
+                            app:ael_orientation="vertical"
+                            android:paddingBottom="14dp">
+                            <RelativeLayout
+                                android:id="@+id/small_size"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="?android:attr/selectableItemBackground"
+                                android:paddingLeft="14dp"
+                                android:paddingRight="14dp"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp">
+                                <TextView
+                                    style="@style/isi_pcustom"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="S"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Rp 5.000"
+                                    android:layout_alignParentEnd="true"/>
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:id="@+id/medium_size"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="?android:attr/selectableItemBackground"
+                                android:layout_below="@id/small_size"
+                                android:paddingLeft="14dp"
+                                android:paddingRight="14dp"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp">
+                                <TextView
+                                    style="@style/isi_pcustom"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="M"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Rp 10.000"
+                                    android:layout_alignParentEnd="true"/>
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:id="@+id/large_size"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="?android:attr/selectableItemBackground"
+                                android:layout_below="@id/medium_size"
+                                android:paddingLeft="14dp"
+                                android:paddingRight="14dp"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp">
+                                <TextView
+                                    style="@style/isi_pcustom"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="L"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Rp 15.000"
+                                    android:layout_alignParentEnd="true"/>
+                            </RelativeLayout><RelativeLayout
+                            android:id="@+id/xlarge_size"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:layout_below="@id/large_size"
+                            android:paddingLeft="14dp"
+                            android:paddingRight="14dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+                            <TextView
+                                style="@style/isi_pcustom"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="XL"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Rp 20.000"
+                                android:layout_alignParentEnd="true"/>
+                        </RelativeLayout>
+                        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
+                android:layout_marginTop="27dp">
+                <TextView
+                    style="@style/buktipay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tambahkan file foto"/>
+                <TextView
+                    style="@style/buktiadd"
+                    android:id="@+id/add_file_foto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="add"
+                    android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
+
+            <!-- Keterangan tambahan -->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
+                android:layout_marginTop="17dp"
+                android:descendantFocusability="beforeDescendants"
+                android:focusableInTouchMode="true">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@null"
+                    android:gravity="top|left"
+                    android:inputType="textMultiLine"
+                    android:textSize="14sp"
+                    android:hint="Keterangan Tambahan"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"/>
+            </android.support.v7.widget.CardView>
+
+            <!-- Estimasi -->
+            <TextView
+                style="@style/buktipay"
+                android:id="@+id/estimasi_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
+                android:layout_marginTop="16dp"
+                android:text="Estimasi Biaya"/>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#1af44336"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="28dp">
+                <TextView
+                    style="@style/est_biaya"
+                    android:id="@+id/estimasi_biaya"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Rp 0,-"/>
             </android.support.v7.widget.CardView>
         </LinearLayout>
     </ScrollView>

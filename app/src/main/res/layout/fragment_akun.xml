@@ -1,14 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.AkunFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    android:orientation="vertical"
+    android:weightSum="100">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="0dp"
+        android:layout_weight="30">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/akun_header"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginTop="20dp">
+            <ImageView
+                android:id="@+id/akun_foto"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/akun2"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"/>
+            <TextView
+            style="@style/Akun_nama"
+            android:id="@+id/akun_username"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/akun_foto"
+            android:text="Aditya Eka Maulana"
+            android:layout_marginLeft="13dp"
+            android:gravity="center_vertical" />
+        </LinearLayout>
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="100"
+            android:orientation="vertical"
+            android:gravity="bottom">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="40"
+                android:gravity="center">
+                //Jumlah Transaksi
+                <RelativeLayout
+                    android:id="@+id/jTransaksiTab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/jumlah_transaksi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:fontFamily="@font/poppinsregular"
+                        android:textSize="20sp"
+                        android:textColor="#ffffff"/>
+                    <TextView
+                        android:layout_below="@id/jumlah_transaksi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jumlah\ntransaksi"
+                        android:fontFamily="@font/poppinsregular"
+                        android:textSize="12sp"
+                        android:textColor="#ffffff"/>
+                </RelativeLayout>
+
+                //Isi Keranjang
+                <RelativeLayout
+                    android:id="@+id/iKeranjang"
+                    android:layout_toRightOf="@id/jTransaksiTab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="25dp">
+                    <TextView
+                        android:id="@+id/isi_keranjang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:fontFamily="@font/poppinsregular"
+                        android:textSize="20sp"
+                        android:textColor="#ffffff"/>
+                    <TextView
+                        android:layout_below="@id/isi_keranjang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Isi\nkeranjang"
+                        android:fontFamily="@font/poppinsregular"
+                        android:textSize="12sp"
+                        android:textColor="#ffffff"/>
+                </RelativeLayout>
+
+                //Jumlah Wishlist
+                <RelativeLayout
+                    android:id="@+id/jWishlist"
+                    android:layout_toRightOf="@id/iKeranjang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="25dp">
+                    <TextView
+                        android:id="@+id/jumlah_wishlist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:fontFamily="@font/poppinsregular"
+                        android:textSize="20sp"
+                        android:textColor="#ffffff"/>
+                    <TextView
+                        android:layout_below="@id/jumlah_wishlist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jumlah\nwishlist"
+                        android:fontFamily="@font/poppinsregular"
+                        android:textSize="12sp"
+                        android:textColor="#ffffff"/>
+                </RelativeLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="70">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginBottom="10dp">
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_datadiri"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp">
+                    <TextView
+                        style="@style/DDPengguna"
+                        android:id="@+id/datadiri"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Data diri Pengguna"
+                        android:layout_marginTop="12dp"/>
+                    <ImageView
+                        android:id="@+id/edit_datadiri"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/edit_akun"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:layout_marginTop="12dp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/datadiri"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginBottom="13dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Lengkap"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:textSize="12sp"
+                            android:textColor="#a7a7a7"/>
+                        <TextView
+                            android:id="@+id/user_nama"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Aditya Eka Maulana"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:textColor="#707070"
+                            android:textSize="14sp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Email"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:textSize="12sp"
+                            android:textColor="#a7a7a7"
+                            android:layout_marginTop="13dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="adityaeka@gmail.com"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:textColor="#707070"
+                            android:textSize="14sp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Alamat lengkap"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:textSize="12sp"
+                            android:textColor="#a7a7a7"
+                            android:layout_marginTop="13dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/alamat"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:textColor="#707070"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

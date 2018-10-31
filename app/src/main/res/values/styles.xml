@@ -7,6 +7,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    
+    <!-- Akun fragment -->
+    <style name="Akun_nama">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:fontFamily">@font/poppinsmedium</item>
+    </style>
+    <style name="DDPengguna">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#f44336</item>
+        <item name="android:fontFamily">@font/poppinsmedium</item>
+    </style>
 
     <!-- Login -->
     <style name="form_title">

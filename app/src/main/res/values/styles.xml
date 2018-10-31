@@ -8,6 +8,25 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Login -->
+    <style name="form_title">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#a4a4a4</item>
+        <item name="android:fontFamily">@font/poppinsmedium</item>
+    </style>
+    <style name="form_input">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#f44336</item>
+        <item name="android:inputType">text</item>
+        <item name="android:layout_marginLeft">-4dp</item>
+        <item name="android:layout_marginRight">-4dp</item>
+    </style>
+    <style name="Register_button">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#f44336</item>
+        <item name="android:fontFamily">@font/poppinssemibold</item>
+    </style>
+
     <!-- pakaian custom -->
     <style name="isi_pcustom">
         <item name="android:textSize">14sp</item>

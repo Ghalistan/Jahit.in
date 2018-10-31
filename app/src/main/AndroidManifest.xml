@@ -13,16 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activity.Bayar"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".Activity.Bayar2"
-            android:parentActivityName=".Activity.Bayar"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".Activity.Beranda"
+            android:name=".Activity.Login"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,6 +22,13 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Activity.Register"
+            android:parentActivityName=".Activity.Login"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".Activity.Beranda"
+            android:screenOrientation="portrait"></activity>
+        <activity
             android:name=".Activity.Pembelian"
             android:parentActivityName=".Activity.Beranda"
             android:screenOrientation="portrait">
@@ -38,6 +36,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.Beranda" />
         </activity>
+        <activity
+            android:name=".Activity.Bayar"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Bayar2"
+            android:parentActivityName=".Activity.Bayar"
+            android:screenOrientation="portrait" />
     </application>
-
 </manifest>

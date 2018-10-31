@@ -212,111 +212,93 @@ public class PakaianCustomFragment extends Fragment implements View.OnClickListe
             //Jenis Pakaian
             case R.id.jpakaian_layout:
                 Jenis_data.toggle();
-                rotator(view);
                 break;
             case R.id.Kaos_pcustom:
                 tvJenis.setText("Kaos");
                 jPakaian = 20000;
-                rotator(view);
                 Jenis_data.collapse();
                 break;
             case R.id.Kemeja_pcustom:
                 tvJenis.setText("Kemeja");
                 jPakaian = 20000;
-                rotator(view);
                 Jenis_data.collapse();
                 break;
             case R.id.Polo_pcustom:
                 tvJenis.setText("Polo");
                 jPakaian = 20000;
-                rotator(view);
                 Jenis_data.collapse();
                 break;
             //Gender
             case R.id.gender_layout:
                 Gender_data.toggle();
-                rotator(view);
                 break;
             case R.id.male_gender:
                 tvGender.setText("Laki-Laki");
-                rotator(view);
                 Gender_data.collapse();
                 break;
             case R.id.female_gender:
                 tvGender.setText("Perempuan");
-                rotator(view);
                 Gender_data.collapse();
                 break;
             //Kain
             case R.id.jkain_layout:
-                rotator(view);
                 Kain_data.toggle();
                 break;
             case R.id.katun_kain:
                 tvKain.setText("Katun");
                 jKain = 20000;
-                rotator(view);
                 Kain_data.collapse();
                 break;
             case R.id.spandex_kain:
                 tvKain.setText("Spandex");
                 jKain = 20000;
-                rotator(view);
                 Kain_data.collapse();
                 break;
             //Warna
             case R.id.warna_layout:
-                rotator(view);
                 Warna_data.toggle();
                 break;
             case R.id.merah_warna:
                 tvWarna.setText("Merah");
                 Warna = 5000;
-                rotator(view);
                 Warna_data.collapse();
                 break;
             case R.id.biru_warna:
                 tvWarna.setText("Biru");
                 Warna = 5000;
-                rotator(view);
                 Warna_data.collapse();
                 break;
             case R.id.hijau_warna:
                 tvWarna.setText("Hijau");
                 Warna = 5000;
-                rotator(view);
                 Warna_data.collapse();
                 break;
             //Size
             case R.id.size_layout:
-                rotator(view);
                 Size_data.toggle();
                 break;
             case R.id.small_size:
                 tvSize.setText("S");
                 Size = 5000;
-                rotator(view);
                 Size_data.collapse();
                 break;
             case R.id.medium_size:
                 tvSize.setText("M");
                 Size = 10000;
-                rotator(view);
                 Size_data.collapse();
                 break;
             case R.id.large_size:
                 tvSize.setText("L");
                 Size = 15000;
-                rotator(view);
                 Size_data.collapse();
                 break;
             case R.id.xlarge_size:
                 tvSize.setText("XL");
                 Size = 20000;
-                rotator(view);
                 Size_data.collapse();
                 break;
         }
+        rotator(view);
         estimasi();
     }
 }

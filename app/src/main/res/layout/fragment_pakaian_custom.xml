@@ -602,9 +602,10 @@
                 android:descendantFocusability="beforeDescendants"
                 android:focusableInTouchMode="true">
                 <EditText
+                    android:id="@+id/keterangan"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:background="@null"
+                    android:background="@drawable/orange_border_editext"
                     android:gravity="top|left"
                     android:inputType="textMultiLine"
                     android:textSize="14sp"

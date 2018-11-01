@@ -225,7 +225,7 @@
                 android:layout_below="@id/card_datadiri"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/akun_button"
+                android:background="@drawable/orange_border"
                 android:textAllCaps="false"
                 android:text="Halaman Toko"
                 android:layout_marginTop="25dp"

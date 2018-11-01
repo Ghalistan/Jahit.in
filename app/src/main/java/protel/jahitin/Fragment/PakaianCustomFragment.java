@@ -2,17 +2,21 @@ package protel.jahitin.Fragment;
 
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
+import protel.jahitin.Activity.Beranda;
 import protel.jahitin.R;
 
 /**
@@ -22,6 +26,7 @@ public class PakaianCustomFragment extends Fragment implements View.OnClickListe
     RelativeLayout Jenis_tombol, Gender_tombol, Kain_tombol, Warna_tombol, Size_tombol;
     ExpandableRelativeLayout Jenis_data, Gender_data, Kain_data, Warna_data, Size_data;
     TextView tvJenis, tvGender, tvKain, tvWarna, tvSize, est_biaya;
+    EditText keterangan;
     int jPakaian, jKain, Warna, Size = 0;
 
     boolean cekJenis = false;
@@ -48,6 +53,7 @@ public class PakaianCustomFragment extends Fragment implements View.OnClickListe
         TextView add_foto = view.findViewById(R.id.add_file_foto);
         add_foto.setOnClickListener(this);
         est_biaya = view.findViewById(R.id.estimasi_biaya);
+        keterangan = view.findViewById(R.id.keterangan);
         return view;
     }
 
@@ -206,6 +212,12 @@ public class PakaianCustomFragment extends Fragment implements View.OnClickListe
         Jenis_data.collapse();
     }
 
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -298,6 +310,8 @@ public class PakaianCustomFragment extends Fragment implements View.OnClickListe
                 Size_data.collapse();
                 break;
         }
+        hideKeyboard(keterangan);
+        keterangan.clearFocus();
         rotator(view);
         estimasi();
     }

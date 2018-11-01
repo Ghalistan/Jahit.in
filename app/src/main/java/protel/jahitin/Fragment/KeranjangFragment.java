@@ -16,12 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,13 +48,17 @@ public class KeranjangFragment extends Fragment
     private List<String> listPakaianKey = new ArrayList<>();
     private List<String> listKeranjangKey = new ArrayList<>();
     private Map<String, Object> map = new HashMap<>();
+
     private Button btnSubmit;
     private View emptyView, currentView;
     private RecyclerView recyclerView;
     private View view;
+    private TextView totalHargaTextView;
+    private int totalHarga;
 
     private FirebaseDatabase firebaseDatabase;
     private ChildEventListener keranjangEventListener, pakaianChildEventListener;
+    private ValueEventListener pakaianValueEventListener;
     private DatabaseReference keranjangDatabaseReference, pakaianDatabaseReference;
 
     public KeranjangFragment() {}
@@ -71,6 +77,8 @@ public class KeranjangFragment extends Fragment
         emptyView = view.findViewById(R.id.empty_view);
         currentView = view.findViewById(R.id.root_view);
 
+        totalHargaTextView = view.findViewById(R.id.tv_total_harga_keranjang);
+
         initRecyclerView();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -79,13 +87,21 @@ public class KeranjangFragment extends Fragment
 
         attachDatabaseReadListener();
 
-        //prepareDummyList();
-
         return view;
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        detachDatabaseReadListener();
+    }
+
+    @Override
     public void onHapusClick(int clickedItemIndex) {
+        totalHarga -= (listKeranjang.get(clickedItemIndex).getJumlah() *
+                        listPakaianDipilih.get(clickedItemIndex).getHarga());
+        totalHargaTextView.setText(String.valueOf(totalHarga));
+
         listKeranjang.remove(clickedItemIndex);
         listPakaianDipilih.remove(clickedItemIndex);
         keranjangDatabaseReference
@@ -97,6 +113,8 @@ public class KeranjangFragment extends Fragment
 
     @Override
     public void onMinusClick(int clickedItemIndex, int jumlahBaru) {
+        kurangiHarga(clickedItemIndex);
+
         String keranjangKey = listKeranjangKey.get(clickedItemIndex);
         Keranjang keranjang =  listKeranjang.get(clickedItemIndex);
         keranjang.setJumlah(jumlahBaru);
@@ -108,6 +126,8 @@ public class KeranjangFragment extends Fragment
 
     @Override
     public void onPlusClick(int clickedItemIndex, int jumlahBaru) {
+        tambahHarga(clickedItemIndex);
+
         String keranjangKey = listKeranjangKey.get(clickedItemIndex);
         Keranjang keranjang =  listKeranjang.get(clickedItemIndex);
         keranjang.setJumlah(jumlahBaru);
@@ -115,6 +135,16 @@ public class KeranjangFragment extends Fragment
         map.clear();
         map.put(keranjangKey, listKeranjang.get(clickedItemIndex));
         keranjangDatabaseReference.updateChildren(map);
+    }
+
+    public void kurangiHarga(int clickedItemIndex){
+        totalHarga -= listPakaianDipilih.get(clickedItemIndex).getHarga();
+        totalHargaTextView.setText("Rp. " + String.valueOf(totalHarga));
+    }
+
+    public void tambahHarga(int clickedItemIndex){
+        totalHarga += listPakaianDipilih.get(clickedItemIndex).getHarga();
+        totalHargaTextView.setText("Rp. " + String.valueOf(totalHarga));
     }
 
     public void checkEmpty(){
@@ -130,41 +160,6 @@ public class KeranjangFragment extends Fragment
             }
         }
     }
-
-    //public void prepareDummyList(){
-//        int[] images = new int[]{
-//                R.drawable.gambar_1,
-//                R.drawable.gambar_4
-//        };
-//
-//        Pakaian p = new Pakaian("Kemeja Motif Kotak", "Katun", "All Size",
-//                "Kemeja", "Kuning", 120000, images[0], Pakaian.GENDER_PRIA);
-//        listPakaianDipilih.add(p);
-//        p = new Pakaian("Kaos Santai", "Katun", "All Size",
-//                "Kaos", "Kuning", 60000, images[1], Pakaian.GENDER_WANITA);
-//        listPakaianDipilih.add(p);
-//        p = new Pakaian("Kemeja Motif Kotak", "Katun", "All Size",
-//                "Kemeja", "Kuning", 120000, images[0], Pakaian.GENDER_PRIA);
-//        listPakaianDipilih.add(p);
-//        p = new Pakaian("Kaos Santai", "Katun", "All Size",
-//                "Kaos", "Kuning", 60000, images[1], Pakaian.GENDER_WANITA);
-//        listPakaianDipilih.add(p);
-//        p = new Pakaian("Kemeja Motif Kotak", "Katun", "All Size",
-//                "Kemeja", "Kuning", 120000, images[0], Pakaian.GENDER_PRIA);
-//        listPakaianDipilih.add(p);
-//        p = new Pakaian("Kaos Santai", "Katun", "All Size",
-//                "Kaos", "Kuning", 60000, images[1], Pakaian.GENDER_WANITA);
-//        listPakaianDipilih.add(p);
-//
-//        adapter.notifyDataSetChanged();}
-
-    public View.OnClickListener onSubmitClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(getActivity(), Bayar.class);
-            startActivity(intent);
-        }
-    };
 
     public void attachDatabaseReadListener(){
         if(keranjangEventListener == null){
@@ -212,8 +207,9 @@ public class KeranjangFragment extends Fragment
                     if(listPakaianKey.contains(dataSnapshot.getKey())) {
                         listPakaianDipilih.add(p);
                         Log.d("Here", p.getNama());
+                        adapter.notifyDataSetChanged();
                     }
-                    adapter.notifyDataSetChanged();
+                    totalHargaTextView.setText("Rp. "+ String.valueOf(totalHarga));
                     checkEmpty();
                 }
 
@@ -240,8 +236,47 @@ public class KeranjangFragment extends Fragment
 
             pakaianDatabaseReference.addChildEventListener(pakaianChildEventListener);
         }
+
+        if(pakaianValueEventListener == null){
+            pakaianValueEventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(int i = 0; i < listPakaianDipilih.size(); i++){
+                        int jumlah = listKeranjang.get(i).getJumlah();
+                        int harga = listPakaianDipilih.get(i).getHarga();
+                        totalHarga += harga * jumlah;
+                    }
+
+                    String stringTotalHarga = "Rp. " + totalHarga;
+                    totalHargaTextView.setText(stringTotalHarga);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            };
+
+            pakaianDatabaseReference.addValueEventListener(pakaianValueEventListener);
+        }
     }
 
+    public void detachDatabaseReadListener(){
+        if(keranjangEventListener != null){
+            keranjangDatabaseReference.removeEventListener(keranjangEventListener);
+            keranjangEventListener = null;
+        }
+
+        if(pakaianChildEventListener != null){
+            pakaianDatabaseReference.removeEventListener(pakaianChildEventListener);
+            pakaianChildEventListener = null;
+        }
+
+        if(pakaianValueEventListener != null){
+            pakaianDatabaseReference.removeEventListener(pakaianValueEventListener);
+            pakaianValueEventListener = null;
+        }
+    }
 
     public void initRecyclerView(){
         recyclerView = view.findViewById(R.id.rv_keranjang);
@@ -251,4 +286,17 @@ public class KeranjangFragment extends Fragment
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
     }
+
+    public View.OnClickListener onSubmitClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if(!listPakaianDipilih.isEmpty()) {
+                Intent intent = new Intent(getActivity(), Bayar.class);
+                startActivity(intent);
+            }else{
+                Toast toast = Toast.makeText(getContext(),"Pilih barang terlebih dahulu", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }
+    };
 }

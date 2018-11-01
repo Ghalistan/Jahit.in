@@ -68,8 +68,6 @@ public class BerandaFragment extends Fragment
         // View Pager
         initViewPager();
 
-        generateDummyList();
-
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         tokoDatabaseReference = firebaseDatabase.getReference().child("toko");
@@ -77,48 +75,14 @@ public class BerandaFragment extends Fragment
         listKey = new ArrayList<>();
         attachDatabaseReadListener();
 
-
         // Inflate the layout for this fragment
         return view;
     }
 
-    private void generateDummyList(){
-//        // For Recycler View
-//        int[] images = new int[]{
-//                R.drawable.toko_1,
-//                R.drawable.toko_1,
-//                R.drawable.toko_1,
-//                R.drawable.toko_1
-//        };
-//
-//        Toko t = new Toko("Victoria Galery", 4.5, "Open", images[0]);
-//        listToko.add(t);
-//        t = new Toko("Victoria Galery", 4.5, "Open", images[0]);
-//        listToko.add(t);
-//        t = new Toko("Victoria Galery", 4.5, "Open", images[0]);
-//        listToko.add(t);
-//        t = new Toko("Victoria Galery", 4.5, "Open", images[0]);
-//        listToko.add(t);
-//        t = new Toko("Victoria Galery", 4.5, "Open", images[0]);
-//        listToko.add(t);
-//        t = new Toko("Victoria Galery", 4.5, "Open", images[0]);
-//        listToko.add(t);
-//
-//        tokoAdapter.notifyDataSetChanged();
-//
-        // For View Pager
-        int[] ovImages = new int[]{
-                R.drawable.carousel_1,
-                R.drawable.carousel_1,
-                R.drawable.carousel_1,
-                R.drawable.carousel_1
-        };
-
-        for (int i = 0; i < ovImages.length; i++){
-            listCarousel.add(ovImages[i]);
-        }
-
-        pagerAdapter.notifyDataSetChanged();
+    @Override
+    public void onPause() {
+        super.onPause();
+        detachDatabaseReadListener();
     }
 
     @Override
@@ -147,6 +111,9 @@ public class BerandaFragment extends Fragment
     public void initViewPager(){
         viewPager = view.findViewById(R.id.vp_overview);
         listCarousel = new ArrayList<>();
+        for(int i = 0; i < 4; i++) {
+            listCarousel.add(R.drawable.carousel_1);
+        }
         pagerAdapter = new OverviewPagerAdapter(listCarousel, getActivity());
         viewPager.setAdapter(pagerAdapter);
     }
@@ -187,6 +154,13 @@ public class BerandaFragment extends Fragment
             };
 
             tokoDatabaseReference.addChildEventListener(childEventListener);
+        }
+    }
+
+    public void detachDatabaseReadListener(){
+        if(childEventListener != null){
+            tokoDatabaseReference.removeEventListener(childEventListener);
+            childEventListener = null;
         }
     }
 }

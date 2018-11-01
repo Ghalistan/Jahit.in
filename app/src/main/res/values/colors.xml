@@ -7,4 +7,9 @@
     <!-- Bottom bar icon tint -->
     <color name="icon_pressed">#f44336</color>
     <color name="icon_not_pressed">#a7a7a7</color>
+
+    <!-- Status Pembayaran text color -->
+    <color name="menunggu_pembayaran">#BDBDBD</color>
+    <color name="barang_dikirim">#000000</color>
+    <color name="barang_diterima">#64DD17</color>
 </resources>

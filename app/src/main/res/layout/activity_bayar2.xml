@@ -35,6 +35,7 @@
             android:layout_below="@id/notif1"
             android:layout_marginTop="10dp"/>
     </RelativeLayout>
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,7 +57,7 @@
                 android:text="@string/Transfer"
                 android:layout_marginTop="8dp"/>
             <ImageView
-                android:id="@+id/Bank_icon"
+                android:id="@+id/bank_icon"
                 android:layout_width="53.9dp"
                 android:layout_height="26dp"
                 android:layout_below="@id/pesankonf"
@@ -69,7 +70,7 @@
                 android:text="123 123 1234567"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="12dp"
-                android:layout_toRightOf="@+id/Bank_icon"
+                android:layout_toRightOf="@+id/bank_icon"
                 android:layout_below="@id/pesankonf"/>
             <TextView
                 style="@style/poppinsregular14sp"
@@ -78,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:text="a/n PT. Jahit.in Cabang Dayeuhkolot"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/Bank_icon"/>
+                android:layout_below="@+id/bank_icon"/>
             <TextView
                 style="@style/konfirmasi2"
                 android:id="@+id/total_pay"
@@ -88,6 +89,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_below="@id/nam_rek"/>
             <TextView
+                android:id="@+id/tv_total_harga_bayar2"
                 style="@style/nominal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,6 +99,7 @@
                 android:layout_below="@id/total_pay"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

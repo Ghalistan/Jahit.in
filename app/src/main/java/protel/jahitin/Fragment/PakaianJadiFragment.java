@@ -97,6 +97,12 @@ public class PakaianJadiFragment extends Fragment
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        detachDatabaseReadListener();
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_checkout:
@@ -128,37 +134,6 @@ public class PakaianJadiFragment extends Fragment
     public void onLikeItemClick(int clickedItemIndex, View view) {
 
     }
-
-    //public void prepareDummyList(){
-//        int[] images = new int[]{
-//                R.drawable.gambar_1,
-//                R.drawable.gambar_4
-//        };
-//
-//        Pakaian p = new Pakaian("Kemeja Motif Kotak", "Katun", "All Size",
-//                "Kemeja", "Kuning", 120000, images[0], Pakaian.GENDER_PRIA);
-//        listPakaian.add(p);
-//        p = new Pakaian("Kaos Santai", "Katun", "All Size",
-//                "Kaos", "Kuning", 60000, images[1], Pakaian.GENDER_WANITA);
-//        listPakaian.add(p);
-//        p = new Pakaian("Kemeja Motif Kotak", "Katun", "All Size",
-//                "Kemeja", "Kuning", 120000, images[0], Pakaian.GENDER_PRIA);
-//        listPakaian.add(p);
-//        p = new Pakaian("Kaos Santai", "Katun", "All Size",
-//                "Kaos", "Kuning", 60000, images[1], Pakaian.GENDER_WANITA);
-//        listPakaian.add(p);
-//        p = new Pakaian("Kemeja Motif Kotak", "Katun", "All Size",
-//                "Kemeja", "Kuning", 120000, images[0], Pakaian.GENDER_PRIA);
-//        listPakaian.add(p);
-//        p = new Pakaian("Kaos Santai", "Katun", "All Size",
-//                "Kaos", "Kuning", 60000, images[1], Pakaian.GENDER_WANITA);
-//        listPakaian.add(p);
-//
-//
-//        for(int i = 0; i < listPakaian.size(); i++)
-//            listBeli.add(false);
-//
-//        adapter.notifyDataSetChanged();}
 
     public void attachDatabaseReadListener(){
         if(childEventListener == null){
@@ -262,6 +237,23 @@ public class PakaianJadiFragment extends Fragment
             };
 
             keranjangDatabaseReference.addChildEventListener(keranjangChildEventListener);
+        }
+    }
+
+    public void detachDatabaseReadListener(){
+        if(childEventListener != null){
+            keyPakaianDatabaseReference.removeEventListener(childEventListener);
+            childEventListener = null;
+        }
+
+        if(pakaianEventListener != null){
+            pakaianDatabaseReference.removeEventListener(pakaianEventListener);
+            pakaianEventListener = null;
+        }
+
+        if(keranjangChildEventListener != null){
+            keranjangDatabaseReference.removeEventListener(keranjangChildEventListener);
+            keranjangChildEventListener = null;
         }
     }
 

@@ -70,8 +70,9 @@ public class KeranjangAdapter extends RecyclerView.Adapter<KeranjangAdapter.Kera
         holder.btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int jumlah = listKeranjang.get(position).getJumlah() - 1;
+                int jumlah = listKeranjang.get(position).getJumlah();
                 if(jumlah > 1){
+                    jumlah -= 1;
                     holder.kuantitas.setText(String.valueOf(jumlah));
                     Keranjang keranjangBaru = listKeranjang.get(position);
                     keranjangBaru.setJumlah(jumlah);

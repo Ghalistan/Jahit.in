@@ -1,7 +1,6 @@
 package protel.jahitin.Activity;
 
 import android.content.Intent;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
-import protel.jahitin.Adapter.PembelianFragmentPagerAdapter;
+import protel.jahitin.Adapter.PembelianPagerAdapater;
 import protel.jahitin.Fragment.BerandaFragment;
 import protel.jahitin.Fragment.PakaianCustomFragment;
 import protel.jahitin.Fragment.PakaianJadiFragment;
@@ -51,7 +50,7 @@ public class Pembelian extends AppCompatActivity
     }
 
     public void setupViewPager(ViewPager viewPager){
-        PembelianFragmentPagerAdapter fragmentPagerAdapter = new PembelianFragmentPagerAdapter(getSupportFragmentManager(), this);
+        PembelianPagerAdapater fragmentPagerAdapter = new PembelianPagerAdapater(getSupportFragmentManager(), this);
         fragmentPagerAdapter.addFrag(new PakaianCustomFragment());
         fragmentPagerAdapter.addFrag(new PakaianJadiFragment());
         viewPager.setAdapter(fragmentPagerAdapter);

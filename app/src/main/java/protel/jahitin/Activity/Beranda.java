@@ -32,14 +32,24 @@ public class Beranda extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(mNavigationListener);
 
         Intent intentAsal = getIntent();
-        if(intentAsal != null && intentAsal.hasExtra(Intent.EXTRA_TEXT)){
-            Log.d("Beranda", String.valueOf(intentAsal.getIntExtra(Intent.EXTRA_TEXT, -1)));
-            if(intentAsal.getIntExtra(Intent.EXTRA_TEXT, -1) == PakaianJadiFragment.EXTRA_PAKAIAN_JADI_FRAGMENT){
+        if(intentAsal != null){
+            if(intentAsal.hasExtra(Intent.EXTRA_TEXT) &&
+                    intentAsal.getIntExtra(Intent.EXTRA_TEXT, -1) ==
+                            PakaianJadiFragment.EXTRA_PAKAIAN_JADI_FRAGMENT)
+            {
                 loadFragment(new KeranjangFragment());
 
                 MenuItem item = bottomNavigationView.getMenu().getItem(1);
-                Log.d("Beranda", String.valueOf(item.getItemId()));
                 item.setChecked(true);
+            }
+            else if(intentAsal.hasExtra(Bayar2.EXTRA_BAYAR_FRAGMENT))
+            {
+                loadFragment(new TransaksiFragment());
+
+                MenuItem item = bottomNavigationView.getMenu().getItem(2);
+                item.setChecked(true);
+            }else{
+                loadFragment(new BerandaFragment());
             }
         }else{
             loadFragment(new BerandaFragment());

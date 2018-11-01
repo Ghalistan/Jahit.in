@@ -9,14 +9,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import protel.jahitin.R;
 
-public class PembelianFragmentPagerAdapter extends FragmentPagerAdapter {
+public class TransaksiPagerAdapter extends FragmentPagerAdapter {
     private final List<Fragment> fragmentList = new ArrayList<>();
 
     private Context context;
 
-    public PembelianFragmentPagerAdapter(FragmentManager fm, Context context) {
+    public TransaksiPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
     }
@@ -36,9 +35,9 @@ public class PembelianFragmentPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return context.getString(R.string.pakaian_custom_title);
+                return "Pembelian";
             case 1:
-                return context.getString(R.string.pakaian_jadi_title);
+                return "Penjualan";
         }
         return null;
     }

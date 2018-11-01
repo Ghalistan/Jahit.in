@@ -71,7 +71,7 @@
                     android:layout_toStartOf="@id/btn_plus_keranjang"
                     android:textSize="16sp"
                     android:layout_gravity="center"
-                    android:text="1"
+                    android:text="0"
                     android:layout_marginRight="16dp"/>
 
                 <Button

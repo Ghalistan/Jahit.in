@@ -31,6 +31,7 @@ import protel.jahitin.Activity.Beranda;
 import protel.jahitin.Adapter.PakaianJadiAdapter;
 import protel.jahitin.Model.Keranjang;
 import protel.jahitin.Model.Pakaian;
+import protel.jahitin.Model.Toko;
 import protel.jahitin.R;
 
 /**
@@ -41,8 +42,9 @@ public class PakaianJadiFragment extends Fragment
     private RecyclerView pakaianJadiRecyclerView;
     private PakaianJadiAdapter adapter;
     private View view;
-    private List<Pakaian> listPakaian = new ArrayList<>();
+    private List<Pakaian> listPakaianDipilih = new ArrayList<>();
     private List<Boolean> listBeli = new ArrayList<>();
+    private List<String> listKeyPakaian = new ArrayList<>();
     private List<String> listKey = new ArrayList<>();
     private List<Keranjang> listKeranjang = new ArrayList<>();
     private List<Keranjang> listKeranjangDipilih = new ArrayList<>();
@@ -51,8 +53,8 @@ public class PakaianJadiFragment extends Fragment
     public static int EXTRA_PAKAIAN_JADI_FRAGMENT = 1;
 
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference tokoDipilihDatabaseReference, keranjangDatabaseReference;
-    private ChildEventListener childEventListener, keranjangChildEventListener;
+    private DatabaseReference tokoDipilihDatabaseReference, keranjangDatabaseReference, keyPakaianDatabaseReference, pakaianDatabaseReference;
+    private ChildEventListener childEventListener, keranjangChildEventListener, pakaianEventListener;
 
     public PakaianJadiFragment() {}
 
@@ -69,16 +71,19 @@ public class PakaianJadiFragment extends Fragment
             if(intentAsal.hasExtra(BerandaFragment.EXTRA_KEY_TOKO)){
                 Log.d(PakaianJadiFragment.class.getSimpleName(), intentAsal.getStringExtra(BerandaFragment.EXTRA_KEY_TOKO));
                 keyToko = intentAsal.getStringExtra(BerandaFragment.EXTRA_KEY_TOKO);
+
             }
         }
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         keranjangDatabaseReference = firebaseDatabase.getReference().child("keranjang").child("testuser");
         if (!keyToko.isEmpty()) {
-            tokoDipilihDatabaseReference = firebaseDatabase.getReference().child("pakaian").child(keyToko);
-            attachDatabaseReadListener();
+            tokoDipilihDatabaseReference = firebaseDatabase.getReference().child("toko").child(keyToko);
+            keyPakaianDatabaseReference = tokoDipilihDatabaseReference.child("pakaian");
         }
+        pakaianDatabaseReference = firebaseDatabase.getReference().child("pakaian");
 
+        attachDatabaseReadListener();
 
         Toolbar bottomToolbar = view.findViewById(R.id.bottom_toolbar_pembelian);
 
@@ -160,12 +165,10 @@ public class PakaianJadiFragment extends Fragment
             childEventListener = new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    Pakaian pakaian = dataSnapshot.getValue(Pakaian.class);
-                    Log.d(PakaianJadiFragment.class.getSimpleName(), dataSnapshot.getKey());
-                    listPakaian.add(pakaian);
-                    listKey.add(dataSnapshot.getKey());
+                    String keyPakaian = dataSnapshot.getKey();
+                    Log.d(PakaianJadiFragment.class.getSimpleName(), keyPakaian);
+                    listKeyPakaian.add(keyPakaian);
                     listBeli.add(false);
-                    adapter.notifyDataSetChanged();
                 }
 
                 @Override
@@ -189,7 +192,44 @@ public class PakaianJadiFragment extends Fragment
                 }
             };
 
-            tokoDipilihDatabaseReference.addChildEventListener(childEventListener);
+            keyPakaianDatabaseReference.addChildEventListener(childEventListener);
+        }
+
+        if(pakaianEventListener == null){
+            pakaianEventListener = new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    Pakaian p = dataSnapshot.getValue(Pakaian.class);
+                    if(listKeyPakaian.contains(dataSnapshot.getKey())){
+                        listPakaianDipilih.add(p);
+                        listBeli.add(false);
+                        listKey.add(dataSnapshot.getKey());
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            };
+
+            pakaianDatabaseReference.addChildEventListener(pakaianEventListener);
         }
 
         if(keranjangChildEventListener == null){
@@ -227,7 +267,7 @@ public class PakaianJadiFragment extends Fragment
 
     public void initRecyclerView(){
         pakaianJadiRecyclerView = view.findViewById(R.id.rv_pakaian_jadi);
-        adapter = new PakaianJadiAdapter(getActivity(), listPakaian, this);
+        adapter = new PakaianJadiAdapter(getActivity(), listPakaianDipilih, this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         pakaianJadiRecyclerView.setLayoutManager(layoutManager);

@@ -1,7 +1,6 @@
 package protel.jahitin.Model;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class Pakaian {
     private String nama, bahan, jenis, imageUrl;

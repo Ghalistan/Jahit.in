@@ -15,16 +15,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import protel.jahitin.Activity.Bayar;
 import protel.jahitin.Adapter.KeranjangAdapter;
@@ -41,14 +43,16 @@ public class KeranjangFragment extends Fragment
     private KeranjangAdapter adapter;
     private List<Pakaian> listPakaianDipilih = new ArrayList<>();
     private List<Keranjang> listKeranjang = new ArrayList<>();
+    private List<String> listPakaianKey = new ArrayList<>();
+    private List<String> listKeranjangKey = new ArrayList<>();
+    private Map<String, Object> map = new HashMap<>();
     private Button btnSubmit;
     private View emptyView, currentView;
     private RecyclerView recyclerView;
     private View view;
 
     private FirebaseDatabase firebaseDatabase;
-    private ChildEventListener childEventListener;
-    private ValueEventListener valueEventListener;
+    private ChildEventListener keranjangEventListener, pakaianChildEventListener;
     private DatabaseReference keranjangDatabaseReference, pakaianDatabaseReference;
 
     public KeranjangFragment() {}
@@ -77,24 +81,40 @@ public class KeranjangFragment extends Fragment
 
         //prepareDummyList();
 
-        checkEmpty();
-
         return view;
     }
 
     @Override
     public void onHapusClick(int clickedItemIndex) {
-
+        listKeranjang.remove(clickedItemIndex);
+        listPakaianDipilih.remove(clickedItemIndex);
+        keranjangDatabaseReference
+                .child(listKeranjangKey.get(clickedItemIndex))
+                .removeValue();
+        listKeranjangKey.remove(clickedItemIndex);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onMinusClick(int clickedItemIndex, View view) {
-
+    public void onMinusClick(int clickedItemIndex, int jumlahBaru) {
+        String keranjangKey = listKeranjangKey.get(clickedItemIndex);
+        Keranjang keranjang =  listKeranjang.get(clickedItemIndex);
+        keranjang.setJumlah(jumlahBaru);
+        listKeranjang.set(clickedItemIndex, keranjang);
+        map.clear();
+        map.put(keranjangKey, listKeranjang.get(clickedItemIndex));
+        keranjangDatabaseReference.updateChildren(map);
     }
 
     @Override
-    public void onPlusClick(int clickedItemIndex, View view) {
-
+    public void onPlusClick(int clickedItemIndex, int jumlahBaru) {
+        String keranjangKey = listKeranjangKey.get(clickedItemIndex);
+        Keranjang keranjang =  listKeranjang.get(clickedItemIndex);
+        keranjang.setJumlah(jumlahBaru);
+        listKeranjang.set(clickedItemIndex, keranjang);
+        map.clear();
+        map.put(keranjangKey, listKeranjang.get(clickedItemIndex));
+        keranjangDatabaseReference.updateChildren(map);
     }
 
     public void checkEmpty(){
@@ -147,12 +167,54 @@ public class KeranjangFragment extends Fragment
     };
 
     public void attachDatabaseReadListener(){
-        if(childEventListener == null){
-            childEventListener = new ChildEventListener() {
+        if(keranjangEventListener == null){
+            keranjangEventListener = new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     Keranjang k = dataSnapshot.getValue(Keranjang.class);
                     listKeranjang.add(k);
+                    listPakaianKey.add(k.getIdBarang());
+                    listKeranjangKey.add(dataSnapshot.getKey());
+                    Log.d("here", k.getIdBarang());
+
+                    checkEmpty();
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    checkEmpty();
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                    checkEmpty();
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            };
+
+            keranjangDatabaseReference.addChildEventListener(keranjangEventListener);
+        }
+
+        if(pakaianChildEventListener == null){
+            pakaianChildEventListener = new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    Pakaian p = dataSnapshot.getValue(Pakaian.class);
+                    if(listPakaianKey.contains(dataSnapshot.getKey())) {
+                        listPakaianDipilih.add(p);
+                        Log.d("Here", p.getNama());
+                    }
+                    adapter.notifyDataSetChanged();
+                    checkEmpty();
                 }
 
                 @Override
@@ -176,35 +238,14 @@ public class KeranjangFragment extends Fragment
                 }
             };
 
-            keranjangDatabaseReference.addChildEventListener(childEventListener);
-        }
-
-        if(valueEventListener == null){
-            valueEventListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Pakaian p = dataSnapshot.getValue(Pakaian.class);
-                    listPakaianDipilih.add(p);
-                    adapter.notifyDataSetChanged();
-                    Log.d("Here", p.getNama());
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            };
-
-            for(Keranjang k : listKeranjang){
-                pakaianDatabaseReference.child(k.getIdBarang()).addValueEventListener(valueEventListener);
-            }
-
+            pakaianDatabaseReference.addChildEventListener(pakaianChildEventListener);
         }
     }
 
+
     public void initRecyclerView(){
         recyclerView = view.findViewById(R.id.rv_keranjang);
-        adapter = new KeranjangAdapter(getActivity(), listPakaianDipilih, this);
+        adapter = new KeranjangAdapter(getActivity(), listPakaianDipilih, listKeranjang, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
         recyclerView.setAdapter(adapter);

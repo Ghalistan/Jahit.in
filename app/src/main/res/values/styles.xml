@@ -4,8 +4,10 @@
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/poppinsmedium</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/splashscreen</item>
     </style>
     
     <!-- Akun fragment -->

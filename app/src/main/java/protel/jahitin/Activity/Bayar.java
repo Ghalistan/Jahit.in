@@ -196,8 +196,7 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
                     break;
                 }
             case R.drawable.ic_arrow_back_black_24dp:
-                Log.d("Bayar", "aaa");
-                finish();
+                this.onBackPressed();
                 break;
         }
 

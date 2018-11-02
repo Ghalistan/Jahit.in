@@ -4,16 +4,20 @@
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/poppinsmedium</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    
+
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/splashscreen</item>
+    </style>
+
     <!-- Akun fragment -->
     <style name="Akun_nama">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:fontFamily">@font/poppinsmedium</item>
     </style>
+
     <style name="DDPengguna">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">#f44336</item>
@@ -26,6 +30,7 @@
         <item name="android:textColor">#a4a4a4</item>
         <item name="android:fontFamily">@font/poppinsmedium</item>
     </style>
+
     <style name="form_input">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">#f44336</item>
@@ -33,6 +38,7 @@
         <item name="android:layout_marginLeft">-4dp</item>
         <item name="android:layout_marginRight">-4dp</item>
     </style>
+
     <style name="Register_button">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">#f44336</item>
@@ -45,6 +51,7 @@
         <item name="android:textColor">#a7a7a7</item>
         <item name="android:fontFamily">@font/poppinsregular</item>
     </style>
+
     <style name="est_biaya">
         <item name="android:textSize">28sp</item>
         <item name="android:textColor">#f44336</item>
@@ -55,42 +62,50 @@
     <style name="konf_toolbar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:fontFamily">@font/poppinssemibold</item>
     </style>
+
     <style name="konfirmasi">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">#707070</item>
         <item name="android:fontFamily">@font/poppinssemibold</item>
     </style>
+
     <style name="poppinsregular14sp">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">#707070</item>
         <item name="android:fontFamily">@font/poppinsregular</item>
     </style>
+
     <style name="konfirmasi2">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">#707070</item>
         <item name="android:fontFamily">@font/poppinssemibold</item>
     </style>
+
     <style name="noRek">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">#424242</item>
         <item name="android:fontFamily">@font/robotobold</item>
     </style>
+
     <style name="nominal">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">#f44336</item>
         <item name="android:fontFamily">@font/robotobold</item>
     </style>
+
     <style name="buktipay">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">#707070</item>
         <item name="android:fontFamily">@font/poppinsmedium</item>
     </style>
+
     <style name="buktiadd">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">#f44336</item>
         <item name="android:gravity">end</item>
         <item name="android:fontFamily">@font/poppinsmedium</item>
     </style>
+
     <style name="StatButton">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#ffffff</item>
@@ -120,8 +135,8 @@
     </style>
 
     <!--<style name="StatusToko">-->
-        <!--<item name="android:textSize">12sp</item>-->
-        <!--<item name="android:fontFamily">@font/robotomedium</item>-->
+    <!--<item name="android:textSize">12sp</item>-->
+    <!--<item name="android:fontFamily">@font/robotomedium</item>-->
     <!--</style>-->
 
     <!-- item_pakaian_jadi.xml -->
@@ -130,6 +145,7 @@
         <item name="android:textColor">#424242</item>
         <item name="android:textSize">14sp</item>
     </style>
+
     <style name="LabelSpefikasi">
         <item name="android:textColor">#707070</item>
         <item name="android:fontFamily">@font/poppinsmedium</item>
@@ -149,6 +165,10 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="ProgressBar">
 

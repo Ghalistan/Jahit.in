@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -58,9 +60,10 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
     private String transaksiKey;
 
     private FirebaseDatabase firebaseDatabase;
-    private ChildEventListener keranjangEventListener, pakaianChildEventListener;
+    private ChildEventListener keranjangEventListener;
     private ValueEventListener pakaianValueEventListener;
     private DatabaseReference keranjangDatabaseReference, pakaianDatabaseReference, transaksiDatabaseReference;
+    private FirebaseUser mUser;
 
     public static final String EXTRA_TRANSAKSI_KEY = "key_transaksi";
 
@@ -77,16 +80,17 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
         setSupportActionBar(myToolbar);
 
         transaksi = new Transaksi();
-        hargaKurir =  0;
+        hargaKurir =  11000;
         totalHarga = 0;
 
         // Gua pindahin ke fungsi ya
         initUIComponent();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        keranjangDatabaseReference = firebaseDatabase.getReference().child("keranjang").child("testuser");
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        keranjangDatabaseReference = firebaseDatabase.getReference().child("keranjang").child(mUser.getUid());
         pakaianDatabaseReference = firebaseDatabase.getReference().child("pakaian");
-        transaksiDatabaseReference = firebaseDatabase.getReference().child("transaksi").child("testuser");
+        transaksiDatabaseReference = firebaseDatabase.getReference().child("transaksi").child(mUser.getUid());
 
         attachDatabaseReadListener();
     }
@@ -191,8 +195,8 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
                     toast.show();
                     break;
                 }
-
             case R.drawable.ic_arrow_back_black_24dp:
+                Log.d("Bayar", "aaa");
                 finish();
                 break;
         }
@@ -248,7 +252,7 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
         }
 
         transaksi.setHargaBarang(totalBarang);
-        transaksi.setUserId("testuser");
+        transaksi.setUserId(mUser.getUid());
         transaksi.setStatus("Menunggu Pembayaran");
         transaksi.setBarang(listBarang);
         transaksi.setTotalHarga(totalHarga);
@@ -291,52 +295,26 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
             keranjangDatabaseReference.addChildEventListener(keranjangEventListener);
         }
 
-        if(pakaianChildEventListener == null){
-            pakaianChildEventListener = new ChildEventListener() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    Pakaian p = dataSnapshot.getValue(Pakaian.class);
-                    if(listPakaianKey.contains(dataSnapshot.getKey())) {
-                        listBarang.add(dataSnapshot.getKey());
-                        listPakaian.add(p);
-                        Log.d("Here", p.getNama());
-                    }
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            };
-
-            pakaianDatabaseReference.addChildEventListener(pakaianChildEventListener);
-        }
 
         if(pakaianValueEventListener == null){
             pakaianValueEventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for(int i = 0; i < listPakaian.size(); i++){
-                        totalBarang += listPakaian.get(i).getHarga() * listKeranjang.get(i).getJumlah();
+                    int i = 0;
+                    for(DataSnapshot data : dataSnapshot.getChildren()){
+                        Pakaian p = data.getValue(Pakaian.class);
+                        if(listPakaianKey.contains(data.getKey())) {
+                            listBarang.add(data.getKey());
+                            listPakaian.add(p);
+
+                            totalBarang += listPakaian.get(i).getHarga() * listKeranjang.get(i).getJumlah();
+                            i++;
+                        }
                     }
 
                     String stringHargaBarang = "Rp " + String.valueOf(totalBarang);
                     tvHargaBarang.setText(stringHargaBarang);
+
                     totalHarga = totalBarang + hargaKurir;
                     String stringTotal = "Rp " + String.valueOf(totalHarga);
                     tvTotalHarga.setText(stringTotal);
@@ -356,11 +334,6 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
         if(keranjangEventListener != null){
             keranjangDatabaseReference.removeEventListener(keranjangEventListener);
             keranjangEventListener = null;
-        }
-
-        if(pakaianChildEventListener != null){
-            pakaianDatabaseReference.removeEventListener(pakaianChildEventListener);
-            pakaianChildEventListener = null;
         }
 
         if(pakaianValueEventListener != null){

@@ -12,6 +12,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import protel.jahitin.Fragment.AkunFragment;
 import protel.jahitin.Fragment.PakaianJadiFragment;
@@ -22,43 +26,60 @@ import protel.jahitin.Fragment.KeranjangFragment;
 import protel.jahitin.R;
 
 public class Beranda extends AppCompatActivity {
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private Intent intentAsal;
+    private BottomNavigationView bottomNavigationView;
+
+    public static final int RC_SIGN_IN = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beranda);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null){
+
+                }else{
+                    Intent logInIntent = new Intent(Beranda.this, Login.class);
+                    startActivityForResult(logInIntent, RC_SIGN_IN);
+                }
+            }
+        };
+
+        mAuth = FirebaseAuth.getInstance();
+
+        bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(mNavigationListener);
 
-        Intent intentAsal = getIntent();
-        if(intentAsal != null){
-            if(intentAsal.hasExtra(Intent.EXTRA_TEXT) &&
-                    intentAsal.getIntExtra(Intent.EXTRA_TEXT, -1) ==
-                            PakaianJadiFragment.EXTRA_PAKAIAN_JADI_FRAGMENT)
-            {
-                loadFragment(new KeranjangFragment());
-
-                MenuItem item = bottomNavigationView.getMenu().getItem(1);
-                item.setChecked(true);
-            }
-            else if(intentAsal.hasExtra(Bayar2.EXTRA_BAYAR_FRAGMENT))
-            {
-                loadFragment(new TransaksiFragment());
-
-                MenuItem item = bottomNavigationView.getMenu().getItem(2);
-                item.setChecked(true);
-            }else{
-                loadFragment(new BerandaFragment());
-            }
-        }else{
-            loadFragment(new BerandaFragment());
-        }
-
+        intentAsal = getIntent();
+        bukaFragmentDariIntent();
 
         CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) bottomNavigationView.getLayoutParams();
         layoutParams.setBehavior(new BottomNavigationBehavior());
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RC_SIGN_IN){
+            if(resultCode == RESULT_OK){
+                //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                //Toast.makeText(this, user.getDisplayName(), Toast.LENGTH_LONG).show();
+            }else if(resultCode == RESULT_CANCELED){
+                finish();
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAuth.addAuthStateListener(mAuthStateListener);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mNavigationListener =
@@ -101,5 +122,32 @@ public class Beranda extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fm_container, fragment);
         transaction.commit();
+    }
+
+    private void bukaFragmentDariIntent(){
+        Log.d("Here", intentAsal.toString());
+        if(intentAsal != null){
+            if(intentAsal.hasExtra(Intent.EXTRA_TEXT)){
+                if(intentAsal.getIntExtra(Intent.EXTRA_TEXT, -1) ==
+                                PakaianJadiFragment.EXTRA_PAKAIAN_JADI_FRAGMENT)
+                {
+                    loadFragment(new KeranjangFragment());
+
+                    MenuItem item = bottomNavigationView.getMenu().getItem(1);
+                    item.setChecked(true);
+                }
+                else if(intentAsal.hasExtra(Bayar2.EXTRA_BAYAR_FRAGMENT))
+                {
+                    loadFragment(new TransaksiFragment());
+
+                    MenuItem item = bottomNavigationView.getMenu().getItem(2);
+                    item.setChecked(true);
+                }
+            }else{
+                loadFragment(new BerandaFragment());
+            }
+        }else{
+            loadFragment(new BerandaFragment());
+        }
     }
 }

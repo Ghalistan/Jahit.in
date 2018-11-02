@@ -14,7 +14,8 @@
     <RelativeLayout
         android:id="@+id/empty_view_transaksi"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/transaksi_empty_icon"
@@ -35,4 +36,10 @@
             android:layout_centerHorizontal="true"/>
 
     </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_transaksi"
+        style="@style/ProgressBar"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
 </FrameLayout>

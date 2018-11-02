@@ -14,7 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,8 +34,8 @@ import protel.jahitin.Activity.Beranda;
 import protel.jahitin.Adapter.PakaianJadiAdapter;
 import protel.jahitin.Model.Keranjang;
 import protel.jahitin.Model.Pakaian;
-import protel.jahitin.Model.Toko;
 import protel.jahitin.R;
+import protel.jahitin.Utils.ProgressBarUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,11 +53,17 @@ public class PakaianJadiFragment extends Fragment
     private List<Keranjang> listKeranjangDipilih = new ArrayList<>();
     private String keyToko;
 
+    private ProgressBar progressBar;
+    private ProgressBarUtils pbUtils;
+
     public static int EXTRA_PAKAIAN_JADI_FRAGMENT = 1;
 
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference tokoDipilihDatabaseReference, keranjangDatabaseReference, keyPakaianDatabaseReference, pakaianDatabaseReference;
-    private ChildEventListener childEventListener, keranjangChildEventListener, pakaianEventListener;
+    private FirebaseUser mUser;
+    private DatabaseReference pakaianDariTokoDipilihReference, keranjangDatabaseReference, pakaianDatabaseReference;
+    private ChildEventListener pakaianEventListener;
+            //childEventListener, keranjangChildEventListener, ;
+    private ValueEventListener tokoValueListener, keranjangValueListener;
 
     public PakaianJadiFragment() {}
 
@@ -75,11 +84,15 @@ public class PakaianJadiFragment extends Fragment
             }
         }
 
+        progressBar = view.findViewById(R.id.pb_pakaian_jadi);
+        pbUtils = new ProgressBarUtils();
+
         firebaseDatabase = FirebaseDatabase.getInstance();
-        keranjangDatabaseReference = firebaseDatabase.getReference().child("keranjang").child("testuser");
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        keranjangDatabaseReference = firebaseDatabase.getReference().child("keranjang").child(mUser.getUid());
         if (!keyToko.isEmpty()) {
-            tokoDipilihDatabaseReference = firebaseDatabase.getReference().child("toko").child(keyToko);
-            keyPakaianDatabaseReference = tokoDipilihDatabaseReference.child("pakaian");
+            pakaianDariTokoDipilihReference = firebaseDatabase.getReference().child("toko").child(keyToko).child("pakaian");
         }
         pakaianDatabaseReference = firebaseDatabase.getReference().child("pakaian");
 
@@ -136,29 +149,17 @@ public class PakaianJadiFragment extends Fragment
     }
 
     public void attachDatabaseReadListener(){
-        if(childEventListener == null){
-            childEventListener = new ChildEventListener() {
+        if(tokoValueListener == null){
+            pbUtils.showLoadingIndicator(progressBar);
+            tokoValueListener = new ValueEventListener() {
                 @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    String keyPakaian = dataSnapshot.getKey();
-                    Log.d(PakaianJadiFragment.class.getSimpleName(), keyPakaian);
-                    listKeyPakaian.add(keyPakaian);
-                    listBeli.add(false);
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot data: dataSnapshot.getChildren()){
+                        String keyPakaian = data.getKey();
+                        Log.d(PakaianJadiFragment.class.getSimpleName(), keyPakaian);
+                        listKeyPakaian.add(keyPakaian);
+                        listBeli.add(false);
+                    }
                 }
 
                 @Override
@@ -167,7 +168,7 @@ public class PakaianJadiFragment extends Fragment
                 }
             };
 
-            keyPakaianDatabaseReference.addChildEventListener(childEventListener);
+            pakaianDariTokoDipilihReference.addValueEventListener(tokoValueListener);
         }
 
         if(pakaianEventListener == null){
@@ -177,9 +178,9 @@ public class PakaianJadiFragment extends Fragment
                     Pakaian p = dataSnapshot.getValue(Pakaian.class);
                     if(listKeyPakaian.contains(dataSnapshot.getKey())){
                         listPakaianDipilih.add(p);
+                        adapter.notifyDataSetChanged();
                         listBeli.add(false);
                         listKey.add(dataSnapshot.getKey());
-                        adapter.notifyDataSetChanged();
                     }
                 }
 
@@ -207,43 +208,32 @@ public class PakaianJadiFragment extends Fragment
             pakaianDatabaseReference.addChildEventListener(pakaianEventListener);
         }
 
-        if(keranjangChildEventListener == null){
-            keranjangChildEventListener = new ChildEventListener() {
+        if(keranjangValueListener == null){
+            keranjangValueListener = new ValueEventListener() {
                 @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    Keranjang k = dataSnapshot.getValue(Keranjang.class);
-                    listKeranjang.add(k);
-                }
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot data : dataSnapshot.getChildren()){
+                        Keranjang k = data.getValue(Keranjang.class);
+                        listKeranjang.add(k);
+                    }
 
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                    pbUtils.hideLoadingIndicator(progressBar);
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    pbUtils.hideLoadingIndicator(progressBar);
                 }
             };
 
-            keranjangDatabaseReference.addChildEventListener(keranjangChildEventListener);
+            keranjangDatabaseReference.addValueEventListener(keranjangValueListener);
         }
     }
 
     public void detachDatabaseReadListener(){
-        if(childEventListener != null){
-            keyPakaianDatabaseReference.removeEventListener(childEventListener);
-            childEventListener = null;
+        if(tokoValueListener != null){
+            pakaianDariTokoDipilihReference.removeEventListener(tokoValueListener);
+            tokoValueListener = null;
         }
 
         if(pakaianEventListener != null){
@@ -251,9 +241,9 @@ public class PakaianJadiFragment extends Fragment
             pakaianEventListener = null;
         }
 
-        if(keranjangChildEventListener != null){
-            keranjangDatabaseReference.removeEventListener(keranjangChildEventListener);
-            keranjangChildEventListener = null;
+        if(keranjangValueListener != null){
+            keranjangDatabaseReference.removeEventListener(keranjangValueListener);
+            keranjangValueListener = null;
         }
     }
 

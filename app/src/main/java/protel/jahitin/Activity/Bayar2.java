@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,6 +45,7 @@ public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
 
     private DatabaseReference transaksiDatabaseReference;
     private ValueEventListener transaksiValueEventListener;
+    private FirebaseUser mUser;
 
     public static final String EXTRA_BAYAR_FRAGMENT = "bayar_fragment";
 
@@ -72,8 +75,9 @@ public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
         addBukti = findViewById(R.id.add_bukti);
         addBukti.setOnClickListener(this);
 
-        Log.d("Bayar2", "Key: " + transaksiKey);
-        transaksiDatabaseReference = FirebaseDatabase.getInstance().getReference().child("transaksi").child("testuser").child(String.valueOf(transaksiKey));
+        //Log.d("Bayar2", "Key: " + transaksiKey);
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        transaksiDatabaseReference = FirebaseDatabase.getInstance().getReference().child("transaksi").child(mUser.getUid()).child(transaksiKey);
         attachDatabaseListener();
     }
 

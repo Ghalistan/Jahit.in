@@ -10,24 +10,26 @@
         android:layout_height="75dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
-        app:cardCornerRadius="6dp">
+        app:cardCornerRadius="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp">
+            android:paddingEnd="8dp"
+            android:paddingVertical="8dp">
             
             <ImageView
                 android:id="@+id/iv_keranjang"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="4dp"/>
 
             <TextView
                 android:id="@+id/tv_nama_keranjang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppinssemibold"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textColor="#424242"
                 android:text="Kemeja Motif Kotak"
                 android:layout_toRightOf="@id/iv_keranjang"/>
@@ -38,12 +40,13 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/iv_keranjang"
                 android:layout_alignParentBottom="true"
+                android:textSize="16sp"
                 android:text="Rp 120.000"/>
 
             <Button
                 android:id="@+id/btn_hapus_keranjang"
-                android:layout_width="13dp"
-                android:layout_height="17dp"
+                android:layout_width="16dp"
+                android:layout_height="20dp"
                 android:background="@drawable/trash"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"/>
@@ -57,8 +60,8 @@
 
                 <Button
                     android:id="@+id/btn_minus_keranjang"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
                     android:layout_toStartOf="@id/tv_jumlah_keranjang"
                     android:background="@drawable/minus"
                     android:layout_marginRight="16dp"/>
@@ -76,8 +79,8 @@
 
                 <Button
                     android:id="@+id/btn_plus_keranjang"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
                     android:background="@drawable/plus"/>
 
             </LinearLayout>

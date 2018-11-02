@@ -10,13 +10,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +28,7 @@ import java.util.List;
 import protel.jahitin.Adapter.TransaksiPembelianAdapter;
 import protel.jahitin.Model.Transaksi;
 import protel.jahitin.R;
+import protel.jahitin.Utils.ProgressBarUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,7 +43,12 @@ public class TransaksiPembelianFragment extends Fragment
     private List<String> listTransaksiKey = new ArrayList<>();
 
     private DatabaseReference transaksiDatabaseReference;
-    private ChildEventListener childEventListener;
+    //private ChildEventListener childEventListener;
+    private ValueEventListener transaksiValueListener;
+    private FirebaseUser mUser;
+
+    private ProgressBar progressBar;
+    private ProgressBarUtils pbUtils;
 
     public TransaksiPembelianFragment() {
         // Required empty public constructor
@@ -51,10 +61,14 @@ public class TransaksiPembelianFragment extends Fragment
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_transaksi_pembelian, container, false);
         emptyView = view.findViewById(R.id.empty_view_transaksi);
+        progressBar = view.findViewById(R.id.pb_transaksi);
 
-        transaksiDatabaseReference = FirebaseDatabase.getInstance().getReference().child("transaksi").child("testuser");
+        pbUtils = new ProgressBarUtils();
 
         initRecyclerView();
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        transaksiDatabaseReference = FirebaseDatabase.getInstance().getReference().child("transaksi").child(mUser.getUid());
 
         attachDatabaseReadListener();
 
@@ -76,47 +90,36 @@ public class TransaksiPembelianFragment extends Fragment
     }
 
     public void attachDatabaseReadListener(){
-        if(childEventListener == null){
-            childEventListener = new ChildEventListener() {
+        if(transaksiValueListener == null){
+            pbUtils.showLoadingIndicator(progressBar);
+            transaksiValueListener = new ValueEventListener() {
                 @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    Transaksi transaksi = dataSnapshot.getValue(Transaksi.class);
-                    listTransaksi.add(transaksi);
-                    listTransaksiKey.add(dataSnapshot.getKey());
-                    adapter.notifyDataSetChanged();
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot data : dataSnapshot.getChildren()){
+                        Transaksi transaksi = data.getValue(Transaksi.class);
+                        listTransaksi.add(transaksi);
+                        listTransaksiKey.add(data.getKey());
+                        adapter.notifyDataSetChanged();
+                    }
 
+                    pbUtils.hideLoadingIndicator(progressBar);
                     checkListEmpty();
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    checkListEmpty();
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    pbUtils.hideLoadingIndicator(progressBar);
                 }
             };
 
-            transaksiDatabaseReference.addChildEventListener(childEventListener);
+            transaksiDatabaseReference.addListenerForSingleValueEvent(transaksiValueListener);
         }
     }
 
     public void detachDatabaseReadListener(){
-        if(childEventListener != null){
-            transaksiDatabaseReference.removeEventListener(childEventListener);
-            childEventListener = null;
+        if(transaksiValueListener != null){
+            transaksiDatabaseReference.removeEventListener(transaksiValueListener);
+            transaksiValueListener = null;
         }
     }
 

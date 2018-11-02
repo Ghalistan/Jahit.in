@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -83,19 +83,29 @@
                             android:layout_height="155dp"/>
 
                         <TextView
+                            android:id="@+id/tv_fragment_beranda_header"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/header_beranda"
                             android:paddingVertical="8dp"
                             android:layout_marginVertical="16dp"
-                            style="@style/HeaderBeranda"/>
+                            style="@style/HeaderBeranda"
+                            android:layout_below="@id/vp_overview"/>
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/rv_beranda_toko"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:clipToPadding="false"/>
-                </LinearLayout>
+                            android:clipToPadding="false"
+                            android:layout_below="@id/tv_fragment_beranda_header"/>
+
+                        <ProgressBar
+                            android:id="@+id/pb_fragment_beranda"
+                            style="@style/ProgressBar"
+                            android:layout_centerInParent="true"
+                            android:layout_below="@id/tv_fragment_beranda_header"
+                            android:visibility="visible"/>
+                </RelativeLayout>
 
         </android.support.v4.widget.NestedScrollView>
 

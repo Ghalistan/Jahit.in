@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,9 +16,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,6 +39,7 @@ import protel.jahitin.Adapter.KeranjangAdapter;
 import protel.jahitin.Model.Keranjang;
 import protel.jahitin.Model.Pakaian;
 import protel.jahitin.R;
+import protel.jahitin.Utils.ProgressBarUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,9 +62,13 @@ public class KeranjangFragment extends Fragment
     private int totalHarga;
 
     private FirebaseDatabase firebaseDatabase;
-    private ChildEventListener keranjangEventListener, pakaianChildEventListener;
+    private ChildEventListener keranjangEventListener;
     private ValueEventListener pakaianValueEventListener;
     private DatabaseReference keranjangDatabaseReference, pakaianDatabaseReference;
+    private FirebaseUser mUser;
+
+    private ProgressBar progressBar;
+    private ProgressBarUtils pbUtils;
 
     public KeranjangFragment() {}
 
@@ -76,13 +85,16 @@ public class KeranjangFragment extends Fragment
         btnSubmit.setOnClickListener(onSubmitClickListener);
         emptyView = view.findViewById(R.id.empty_view);
         currentView = view.findViewById(R.id.root_view);
-
         totalHargaTextView = view.findViewById(R.id.tv_total_harga_keranjang);
+
+        progressBar = view.findViewById(R.id.pb_keranjang);
+        pbUtils = new ProgressBarUtils();
 
         initRecyclerView();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        keranjangDatabaseReference = firebaseDatabase.getReference().child("keranjang").child("testuser");
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        keranjangDatabaseReference = firebaseDatabase.getReference().child("keranjang").child(mUser.getUid());
         pakaianDatabaseReference = firebaseDatabase.getReference().child("pakaian");
 
         attachDatabaseReadListener();
@@ -151,18 +163,19 @@ public class KeranjangFragment extends Fragment
         if(adapter != null){
             if(adapter.getItemCount() == 0){
                 emptyView.setVisibility(View.VISIBLE);
-                currentView.setVisibility(View.GONE);
-                btnSubmit.setVisibility(View.GONE);
+                hideUI();
             }else{
                 emptyView.setVisibility(View.GONE);
-                currentView.setVisibility(View.VISIBLE);
-                btnSubmit.setVisibility(View.VISIBLE);
+                showUI();
             }
         }
     }
 
     public void attachDatabaseReadListener(){
         if(keranjangEventListener == null){
+            pbUtils.showLoadingIndicator(progressBar);
+            hideUI();
+
             keranjangEventListener = new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -171,18 +184,14 @@ public class KeranjangFragment extends Fragment
                     listPakaianKey.add(k.getIdBarang());
                     listKeranjangKey.add(dataSnapshot.getKey());
                     Log.d("here", k.getIdBarang());
-
-                    checkEmpty();
                 }
 
                 @Override
                 public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    checkEmpty();
                 }
 
                 @Override
                 public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                    checkEmpty();
                 }
 
                 @Override
@@ -199,61 +208,38 @@ public class KeranjangFragment extends Fragment
             keranjangDatabaseReference.addChildEventListener(keranjangEventListener);
         }
 
-        if(pakaianChildEventListener == null){
-            pakaianChildEventListener = new ChildEventListener() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    Pakaian p = dataSnapshot.getValue(Pakaian.class);
-                    if(listPakaianKey.contains(dataSnapshot.getKey())) {
-                        listPakaianDipilih.add(p);
-                        Log.d("Here", p.getNama());
-                        adapter.notifyDataSetChanged();
-                    }
-                    totalHargaTextView.setText("Rp. "+ String.valueOf(totalHarga));
-                    checkEmpty();
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            };
-
-            pakaianDatabaseReference.addChildEventListener(pakaianChildEventListener);
-        }
-
         if(pakaianValueEventListener == null){
             pakaianValueEventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for(int i = 0; i < listPakaianDipilih.size(); i++){
-                        int jumlah = listKeranjang.get(i).getJumlah();
-                        int harga = listPakaianDipilih.get(i).getHarga();
-                        totalHarga += harga * jumlah;
+                    int jumlah, harga, i = 0;
+                    for(DataSnapshot data : dataSnapshot.getChildren()){
+                        Pakaian p = data.getValue(Pakaian.class);
+                        if(listPakaianKey.contains(data.getKey())) {
+                            listPakaianDipilih.add(p);
+                            jumlah = listKeranjang.get(i).getJumlah();
+                            harga = p.getHarga();
+                            totalHarga += harga * jumlah;
+                            //Log.d("Here", p.getNama());
+                            i++;
+                        }
                     }
+
+                    adapter.notifyDataSetChanged();
+                    checkEmpty();
 
                     String stringTotalHarga = "Rp. " + totalHarga;
                     totalHargaTextView.setText(stringTotalHarga);
+
+                    pbUtils.hideLoadingIndicator(progressBar);
+                    showUI();
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    pbUtils.hideLoadingIndicator(progressBar);
+                    showUI();
+                    checkEmpty();
                 }
             };
 
@@ -267,10 +253,6 @@ public class KeranjangFragment extends Fragment
             keranjangEventListener = null;
         }
 
-        if(pakaianChildEventListener != null){
-            pakaianDatabaseReference.removeEventListener(pakaianChildEventListener);
-            pakaianChildEventListener = null;
-        }
 
         if(pakaianValueEventListener != null){
             pakaianDatabaseReference.removeEventListener(pakaianValueEventListener);
@@ -299,4 +281,14 @@ public class KeranjangFragment extends Fragment
             }
         }
     };
+
+    public void hideUI(){
+        currentView.setVisibility(View.GONE);
+        btnSubmit.setVisibility(View.GONE);
+    }
+
+    public void showUI(){
+        currentView.setVisibility(View.VISIBLE);
+        btnSubmit.setVisibility(View.VISIBLE);
+    }
 }

@@ -15,12 +15,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -32,6 +34,7 @@ import protel.jahitin.Adapter.OverviewPagerAdapter;
 import protel.jahitin.Adapter.TokoAdapter;
 import protel.jahitin.Model.Toko;
 import protel.jahitin.R;
+import protel.jahitin.Utils.ProgressBarUtils;
 
 public class BerandaFragment extends Fragment
         implements TokoAdapter.BerandaClickListener {
@@ -43,11 +46,14 @@ public class BerandaFragment extends Fragment
     private List<Integer> listCarousel;
     private OverviewPagerAdapter pagerAdapter;
     private View view;
+    private ProgressBar progressBar;
+    private ProgressBarUtils pbUtils;
 
     // Firebase
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference tokoDatabaseReference;
-    private ChildEventListener childEventListener;
+    //private ChildEventListener childEventListener;
+    private ValueEventListener valueEventListener;
 
     public static final String EXTRA_NAMA_TOKO = "nama_toko";
     public static final String EXTRA_KEY_TOKO = "key_toko";
@@ -58,6 +64,8 @@ public class BerandaFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_beranda, container, false);
+        progressBar = view.findViewById(R.id.pb_fragment_beranda);
+        pbUtils = new ProgressBarUtils();
 
         Toolbar toolbar = view.findViewById(R.id.beranda_toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -75,7 +83,6 @@ public class BerandaFragment extends Fragment
         listKey = new ArrayList<>();
         attachDatabaseReadListener();
 
-        // Inflate the layout for this fragment
         return view;
     }
 
@@ -119,48 +126,40 @@ public class BerandaFragment extends Fragment
     }
 
     public void attachDatabaseReadListener(){
-        if(childEventListener == null){
-            childEventListener = new ChildEventListener() {
+        if(valueEventListener == null){
+            pbUtils.showLoadingIndicator(progressBar);
+            valueEventListener = new ValueEventListener() {
                 @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    Toko toko = dataSnapshot.getValue(Toko.class);
-                    Log.d("Key", dataSnapshot.getKey());
-                    listToko.add(toko);
-                    listToko.add(toko);
-                    listKey.add(dataSnapshot.getKey());
-                    listKey.add(dataSnapshot.getKey());
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Toko toko;
+                    for(DataSnapshot data : dataSnapshot.getChildren()){
+                        toko = data.getValue(Toko.class);
+                        Log.d("Key", data.getKey());
+                        listToko.add(toko);
+                        listToko.add(toko);
+                        listKey.add(data.getKey());
+                        listKey.add(data.getKey());
+                    }
+
                     tokoAdapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                    pbUtils.hideLoadingIndicator(progressBar);
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    pbUtils.hideLoadingIndicator(progressBar);
                 }
             };
 
-            tokoDatabaseReference.addChildEventListener(childEventListener);
+            tokoDatabaseReference.addListenerForSingleValueEvent(valueEventListener);
         }
     }
 
     public void detachDatabaseReadListener(){
-        if(childEventListener != null){
-            tokoDatabaseReference.removeEventListener(childEventListener);
-            childEventListener = null;
+
+        if(valueEventListener != null){
+            tokoDatabaseReference.removeEventListener(valueEventListener);
+            valueEventListener = null;
         }
     }
 }

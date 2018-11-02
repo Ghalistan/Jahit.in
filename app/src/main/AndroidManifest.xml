@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.SplashScreen"
+        <activity
+            android:name=".Activity.SplashScreen"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
@@ -20,6 +21,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.onBoarding"
+            android:label="@string/title_activity_on_boarding"
+            android:theme="@style/AppTheme">
         </activity>
         <activity
             android:name=".Activity.Login"
@@ -30,8 +36,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Beranda"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Activity.Pembelian"
             android:parentActivityName=".Activity.Beranda"
@@ -48,7 +53,7 @@
             android:parentActivityName=".Activity.Bayar"
             android:screenOrientation="portrait" />
         <activity android:name=".Activity.BuatToko" />
-        <activity android:name=".Activity.DetailTransaksi"></activity>
+        <activity android:name=".Activity.DetailTransaksi" />
     </application>
 
 </manifest>

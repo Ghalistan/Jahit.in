@@ -24,4 +24,7 @@
     <string name="button_tambah_batal">Batal</string>
     <string name="jenis_pakaian">Jenis Pakaian</string>
     <string name="alamat">Jl. Sukabirus, Gang. Sebelah Masjid Istiqomah Bojongsoang, Bandung, 40257</string>
+    <string name="title_activity_on_boarding">onBoarding</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

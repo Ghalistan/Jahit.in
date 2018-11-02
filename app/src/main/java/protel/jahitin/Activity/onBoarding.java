@@ -114,7 +114,7 @@ public class onBoarding extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(onBoarding.this, Login.class);
+        Intent intent = new Intent(onBoarding.this, Beranda.class);
         switch (v.getId()) {
             case R.id.skip_button:
                 startActivity(intent);

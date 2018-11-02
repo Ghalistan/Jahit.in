@@ -56,11 +56,14 @@
         <activity
             android:name=".Activity.Bayar"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".Activity.Bayar2"
             android:parentActivityName=".Activity.Bayar"
             android:screenOrientation="portrait" />
+
         <activity android:name=".Activity.BuatToko" />
+
         <activity android:name=".Activity.DetailTransaksi" />
     </application>
 

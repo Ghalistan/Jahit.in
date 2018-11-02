@@ -21,9 +21,11 @@ public class SplashScreen extends AppCompatActivity {
         if (isFirstTime()) {
             intent = new Intent(SplashScreen.this, onBoarding.class);
             startActivity(intent);
+            finish();
         } else {
-            intent = new Intent(SplashScreen.this, Login.class);
+            intent = new Intent(SplashScreen.this, Beranda.class);
             startActivity(intent);
+            finish();
         }
     }
 

@@ -72,7 +72,7 @@ public class Beranda extends AppCompatActivity {
                 //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 //Toast.makeText(this, user.getDisplayName(), Toast.LENGTH_LONG).show();
             }else if(resultCode == RESULT_CANCELED){
-                finish();
+
             }
         }
     }

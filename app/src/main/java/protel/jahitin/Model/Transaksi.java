@@ -7,8 +7,17 @@ public class Transaksi {
     private int hargaBarang, hargaKurir, totalHarga;
     private long waktuTransaksi;
     private List<Object> barang;
+    private List<Object> jumlah;
 
     public Transaksi() {
+    }
+
+    public List<Object> getJumlah() {
+        return jumlah;
+    }
+
+    public void setJumlah(List<Object> jumlah) {
+        this.jumlah = jumlah;
     }
 
     public String getUserId() {

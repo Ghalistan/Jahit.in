@@ -52,12 +52,12 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
     private Transaksi transaksi;
 
     private List<Object> listBarang = new ArrayList<>();
+    private List<Object> listJumlah = new ArrayList<>();
     private List<Pakaian> listPakaian = new ArrayList<>();
     private List<Keranjang> listKeranjang = new ArrayList<>();
     private List<String> listPakaianKey = new ArrayList<>();
     private List<String> listKeranjangKey = new ArrayList<>();
     private int totalBarang, hargaKurir, totalHarga;
-    private String transaksiKey;
 
     private FirebaseDatabase firebaseDatabase;
     private ChildEventListener keranjangEventListener;
@@ -278,6 +278,7 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     Keranjang k = dataSnapshot.getValue(Keranjang.class);
                     listKeranjang.add(k);
+                    listJumlah.add(k.getJumlah());
                     listPakaianKey.add(k.getIdBarang());
                     listKeranjangKey.add(dataSnapshot.getKey());
                     Log.d("here", k.getIdBarang());

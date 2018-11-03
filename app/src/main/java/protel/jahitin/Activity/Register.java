@@ -24,6 +24,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import protel.jahitin.R;
 import protel.jahitin.Utils.ProgressBarUtils;
@@ -38,6 +40,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     private ProgressBarUtils pbUtils;
 
     private FirebaseAuth mAuth;
+    //private DatabaseReference userDatabaseReference;
 
     boolean cekVisibility = false;
 
@@ -62,6 +65,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         regisbtn.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
+        //userDatabaseReference = FirebaseDatabase.getInstance().getReference().child("user");
     }
 
     private void setVisibility() {
@@ -141,6 +145,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         public void onComplete(@NonNull Task<Void> task) {
                             if(!task.isSuccessful()){
                                 createToast("Gagal mengirimkan verifikasi email");
+                            }else{
+
                             }
                         }
                     });

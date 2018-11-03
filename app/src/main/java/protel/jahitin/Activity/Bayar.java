@@ -237,7 +237,7 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
 
         tvCara = findViewById(R.id.tvCara);
         tvKurir = findViewById(R.id.tvKurir);
-        tvAlamat = findViewById(R.id.bayar_alamat);
+        tvAlamat = findViewById(R.id.et_alamat_pengiriman);
         caraIcon = findViewById(R.id.cara_expand_icon);
         kurirIcon = findViewById(R.id.kurir_expand_icon);
 

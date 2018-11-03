@@ -14,7 +14,6 @@ import protel.jahitin.R;
  */
 public class AkunFragment extends Fragment {
 
-
     public AkunFragment() {
         // Required empty public constructor
     }

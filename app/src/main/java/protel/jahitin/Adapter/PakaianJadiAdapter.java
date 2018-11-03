@@ -75,7 +75,7 @@ public class PakaianJadiAdapter extends RecyclerView.Adapter<PakaianJadiAdapter.
             //btnLike = itemView.findViewById(R.id.btn_like_pakaian_jadi);
             btnTambah = itemView.findViewById(R.id.btn_tambah_pakaian_jadi);
 
-            btnLike.setOnClickListener(this);
+            //btnLike.setOnClickListener(this);
             btnTambah.setOnClickListener(this);
         }
 

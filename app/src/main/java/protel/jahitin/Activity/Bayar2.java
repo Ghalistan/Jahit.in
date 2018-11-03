@@ -1,6 +1,7 @@
 package protel.jahitin.Activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,42 +11,54 @@ import android.view.Window;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
-import protel.jahitin.Fragment.KeranjangFragment;
 import protel.jahitin.Model.Transaksi;
 import protel.jahitin.R;
+import protel.jahitin.Utils.ProgressBarUtils;
 
 public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
     private Toolbar myToolbar;
     private TextView addBukti, tanggalKonfTextView, totalHargaTextView;
-    private ImageView logoBankImageView;
+    private ImageView logoBankImageView, buktiPembayaranImageView;
     private Button btnMove;
+    private RelativeLayout containerLabelUpload;
+    private LinearLayout containerHasilUpload;
+    private ProgressBar progressBar;
+    private ProgressBarUtils pbUtils;
 
     private int totalHarga;
     private String tanggal, caraBayar, transaksiKey;
 
     private DatabaseReference transaksiDatabaseReference;
+    private StorageReference buktiPembayaranStorageReference;
     private ValueEventListener transaksiValueEventListener;
     private FirebaseUser mUser;
+
+    public static final int RC_PHOTO_PICKER = 1;
 
     public static final String EXTRA_BAYAR_FRAGMENT = "bayar_fragment";
 
@@ -69,15 +82,29 @@ public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
         tanggalKonfTextView = findViewById(R.id.konf_tanggal);
         totalHargaTextView = findViewById(R.id.tv_total_harga_bayar2);
         logoBankImageView = findViewById(R.id.bank_icon);
+        progressBar = findViewById(R.id.pb_bayar2);
+        containerLabelUpload = findViewById(R.id.label_upload_bukti_pembayaran);
+        containerHasilUpload = findViewById(R.id.label_hasil_upload);
+
+        buktiPembayaranImageView = findViewById(R.id.iv_bukti_pembayaran);
+        buktiPembayaranImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadBuktiPembayaran();
+            }
+        });
 
         btnMove = findViewById(R.id.Bayar2Button);
         btnMove.setOnClickListener(this);
         addBukti = findViewById(R.id.add_bukti);
         addBukti.setOnClickListener(this);
 
+        pbUtils = new ProgressBarUtils();
+
         //Log.d("Bayar2", "Key: " + transaksiKey);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         transaksiDatabaseReference = FirebaseDatabase.getInstance().getReference().child("transaksi").child(mUser.getUid()).child(transaksiKey);
+        buktiPembayaranStorageReference = FirebaseStorage.getInstance().getReference().child("bukti_pembayaran");
         attachDatabaseListener();
     }
 
@@ -96,6 +123,7 @@ public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
                 startActivity(intent);
                 break;
             case R.id.add_bukti:
+                uploadBuktiPembayaran();
                 break;
             case R.drawable.ic_arrow_back_black_24dp:
                 finish();
@@ -149,6 +177,61 @@ public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
         if(transaksiValueEventListener != null){
             transaksiDatabaseReference.removeEventListener(transaksiValueEventListener);
             transaksiValueEventListener = null;
+        }
+    }
+
+    public void uploadBuktiPembayaran(){
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+        startActivityForResult(Intent.createChooser(intent, "Complete action using"),
+                RC_PHOTO_PICKER);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK){
+            if(containerLabelUpload.getVisibility() == View.VISIBLE){
+                containerLabelUpload.setVisibility(View.GONE);
+            }
+
+            if(buktiPembayaranImageView.getVisibility() == View.VISIBLE){
+                buktiPembayaranImageView.setVisibility(View.GONE);
+            }
+
+            containerHasilUpload.setVisibility(View.VISIBLE);
+            pbUtils.showLoadingIndicator(progressBar);
+
+            Uri gambarUri = data.getData();
+            final StorageReference gambarRef = buktiPembayaranStorageReference
+                    .child(gambarUri.getLastPathSegment());
+
+            gambarRef.putFile(gambarUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>(){
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+
+                    return gambarRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        pbUtils.hideLoadingIndicator(progressBar);
+
+                        Uri downloadUri = task.getResult();
+                        transaksiDatabaseReference.child("buktiPembayaranUrl").setValue(downloadUri.toString());
+
+                        Glide.with(Bayar2.this).load(downloadUri.toString())
+                                .into(buktiPembayaranImageView);
+                    } else {
+
+                    }
+                }
+            });
         }
     }
 }

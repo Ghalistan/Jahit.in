@@ -52,7 +52,6 @@ public class BerandaFragment extends Fragment
     // Firebase
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference tokoDatabaseReference;
-    //private ChildEventListener childEventListener;
     private ValueEventListener valueEventListener;
 
     public static final String EXTRA_NAMA_TOKO = "nama_toko";
@@ -118,9 +117,10 @@ public class BerandaFragment extends Fragment
     public void initViewPager(){
         viewPager = view.findViewById(R.id.vp_overview);
         listCarousel = new ArrayList<>();
-        for(int i = 0; i < 4; i++) {
-            listCarousel.add(R.drawable.carousel_1);
-        }
+        listCarousel.add(R.drawable.carousel_1);
+        listCarousel.add(R.drawable.carousel_2);
+        listCarousel.add(R.drawable.carousel_3);
+
         pagerAdapter = new OverviewPagerAdapter(listCarousel, getActivity());
         viewPager.setAdapter(pagerAdapter);
     }

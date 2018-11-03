@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
-            android:id="@id/keranjang_toolbar"
+            android:id="@+id/keranjang_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
@@ -25,15 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/keranjang_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary"
-                android:elevation="6dp"
-                android:layout_alignParentTop="true"
-                app:title="Keranjang"/>
 
             <ImageView
                 android:id="@+id/iv_empty_view"

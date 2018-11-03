@@ -121,6 +121,7 @@ public class KeranjangFragment extends Fragment
                 .removeValue();
         listKeranjangKey.remove(clickedItemIndex);
         adapter.notifyDataSetChanged();
+        checkEmpty();
     }
 
     @Override
@@ -188,10 +189,12 @@ public class KeranjangFragment extends Fragment
 
                 @Override
                 public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    checkEmpty();
                 }
 
                 @Override
                 public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                    checkEmpty();
                 }
 
                 @Override
@@ -243,7 +246,7 @@ public class KeranjangFragment extends Fragment
                 }
             };
 
-            pakaianDatabaseReference.addValueEventListener(pakaianValueEventListener);
+            pakaianDatabaseReference.addListenerForSingleValueEvent(pakaianValueEventListener);
         }
     }
 

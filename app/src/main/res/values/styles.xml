@@ -119,7 +119,7 @@
         <item name="android:background">#EFEFEF</item>
         <item name="android:textColor">#BFBFBF</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textSize">21sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 

@@ -137,14 +137,15 @@ public class Beranda extends AppCompatActivity {
                     MenuItem item = bottomNavigationView.getMenu().getItem(1);
                     item.setChecked(true);
                 }
-                else if(intentAsal.hasExtra(Bayar2.EXTRA_BAYAR_FRAGMENT))
-                {
-                    loadFragment(new TransaksiFragment());
+            }
+            else if(intentAsal.hasExtra(Bayar2.EXTRA_BAYAR_FRAGMENT))
+            {
+                loadFragment(new TransaksiFragment());
 
-                    MenuItem item = bottomNavigationView.getMenu().getItem(2);
-                    item.setChecked(true);
-                }
-            }else{
+                MenuItem item = bottomNavigationView.getMenu().getItem(2);
+                item.setChecked(true);
+            }
+            else{
                 loadFragment(new BerandaFragment());
             }
         }else{

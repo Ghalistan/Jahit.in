@@ -572,6 +572,7 @@
             </android.support.v7.widget.CardView>
 
             <RelativeLayout
+                android:id="@+id/container_input_custom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="17dp"
@@ -591,6 +592,19 @@
                     android:text="add"
                     android:layout_alignParentEnd="true"/>
             </RelativeLayout>
+
+            <ProgressBar
+                android:id="@+id/pb_pakaian_custom"
+                style="@style/ProgressBar"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_custom_desain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="17dp"
+                android:layout_marginTop="14dp"/>
 
             <!-- Keterangan tambahan -->
             <android.support.v7.widget.CardView

@@ -92,13 +92,13 @@
                 style="@style/HargaPakaianJadi"
                 android:text="Rp 120.000"/>
 
-            <Button
-                android:id="@+id/btn_like_pakaian_jadi"
-                android:layout_width="21dp"
-                android:layout_height="20dp"
-                android:background="@drawable/like"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"/>
+            <!--<Button-->
+                <!--android:id="@+id/btn_like_pakaian_jadi"-->
+                <!--android:layout_width="21dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:background="@drawable/like"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignParentTop="true"/>-->
 
             <Button
                 android:id="@+id/btn_tambah_pakaian_jadi"

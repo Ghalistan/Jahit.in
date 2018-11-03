@@ -62,7 +62,6 @@ public class PakaianJadiFragment extends Fragment
     private FirebaseUser mUser;
     private DatabaseReference pakaianDariTokoDipilihReference, keranjangDatabaseReference, pakaianDatabaseReference;
     private ChildEventListener pakaianEventListener;
-            //childEventListener, keranjangChildEventListener, ;
     private ValueEventListener tokoValueListener, keranjangValueListener;
 
     public PakaianJadiFragment() {}
@@ -80,7 +79,6 @@ public class PakaianJadiFragment extends Fragment
             if(intentAsal.hasExtra(BerandaFragment.EXTRA_KEY_TOKO)){
                 Log.d(PakaianJadiFragment.class.getSimpleName(), intentAsal.getStringExtra(BerandaFragment.EXTRA_KEY_TOKO));
                 keyToko = intentAsal.getStringExtra(BerandaFragment.EXTRA_KEY_TOKO);
-
             }
         }
 
@@ -143,10 +141,10 @@ public class PakaianJadiFragment extends Fragment
         }
     }
 
-    @Override
-    public void onLikeItemClick(int clickedItemIndex, View view) {
-
-    }
+//    @Override
+//    public void onLikeItemClick(int clickedItemIndex, View view) {
+//
+//    }
 
     public void attachDatabaseReadListener(){
         if(tokoValueListener == null){

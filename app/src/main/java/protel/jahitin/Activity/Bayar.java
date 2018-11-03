@@ -66,6 +66,7 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
     private FirebaseUser mUser;
 
     public static final String EXTRA_TRANSAKSI_KEY = "key_transaksi";
+    public static final String EXTRA_INTENT_BAYAR = "intent_bayar";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +75,20 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
 
         myToolbar = findViewById(R.id.Bayar_toolbar);
+        setSupportActionBar(myToolbar);
         myToolbar.setTitle("Pembayaran");
         myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        myToolbar.setNavigationOnClickListener(this);
-        setSupportActionBar(myToolbar);
+        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Bayar.this, Beranda.class);
+                intent.putExtra(EXTRA_INTENT_BAYAR, true);
+                finish();
+                startActivity(intent);
+            }
+        });
+
+
 
         transaksi = new Transaksi();
         hargaKurir =  11000;
@@ -91,6 +102,7 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
         keranjangDatabaseReference = firebaseDatabase.getReference().child("keranjang").child(mUser.getUid());
         pakaianDatabaseReference = firebaseDatabase.getReference().child("pakaian");
         transaksiDatabaseReference = firebaseDatabase.getReference().child("transaksi").child(mUser.getUid());
+
 
         attachDatabaseReadListener();
     }
@@ -196,7 +208,7 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
                     break;
                 }
             case R.drawable.ic_arrow_back_black_24dp:
-                this.onBackPressed();
+                Log.d(Bayar.class.getSimpleName(), "Clicked");
                 break;
         }
 

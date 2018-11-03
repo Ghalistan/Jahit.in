@@ -5,6 +5,12 @@ public class Keranjang {
     private String idToko;
     private Integer jumlah;
 
+    public Keranjang(String idBarang, String idToko, Integer jumlah) {
+        this.idBarang = idBarang;
+        this.idToko = idToko;
+        this.jumlah = jumlah;
+    }
+
     public String getIdToko() {
         return idToko;
     }
@@ -18,13 +24,6 @@ public class Keranjang {
     }
 
     public void setJumlah(Integer jumlah) {
-        this.jumlah = jumlah;
-    }
-
-    public Keranjang(String idBarang, String idToko, Integer jumlah) {
-
-        this.idBarang = idBarang;
-        this.idToko = idToko;
         this.jumlah = jumlah;
     }
 

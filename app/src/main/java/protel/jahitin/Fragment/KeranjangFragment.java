@@ -277,6 +277,7 @@ public class KeranjangFragment extends Fragment
         public void onClick(View view) {
             if(!listPakaianDipilih.isEmpty()) {
                 Intent intent = new Intent(getActivity(), Bayar.class);
+                getActivity().finish();
                 startActivity(intent);
             }else{
                 Toast toast = Toast.makeText(getContext(),"Pilih barang terlebih dahulu", Toast.LENGTH_LONG);

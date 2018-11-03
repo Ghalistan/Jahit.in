@@ -13,10 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".Activity.Login"
-            android:screenOrientation="portrait"/>
-
       <activity
             android:name=".Activity.SplashScreen"
             android:screenOrientation="portrait"
@@ -55,7 +51,12 @@
 
         <activity
             android:name=".Activity.Bayar"
-            android:screenOrientation="portrait" />
+            android:parentActivityName=".Activity.Beranda"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.Beranda" />
+        </activity>
 
         <activity
             android:name=".Activity.Bayar2"

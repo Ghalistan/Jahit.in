@@ -136,6 +136,7 @@ public class Beranda extends AppCompatActivity {
 
                     MenuItem item = bottomNavigationView.getMenu().getItem(1);
                     item.setChecked(true);
+                    intentAsal = null;
                 }
             }
             else if(intentAsal.hasExtra(Bayar2.EXTRA_BAYAR_FRAGMENT))
@@ -144,6 +145,15 @@ public class Beranda extends AppCompatActivity {
 
                 MenuItem item = bottomNavigationView.getMenu().getItem(2);
                 item.setChecked(true);
+                intentAsal = null;
+            }
+            else if(intentAsal.hasExtra(Bayar.EXTRA_INTENT_BAYAR))
+            {
+                loadFragment(new KeranjangFragment());
+
+                MenuItem item = bottomNavigationView.getMenu().getItem(1);
+                item.setChecked(true);
+                intentAsal = null;
             }
             else{
                 loadFragment(new BerandaFragment());

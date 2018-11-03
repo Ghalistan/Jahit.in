@@ -43,8 +43,8 @@ public class PakaianJadiAdapter extends RecyclerView.Adapter<PakaianJadiAdapter.
         holder.namaItem.setText(pakaian.getNama());
         holder.bahanItem.setText(pakaian.getBahan());
 
-        List<String> listUkuran = new ArrayList<>(pakaian.getUkuranTersedia().values());
-        holder.ukuranItem.setText(listUkuran.get(0));
+        List<Object> listUkuran = new ArrayList<>(pakaian.getUkuranTersedia());
+        holder.ukuranItem.setText(String.valueOf(listUkuran.get(0)));
 
         String harga = "Rp " + String.valueOf(pakaian.getHarga());
         holder.hargaItem.setText(harga);
@@ -72,7 +72,7 @@ public class PakaianJadiAdapter extends RecyclerView.Adapter<PakaianJadiAdapter.
             bahanItem = itemView.findViewById(R.id.tv_bahan_pakaian_jadi);
             ukuranItem = itemView.findViewById(R.id.tv_ukuran_pakaian_jadi);
             hargaItem = itemView.findViewById(R.id.tv_harga_pakaian_jadi);
-            btnLike = itemView.findViewById(R.id.btn_like_pakaian_jadi);
+            //btnLike = itemView.findViewById(R.id.btn_like_pakaian_jadi);
             btnTambah = itemView.findViewById(R.id.btn_tambah_pakaian_jadi);
 
             btnLike.setOnClickListener(this);
@@ -83,9 +83,9 @@ public class PakaianJadiAdapter extends RecyclerView.Adapter<PakaianJadiAdapter.
         public void onClick(View view) {
             int position = getAdapterPosition();
             switch (view.getId()){
-                case R.id.btn_like_pakaian_jadi:
-                    listener.onLikeItemClick(position, view);
-                    break;
+//                case R.id.btn_like_pakaian_jadi:
+//                    listener.onLikeItemClick(position, view);
+//                    break;
                 case R.id.btn_tambah_pakaian_jadi:
                     listener.onTambahItemClick(position, view);
                     break;
@@ -96,6 +96,6 @@ public class PakaianJadiAdapter extends RecyclerView.Adapter<PakaianJadiAdapter.
     public interface PakaianJadiClickListener{
         void onTambahItemClick(int clickedItemIndex, View view);
 
-        void onLikeItemClick(int clickedItemIndex, View view);
+        //void onLikeItemClick(int clickedItemIndex, View view);
     }
 }

@@ -134,10 +134,8 @@ public class BerandaFragment extends Fragment
                     Toko toko;
                     for(DataSnapshot data : dataSnapshot.getChildren()){
                         toko = data.getValue(Toko.class);
-                        Log.d("Key", data.getKey());
+                        //Log.d("Key", data.getKey());
                         listToko.add(toko);
-                        listToko.add(toko);
-                        listKey.add(data.getKey());
                         listKey.add(data.getKey());
                     }
 

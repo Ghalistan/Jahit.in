@@ -146,6 +146,7 @@ public class BerandaFragment extends Fragment
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     pbUtils.hideLoadingIndicator(progressBar);
+                    tokoAdapter.notifyDataSetChanged();
                 }
             };
 

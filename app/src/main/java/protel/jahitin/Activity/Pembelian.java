@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import protel.jahitin.Adapter.PembelianPagerAdapater;
@@ -16,8 +17,12 @@ import protel.jahitin.Fragment.PakaianCustomFragment;
 import protel.jahitin.Fragment.PakaianJadiFragment;
 import protel.jahitin.R;
 
+
 public class Pembelian extends AppCompatActivity
     implements View.OnClickListener {
+
+    private String keyToko;
+    public static final String EXTRA_INFORMASI_TOKO = "informasi_toko";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,12 @@ public class Pembelian extends AppCompatActivity
                 Log.d(Pembelian.class.getSimpleName(), intentAsal.getStringExtra(BerandaFragment.EXTRA_NAMA_TOKO));
                 String namaToko = intentAsal.getStringExtra(BerandaFragment.EXTRA_NAMA_TOKO);
                 setTitle(namaToko);
+            }
+
+            keyToko = "";
+            if(intentAsal.hasExtra(BerandaFragment.EXTRA_KEY_TOKO)){
+                Log.d(PakaianJadiFragment.class.getSimpleName(), intentAsal.getStringExtra(BerandaFragment.EXTRA_KEY_TOKO));
+                keyToko = intentAsal.getStringExtra(BerandaFragment.EXTRA_KEY_TOKO);
             }
         }
 
@@ -60,5 +71,16 @@ public class Pembelian extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_pembelian, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_informasi_toko:
+                Intent intent = new Intent(this, InformasiToko.class);
+                intent.putExtra(EXTRA_INFORMASI_TOKO, keyToko);
+                startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

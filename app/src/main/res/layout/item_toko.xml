@@ -14,14 +14,16 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="8dp">
+            android:paddingBottom="8dp"
+            android:paddingTop="6dp">
 
             <ImageView
                 android:id="@+id/iv_item_toko"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingEnd="6dp"
-                android:paddingStart="6dp"/>
+                android:layout_height="150dp"
+                android:src="@drawable/toko_1"
+                android:scaleType="fitXY"
+                android:paddingHorizontal="8dp"/>
 
             <TextView
                 android:id="@+id/tv_nama_toko"
@@ -30,7 +32,6 @@
                 android:layout_below="@id/iv_item_toko"
                 android:paddingEnd="8dp"
                 android:paddingStart="8dp"
-                android:text="aaaaa"
                 style="@style/NamaToko"/>
 
             <RelativeLayout

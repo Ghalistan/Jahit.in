@@ -12,7 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".Activity.SplashScreen"
             android:screenOrientation="portrait"
@@ -26,16 +25,16 @@
         <activity
             android:name=".Activity.onBoarding"
             android:label="@string/title_activity_on_boarding"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activity.Login"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.form"/>
+            android:theme="@style/AppTheme.form" />
         <activity
             android:name=".Activity.Register"
             android:parentActivityName=".Activity.Login"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.form"/>
+            android:theme="@style/AppTheme.form" />
         <activity
             android:name=".Activity.Beranda"
             android:screenOrientation="portrait" />
@@ -55,14 +54,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.Beranda" />
         </activity>
-
         <activity
             android:name=".Activity.Bayar2"
             android:parentActivityName=".Activity.Bayar"
             android:screenOrientation="portrait" />
         <activity android:name=".Activity.BuatToko" />
         <activity android:name=".Activity.DetailTransaksi" />
-        <activity android:name=".Ulasan">
+        <activity android:name=".Ulasan"></activity>
+        <activity android:name=".Activity.InformasiToko">
 
         </activity>
     </application>

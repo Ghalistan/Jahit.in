@@ -10,9 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.support.v7.widget.Toolbar;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -69,10 +66,9 @@ public class Beranda extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == RC_SIGN_IN){
             if(resultCode == RESULT_OK){
-                //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                //Toast.makeText(this, user.getDisplayName(), Toast.LENGTH_LONG).show();
+                loadFragment(new BerandaFragment());
             }else if(resultCode == RESULT_CANCELED){
-
+                finish();
             }
         }
     }

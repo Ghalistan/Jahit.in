@@ -5,10 +5,29 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.TransaksiPenjualanFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:id="@+id/empty_view_transaksi_pembelian"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/transaksi_pembelian_empty_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bill"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/transaksi_pembelian_empty_icon"
+            android:text="Riwayat transaksi kosong"
+            android:textColor="#f44336"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppinsmedium"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
 
 </FrameLayout>

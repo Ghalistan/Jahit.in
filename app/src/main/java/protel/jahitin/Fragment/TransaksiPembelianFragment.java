@@ -112,7 +112,7 @@ public class TransaksiPembelianFragment extends Fragment
                 }
             };
 
-            transaksiDatabaseReference.addListenerForSingleValueEvent(transaksiValueListener);
+            transaksiDatabaseReference.addValueEventListener(transaksiValueListener);
         }
     }
 

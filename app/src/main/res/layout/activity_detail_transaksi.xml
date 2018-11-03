@@ -46,6 +46,7 @@
                             android:gravity="center_vertical"
                             android:layout_marginLeft="17dp">
                             <TextView
+                                android:id="@+id/detail_status"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Menunggu Pembayaran"
@@ -76,7 +77,7 @@
                             android:textColor="#424242"
                             android:layout_marginTop="17dp"/>
                         <TextView
-                            android:id="@+id/tanggal_pemesanan"
+                            android:id="@+id/detail_tanggal_pemesanan"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="30 Oktober 2018"
@@ -94,28 +95,10 @@
                             android:textColor="#424242"
                             android:layout_marginTop="17dp"/>
                         <TextView
-                            android:id="@+id/cara_pembayaran"
+                            android:id="@+id/detail_cara_pembayaran"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Trf Bank Mandiri"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:textSize="14sp"
-                            android:textColor="#a7a7a7"
-                            android:layout_marginTop="8dp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Penjual"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:textSize="14sp"
-                            android:textColor="#424242"
-                            android:layout_marginTop="17dp"/>
-                        <TextView
-                            android:id="@+id/penjual"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Victoria Gallery"
                             android:fontFamily="@font/poppinsmedium"
                             android:textSize="14sp"
                             android:textColor="#a7a7a7"
@@ -130,7 +113,7 @@
                             android:textColor="#424242"
                             android:layout_marginTop="17dp"/>
                         <TextView
-                            android:id="@+id/kurir_pengiriman"
+                            android:id="@+id/detail_kurir_pengiriman"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="TIKI Reguler"
@@ -148,7 +131,7 @@
                             android:textColor="#424242"
                             android:layout_marginTop="17dp"/>
                         <TextView
-                            android:id="@+id/alamat_pengiriman"
+                            android:id="@+id/detail_alamat_pengiriman"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/alamat"

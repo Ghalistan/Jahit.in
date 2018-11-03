@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -118,7 +119,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     public void checkEmailVerified(FirebaseUser user){
         if(user.isEmailVerified()){
-            Intent intent = new Intent(Login.this, Beranda.class);
+            Intent intent = new Intent();
             setResult(RESULT_OK, intent);
             finish();
         }else{

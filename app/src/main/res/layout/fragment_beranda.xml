@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.BerandaFragment"
     android:orientation="vertical">
 
@@ -13,57 +14,58 @@
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/beranda_toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize">
+                    android:layout_height="?attr/actionBarSize"
+                    app:title="Jahit.in">
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:paddingEnd="@dimen/horizontal_toolbar_padding"
-                            android:paddingVertical="@dimen/vertical_toolbar_padding">
+                        <!--<RelativeLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:paddingEnd="@dimen/horizontal_toolbar_padding"-->
+                            <!--android:paddingVertical="@dimen/vertical_toolbar_padding">-->
 
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:background="#1a787878"
-                                    android:paddingVertical="8dp"
-                                    android:paddingLeft="8dp"
-                                    android:focusable="true"
-                                    android:focusableInTouchMode="true">
+                                <!--<LinearLayout-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:orientation="horizontal"-->
+                                    <!--android:background="#1a787878"-->
+                                    <!--android:paddingVertical="8dp"-->
+                                    <!--android:paddingLeft="8dp"-->
+                                    <!--android:focusable="true"-->
+                                    <!--android:focusableInTouchMode="true">-->
 
-                                        <ImageView
-                                            android:layout_width="20dp"
-                                            android:layout_height="20dp"
-                                            android:src="@drawable/search"
-                                            android:layout_gravity="center"
-                                            android:layout_marginEnd="6dp"/>
+                                        <!--<ImageView-->
+                                            <!--android:layout_width="20dp"-->
+                                            <!--android:layout_height="20dp"-->
+                                            <!--android:src="@drawable/search"-->
+                                            <!--android:layout_gravity="center"-->
+                                            <!--android:layout_marginEnd="6dp"/>-->
 
-                                        <EditText
-                                            android:id="@+id/et_search_beranda"
-                                            android:layout_width="225dp"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="14sp"
-                                            android:hint="Cari Toko"
-                                            android:background="@android:color/transparent"/>
-                                </LinearLayout>
+                                        <!--<EditText-->
+                                            <!--android:id="@+id/et_search_beranda"-->
+                                            <!--android:layout_width="225dp"-->
+                                            <!--android:layout_height="wrap_content"-->
+                                            <!--android:textSize="14sp"-->
+                                            <!--android:hint="Cari Toko"-->
+                                            <!--android:background="@android:color/transparent"/>-->
+                                <!--</LinearLayout>-->
 
-                                <Button
-                                    android:id="@+id/btn_notif"
-                                    android:layout_width="25dp"
-                                    android:layout_height="30dp"
-                                    android:layout_centerVertical="true"
-                                    android:background="@drawable/notif"
-                                    android:layout_alignParentRight="true"/>
+                                <!--<Button-->
+                                    <!--android:id="@+id/btn_notif"-->
+                                    <!--android:layout_width="25dp"-->
+                                    <!--android:layout_height="30dp"-->
+                                    <!--android:layout_centerVertical="true"-->
+                                    <!--android:background="@drawable/notif"-->
+                                    <!--android:layout_alignParentRight="true"/>-->
 
-                                <Button
-                                    android:id="@+id/btn_wishlist"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:layout_toStartOf="@id/btn_notif"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginRight="16dp"
-                                    android:background="@drawable/like"/>
-                        </RelativeLayout>
+                                <!--<Button-->
+                                    <!--android:id="@+id/btn_wishlist"-->
+                                    <!--android:layout_width="30dp"-->
+                                    <!--android:layout_height="30dp"-->
+                                    <!--android:layout_toStartOf="@id/btn_notif"-->
+                                    <!--android:layout_centerVertical="true"-->
+                                    <!--android:layout_marginRight="16dp"-->
+                                    <!--android:background="@drawable/like"/>-->
+                        <!--</RelativeLayout>-->
 
                 </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>

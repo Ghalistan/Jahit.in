@@ -1,6 +1,7 @@
 package protel.jahitin.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import protel.jahitin.Activity.DetailTransaksi;
 import protel.jahitin.Adapter.TransaksiPembelianAdapter;
 import protel.jahitin.Model.Transaksi;
 import protel.jahitin.R;
@@ -49,6 +51,8 @@ public class TransaksiPembelianFragment extends Fragment
 
     private ProgressBar progressBar;
     private ProgressBarUtils pbUtils;
+
+    public static final String EXTRA_DETAIL_TRANSAKSI = "detail_transaksi";
 
     public TransaksiPembelianFragment() {
         // Required empty public constructor
@@ -86,7 +90,9 @@ public class TransaksiPembelianFragment extends Fragment
 
     @Override
     public void onItemClick(int clickedItemIndex) {
-
+//        Intent intentDetailTransaksi = new Intent(getActivity(), DetailTransaksi.class);
+//        intentDetailTransaksi.putExtra(EXTRA_DETAIL_TRANSAKSI, listTransaksiKey.get(clickedItemIndex));
+//        startActivity(intentDetailTransaksi);
     }
 
     public void attachDatabaseReadListener(){

@@ -9,6 +9,16 @@
 
     <style name="AppTheme.Launcher">
         <item name="android:windowBackground">@drawable/splashscreen</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <style name="AppTheme.form">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:fitsSystemWindows">true</item>
     </style>
 
     <!-- Akun fragment -->

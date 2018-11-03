@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-      <activity
+        <activity
             android:name=".Activity.SplashScreen"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launcher">
@@ -23,23 +23,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Activity.onBoarding"
             android:label="@string/title_activity_on_boarding"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".Activity.Login"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.form"/>
         <activity
             android:name=".Activity.Register"
             android:parentActivityName=".Activity.Login"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.form"/>
         <activity
             android:name=".Activity.Beranda"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Pembelian"
             android:parentActivityName=".Activity.Beranda"
@@ -48,7 +47,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.Beranda" />
         </activity>
-
         <activity
             android:name=".Activity.Bayar"
             android:parentActivityName=".Activity.Beranda"
@@ -62,10 +60,11 @@
             android:name=".Activity.Bayar2"
             android:parentActivityName=".Activity.Bayar"
             android:screenOrientation="portrait" />
-
         <activity android:name=".Activity.BuatToko" />
-
         <activity android:name=".Activity.DetailTransaksi" />
+        <activity android:name=".Ulasan">
+
+        </activity>
     </application>
 
 </manifest>

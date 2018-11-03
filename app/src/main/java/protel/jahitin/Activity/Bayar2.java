@@ -220,13 +220,14 @@ public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
                     if (task.isSuccessful()) {
-                        pbUtils.hideLoadingIndicator(progressBar);
+                        buktiPembayaranImageView.setVisibility(View.VISIBLE);
 
                         Uri downloadUri = task.getResult();
-                        transaksiDatabaseReference.child("buktiPembayaranUrl").setValue(downloadUri.toString());
-
+                        Log.d(Bayar2.class.getSimpleName(), downloadUri.toString());
                         Glide.with(Bayar2.this).load(downloadUri.toString())
                                 .into(buktiPembayaranImageView);
+                        transaksiDatabaseReference.child("buktiPembayaranUrl").setValue(downloadUri.toString());
+                        pbUtils.hideLoadingIndicator(progressBar);
                     } else {
 
                     }

@@ -42,7 +42,7 @@ public class TransaksiPembelianFragment extends Fragment
     private List<Transaksi> listTransaksi = new ArrayList<>();
     private List<String> listTransaksiKey = new ArrayList<>();
 
-    private DatabaseReference transaksiDatabaseReference;
+    private DatabaseReference transaksiDatabaseReference, transaksiUserDatabaseReference;
     //private ChildEventListener childEventListener;
     private ValueEventListener transaksiValueListener;
     private FirebaseUser mUser;

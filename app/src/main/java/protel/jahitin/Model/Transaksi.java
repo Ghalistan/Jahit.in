@@ -3,8 +3,8 @@ package protel.jahitin.Model;
 import java.util.List;
 
 public class Transaksi {
-    private String userId, alamat, caraBayar, kurir, status, rekTujuan;
-    private int hargaBarang, hargaKurir, totalHarga, buktiPembayaranUrl;
+    private String userId, alamat, caraBayar, kurir, status, rekTujuan, buktiPembayaranUrl;
+    private int hargaBarang, hargaKurir, totalHarga;
     private long waktuTransaksi;
     private List<Object> barang;
 
@@ -100,11 +100,11 @@ public class Transaksi {
         this.rekTujuan = rekTujuan;
     }
 
-    public int getBuktiPembayaranUrl() {
+    public String getBuktiPembayaranUrl() {
         return buktiPembayaranUrl;
     }
 
-    public void setBuktiPembayaranUrl(int buktiPembayaranUrl) {
+    public void setBuktiPembayaranUrl(String buktiPembayaranUrl) {
         this.buktiPembayaranUrl = buktiPembayaranUrl;
     }
 }

@@ -6,8 +6,7 @@ public class Transaksi {
     private String userId, alamat, caraBayar, kurir, status, rekTujuan, buktiPembayaranUrl;
     private int hargaBarang, hargaKurir, totalHarga;
     private long waktuTransaksi;
-    private List<Object> barang;
-    private List<Object> jumlah;
+    private List<Object> barang, jumlah;
 
     public Transaksi() {
     }

@@ -2,6 +2,7 @@ package protel.jahitin.Fragment;
 
 
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -32,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import protel.jahitin.Activity.Beranda;
+import protel.jahitin.Activity.Register;
 import protel.jahitin.Model.User;
 import protel.jahitin.R;
 
@@ -167,7 +169,6 @@ public class AkunFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 mAuth.signOut();
-                getActivity().finish();
                 dialog.dismiss();
             }
         });

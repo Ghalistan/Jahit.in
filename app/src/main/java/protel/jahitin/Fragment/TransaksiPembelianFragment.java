@@ -45,7 +45,6 @@ public class TransaksiPembelianFragment extends Fragment
     private List<String> listTransaksiKey = new ArrayList<>();
 
     private DatabaseReference transaksiDatabaseReference, transaksiUserDatabaseReference;
-    //private ChildEventListener childEventListener;
     private ValueEventListener transaksiValueListener;
     private FirebaseUser mUser;
 
@@ -90,9 +89,9 @@ public class TransaksiPembelianFragment extends Fragment
 
     @Override
     public void onItemClick(int clickedItemIndex) {
-//        Intent intentDetailTransaksi = new Intent(getActivity(), DetailTransaksi.class);
-//        intentDetailTransaksi.putExtra(EXTRA_DETAIL_TRANSAKSI, listTransaksiKey.get(clickedItemIndex));
-//        startActivity(intentDetailTransaksi);
+        Intent intentDetailTransaksi = new Intent(getActivity(), DetailTransaksi.class);
+        intentDetailTransaksi.putExtra(EXTRA_DETAIL_TRANSAKSI, listTransaksiKey.get(clickedItemIndex));
+        startActivity(intentDetailTransaksi);
     }
 
     public void attachDatabaseReadListener(){

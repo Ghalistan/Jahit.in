@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -24,16 +24,25 @@
             android:textSize="16sp"
             android:textColor="#424242"
             android:text="Kemeja Motif Kotak"
-            android:layout_toRightOf="@id/iv_keranjang"/>
+            android:layout_toRightOf="@id/iv_detail"/>
 
         <TextView
             android:id="@+id/tv_harga_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/iv_keranjang"
+            android:layout_toRightOf="@id/iv_detail"
             android:layout_alignParentBottom="true"
             android:textSize="16sp"
             android:text="Rp 120.000"/>
+
+        <TextView
+            android:id="@+id/tv_jumlah_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textSize="16sp"
+            android:text="3"/>
     </RelativeLayout>
 
 </LinearLayout>

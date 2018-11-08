@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +28,7 @@ public class Beranda extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private Intent intentAsal;
     private BottomNavigationView bottomNavigationView;
+    private Intent loginIntent;
 
     public static final int RC_SIGN_IN = 1;
 
@@ -36,6 +38,9 @@ public class Beranda extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beranda);
 
+        bottomNavigationView = findViewById(R.id.bottom_nav);
+        bottomNavigationView.setOnNavigationItemSelectedListener(mNavigationListener);
+
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -43,16 +48,16 @@ public class Beranda extends AppCompatActivity {
                 if(user != null){
 
                 }else{
-                    Intent logInIntent = new Intent(Beranda.this, Login.class);
-                    startActivityForResult(logInIntent, RC_SIGN_IN);
+                    Log.d("Login", "Not Logged in from" + getIntent().getClass().getSimpleName());
+                    loginIntent = new Intent(Beranda.this, Login.class);
+                    startActivityForResult(loginIntent, RC_SIGN_IN);
+
+                    bottomNavigationView.getMenu().getItem(0).setChecked(true);
                 }
             }
         };
 
         mAuth = FirebaseAuth.getInstance();
-
-        bottomNavigationView = findViewById(R.id.bottom_nav);
-        bottomNavigationView.setOnNavigationItemSelectedListener(mNavigationListener);
 
         intentAsal = getIntent();
         bukaFragmentDariIntent();
@@ -77,6 +82,12 @@ public class Beranda extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         mAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAuth.removeAuthStateListener(mAuthStateListener);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mNavigationListener =
@@ -123,6 +134,8 @@ public class Beranda extends AppCompatActivity {
 
     private void bukaFragmentDariIntent(){
         Log.d("Here", intentAsal.toString());
+        Menu bottomMenu = bottomNavigationView.getMenu();
+        MenuItem item = bottomMenu.getItem(0);
         if(intentAsal != null){
             if(intentAsal.hasExtra(Intent.EXTRA_TEXT)){
                 if(intentAsal.getIntExtra(Intent.EXTRA_TEXT, -1) ==
@@ -130,7 +143,7 @@ public class Beranda extends AppCompatActivity {
                 {
                     loadFragment(new KeranjangFragment());
 
-                    MenuItem item = bottomNavigationView.getMenu().getItem(1);
+                    item = bottomMenu.getItem(1);
                     item.setChecked(true);
                     intentAsal = null;
                 }
@@ -139,7 +152,7 @@ public class Beranda extends AppCompatActivity {
             {
                 loadFragment(new TransaksiFragment());
 
-                MenuItem item = bottomNavigationView.getMenu().getItem(2);
+                item = bottomMenu.getItem(2);
                 item.setChecked(true);
                 intentAsal = null;
             }
@@ -147,7 +160,7 @@ public class Beranda extends AppCompatActivity {
             {
                 loadFragment(new KeranjangFragment());
 
-                MenuItem item = bottomNavigationView.getMenu().getItem(1);
+                item = bottomMenu.getItem(1);
                 item.setChecked(true);
                 intentAsal = null;
             }
@@ -157,5 +170,7 @@ public class Beranda extends AppCompatActivity {
         }else{
             loadFragment(new BerandaFragment());
         }
+
+        item.setChecked(true);
     }
 }

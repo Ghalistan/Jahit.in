@@ -87,7 +87,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 setVisibility();
                 break;
             case R.id.login_button:
-                Intent loginIntent = new Intent(Register.this, Login.class);
+                Intent loginIntent = new Intent(Register.this, Beranda.class);
                 finish();
                 startActivity(loginIntent);
                 break;
@@ -122,7 +122,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                                     createToast("Registrasi berhasil, email anda sudah terverifikasi");
                                 }
 
-                                Intent intent = new Intent(Register.this, Login.class);
+                                Intent intent = new Intent(Register.this, Beranda.class);
                                 startActivity(intent);
                                 finish();
                             }else{

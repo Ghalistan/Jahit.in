@@ -39,8 +39,8 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
     private DatabaseReference transaksiRef, pakaianRef;
     private ValueEventListener transaksiValue, pakaianValue;
     private List<Pakaian> listPakaian = new ArrayList<>();
-    private List<Integer> listHarga = new ArrayList<>();
-
+    private List<Object> listAllJumlah = new ArrayList<>();
+    private List<Object> listJumlah = new ArrayList<>();
     private FirebaseUser mUser;
 
     private Intent intent;
@@ -107,15 +107,16 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
                     kurirTV.setText(transaksi.getKurir());
                     alamatTV.setText(transaksi.getAlamat());
 
-                    String tanggal = "";
-                    try {
-                        tanggal = getStringTanggal(transaksi.getWaktuTransaksi());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                    String tanggal = getStringTanggal(transaksi.getWaktuTransaksi());
+                    tanggalTV.setText(tanggal);
 
-                    if(!tanggal.isEmpty()){
-                        tanggalTV.setText(tanggal);
+                    listAllJumlah = transaksi.getJumlah();
+
+                    List<Object> listKeyPakaian = transaksi.getBarang();
+                    for(int i = 0; i < listKeyPakaian.size(); i++){
+                        pakaianRef.child(listKeyPakaian.get(i).toString())
+                                .addListenerForSingleValueEvent(
+                                        createValueListener((Long) listAllJumlah.get(i)));
                     }
                 }
 
@@ -134,6 +135,35 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
             transaksiRef.removeEventListener(transaksiValue);
             transaksiValue = null;
         }
+
+        if(pakaianValue != null){
+            pakaianRef.removeEventListener(pakaianValue);
+            pakaianValue = null;
+        }
+    }
+
+    public ValueEventListener createValueListener(final long jumlahBarang){
+        if(pakaianValue == null){
+            pakaianValue = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Pakaian p = dataSnapshot.getValue(Pakaian.class);
+                    listPakaian.add(p);
+                    // this method to get the index is retarded
+                    listJumlah.add(jumlahBarang);
+                    pakaianRef.removeEventListener(pakaianValue);
+
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            };
+        }
+
+        return pakaianValue;
     }
 
     @Override
@@ -141,8 +171,6 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
         super.onPause();
         detachDatabaseListener();
     }
-
-    //statusTV, tanggalTV, caraPembayaranTV, kurirTV, alamatTV
 
     public void initUIComponent(){
         statusTV = findViewById(R.id.detail_status);
@@ -152,7 +180,7 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
         alamatTV = findViewById(R.id.detail_alamat_pengiriman);
     }
 
-    public String getStringTanggal(long currentTime) throws ParseException {
+    public String getStringTanggal(long currentTime){
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy", new Locale("id", "ID"));
         Calendar waktuPesan = Calendar.getInstance();
         waktuPesan.setTimeInMillis(currentTime);
@@ -164,7 +192,7 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
 
     public void initRecyclerView(){
         recyclerView = findViewById(R.id.rv_detail);
-        adapter = new DetailTransaksi(this, listPakaian, listHarga);
+        adapter = new DetailTransaksiAdapter(this, listPakaian, listJumlah);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setAdapter(adapter);

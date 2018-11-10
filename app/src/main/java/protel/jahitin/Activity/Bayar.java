@@ -94,7 +94,6 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
         hargaKurir =  11000;
         totalHarga = 0;
 
-        // Gua pindahin ke fungsi ya
         initUIComponent();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -263,11 +262,13 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
         }
 
         transaksi.setHargaBarang(totalBarang);
+        transaksi.setJumlah(listJumlah);
         transaksi.setUserId(mUser.getUid());
         transaksi.setStatus("Menunggu Pembayaran");
         transaksi.setBarang(listBarang);
         transaksi.setTotalHarga(totalHarga);
         transaksi.setRekTujuan("123 123 1234567");
+
         return true;
     }
 

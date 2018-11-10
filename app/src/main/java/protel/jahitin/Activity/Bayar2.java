@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
@@ -53,7 +54,7 @@ public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
     private int totalHarga;
     private String tanggal, caraBayar, transaksiKey;
 
-    private DatabaseReference transaksiDatabaseReference;
+    private DatabaseReference transaksiDatabaseReference, keranjangDatabaseReference;
     private StorageReference buktiPembayaranStorageReference;
     private ValueEventListener transaksiValueEventListener;
     private FirebaseUser mUser;
@@ -73,11 +74,10 @@ public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
             transaksiKey = intentAsal.getStringExtra(Bayar.EXTRA_TRANSAKSI_KEY);
         }
 
-        myToolbar = findViewById(R.id.Bayar2_toolbar);
-        myToolbar.setTitle("Konfirmasi Pembayaran");
-        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        myToolbar.setNavigationOnClickListener(this);
-        setSupportActionBar(myToolbar);
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        transaksiDatabaseReference = FirebaseDatabase.getInstance().getReference().child("transaksi").child(mUser.getUid()).child(transaksiKey);
+        buktiPembayaranStorageReference = FirebaseStorage.getInstance().getReference().child("bukti_pembayaran");
+        keranjangDatabaseReference = FirebaseDatabase.getInstance().getReference().child("keranjang").child(mUser.getUid());
 
         tanggalKonfTextView = findViewById(R.id.konf_tanggal);
         totalHargaTextView = findViewById(R.id.tv_total_harga_bayar2);
@@ -94,6 +94,18 @@ public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
             }
         });
 
+        myToolbar = findViewById(R.id.Bayar2_toolbar);
+        setSupportActionBar(myToolbar);
+        myToolbar.setTitle("Konfirmasi Pembayaran");
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                transaksiDatabaseReference.removeValue();
+            }
+        });
+
         btnMove = findViewById(R.id.Bayar2Button);
         btnMove.setOnClickListener(this);
         addBukti = findViewById(R.id.add_bukti);
@@ -101,10 +113,6 @@ public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
 
         pbUtils = new ProgressBarUtils();
 
-        //Log.d("Bayar2", "Key: " + transaksiKey);
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
-        transaksiDatabaseReference = FirebaseDatabase.getInstance().getReference().child("transaksi").child(mUser.getUid()).child(transaksiKey);
-        buktiPembayaranStorageReference = FirebaseStorage.getInstance().getReference().child("bukti_pembayaran");
         attachDatabaseListener();
     }
 
@@ -118,15 +126,24 @@ public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.Bayar2Button:
-                Intent intent = new Intent(Bayar2.this, Beranda.class);
-                intent.putExtra(EXTRA_BAYAR_FRAGMENT, true);
-                startActivity(intent);
+                if(containerHasilUpload.getVisibility() == View.GONE){
+                    Toast.makeText(getApplicationContext(), "Upload bukti pembayaran terlebih dahulu", Toast.LENGTH_SHORT)
+                            .show();
+                }else{
+                    Intent intent = new Intent(Bayar2.this, Beranda.class);
+                    intent.putExtra(EXTRA_BAYAR_FRAGMENT, true);
+                    startActivity(intent);
+                    keranjangDatabaseReference.removeValue();
+                }
+
                 break;
             case R.id.add_bukti:
                 uploadBuktiPembayaran();
                 break;
             case R.drawable.ic_arrow_back_black_24dp:
+                transaksiDatabaseReference.removeValue();
                 finish();
+                break;
         }
     }
 
@@ -146,21 +163,23 @@ public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
             transaksiValueEventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Transaksi t = dataSnapshot.getValue(Transaksi.class);
-                    Log.d("Transaksi: ", t.getUserId());
-                    caraBayar = t.getCaraBayar();
-                    totalHarga = t.getTotalHarga();
+                    if(dataSnapshot.hasChild("userId")){
+                        Transaksi t = dataSnapshot.getValue(Transaksi.class);
+                        Log.d("Transaksi: ", t.getUserId());
+                        caraBayar = t.getCaraBayar();
+                        totalHarga = t.getTotalHarga();
 
-                    long currentTimeMilis = t.getWaktuTransaksi();
-                    String stringResult = null;
-                    try {
-                        stringResult = getBatasPembayaran(currentTimeMilis);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+                        long currentTimeMilis = t.getWaktuTransaksi();
+                        String stringResult = null;
+                        try {
+                            stringResult = getBatasPembayaran(currentTimeMilis);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        totalHargaTextView.setText("Rp " + String.valueOf(totalHarga));
+                        tanggalKonfTextView.setText(stringResult);
                     }
-
-                    totalHargaTextView.setText("Rp " + String.valueOf(totalHarga));
-                    tanggalKonfTextView.setText(stringResult);
                 }
 
                 @Override
@@ -234,5 +253,11 @@ public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
                 }
             });
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        transaksiDatabaseReference.removeValue();
     }
 }

@@ -15,12 +15,13 @@
         android:id="@+id/empty_view_transaksi"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible"
+        android:layout_marginBottom="70dp">
 
         <ImageView
             android:id="@+id/transaksi_empty_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/bill"
             android:layout_centerInParent="true"
             android:layout_marginBottom="16dp"/>

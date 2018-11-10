@@ -48,7 +48,6 @@ public class Beranda extends AppCompatActivity {
                 if(user != null){
 
                 }else{
-                    Log.d("Login", "Not Logged in from" + getIntent().getClass().getSimpleName());
                     loginIntent = new Intent(Beranda.this, Login.class);
                     startActivityForResult(loginIntent, RC_SIGN_IN);
 

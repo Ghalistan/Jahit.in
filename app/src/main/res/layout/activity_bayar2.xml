@@ -170,6 +170,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:text="Cek Status Pembayaran"
+            android:clickable="false"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 </RelativeLayout>

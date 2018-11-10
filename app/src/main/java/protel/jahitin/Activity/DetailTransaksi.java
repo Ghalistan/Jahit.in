@@ -2,6 +2,7 @@ package protel.jahitin.Activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -47,7 +48,8 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
     private String keyTransaksi = "";
     private Transaksi transaksi;
 
-    private TextView statusTV, tanggalTV, caraPembayaranTV, kurirTV, alamatTV;
+    private TextView statusTV, tanggalTV, caraPembayaranTV, kurirTV, alamatTV,
+                      hargaBarangTV, hargaKurirTv, totalHargaTV;
     private RecyclerView recyclerView;
 
     private DetailTransaksiAdapter adapter;
@@ -107,6 +109,10 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
                     kurirTV.setText(transaksi.getKurir());
                     alamatTV.setText(transaksi.getAlamat());
 
+                    hargaBarangTV.setText(String.valueOf(transaksi.getHargaBarang()));
+                    hargaKurirTv.setText(String.valueOf(transaksi.getHargaKurir()));
+                    totalHargaTV.setText(String.valueOf(transaksi.getTotalHarga() ));
+
                     String tanggal = getStringTanggal(transaksi.getWaktuTransaksi());
                     tanggalTV.setText(tanggal);
 
@@ -143,25 +149,22 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
     }
 
     public ValueEventListener createValueListener(final long jumlahBarang){
-        if(pakaianValue == null){
-            pakaianValue = new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Pakaian p = dataSnapshot.getValue(Pakaian.class);
-                    listPakaian.add(p);
-                    // this method to get the index is retarded
-                    listJumlah.add(jumlahBarang);
-                    pakaianRef.removeEventListener(pakaianValue);
+        pakaianValue = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Pakaian p = dataSnapshot.getValue(Pakaian.class);
+                listPakaian.add(p);
+                // this method to get the index is retarded
+                listJumlah.add(jumlahBarang);
+                adapter.notifyDataSetChanged();
+                pakaianRef.removeEventListener(pakaianValue);
+            }
 
-                    adapter.notifyDataSetChanged();
-                }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            };
-        }
+            }
+        };
 
         return pakaianValue;
     }
@@ -178,6 +181,10 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
         caraPembayaranTV = findViewById(R.id.detail_cara_pembayaran);
         kurirTV = findViewById(R.id.detail_kurir_pengiriman);
         alamatTV = findViewById(R.id.detail_alamat_pengiriman);
+
+        hargaBarangTV = findViewById(R.id.total_harga_barang);
+        hargaKurirTv = findViewById(R.id.harga_kurir);
+        totalHargaTV = findViewById(R.id.total_harga);
     }
 
     public String getStringTanggal(long currentTime){
@@ -194,6 +201,7 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
         recyclerView = findViewById(R.id.rv_detail);
         adapter = new DetailTransaksiAdapter(this, listPakaian, listJumlah);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        ViewCompat.setNestedScrollingEnabled(recyclerView, false);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);

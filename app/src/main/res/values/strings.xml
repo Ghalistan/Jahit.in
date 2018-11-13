@@ -27,4 +27,5 @@
     <string name="title_activity_on_boarding">onBoarding</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="contoh_catatan">Untuk saat ini stock barang masih kosong, sehingga untuk setiap pemesanan akan memakan tambahan waktu 7 hari unruk melakukan produksi terhadap barang yang dipesan</string>
 </resources>

@@ -16,11 +16,7 @@
             android:name=".Activity.SplashScreen"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launcher">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.onBoarding"
@@ -60,9 +56,14 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Activity.BuatToko" />
         <activity android:name=".Activity.DetailTransaksi" />
-        <activity android:name=".Ulasan"></activity>
-        <activity android:name=".Activity.InformasiToko">
+        <activity android:name=".Ulasan" />
+        <activity android:name=".Activity.InformasiToko"></activity>
+        <activity android:name=".Activity.DetailBarang">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

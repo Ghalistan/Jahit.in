@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ public class TransaksiPembelianFragment extends Fragment
     private List<Transaksi> listTransaksi = new ArrayList<>();
     private List<String> listTransaksiKey = new ArrayList<>();
 
-    private DatabaseReference transaksiDatabaseReference, transaksiUserDatabaseReference;
+    private DatabaseReference transaksiDatabaseReference;
     private ValueEventListener transaksiValueListener;
     private FirebaseUser mUser;
 
@@ -125,13 +126,31 @@ public class TransaksiPembelianFragment extends Fragment
         if(transaksiValueListener != null){
             transaksiDatabaseReference.removeEventListener(transaksiValueListener);
             transaksiValueListener = null;
+            Log.d("TRANSAKSI", "Value Removed");
         }
+
+        listTransaksi.clear();
+        listTransaksiKey.clear();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        Log.d("TRANSAKSI", "onPause");
         detachDatabaseReadListener();
+    }
+
+    @Override
+    public void onStart() {
+        Log.d("TRANSAKSI", "onStart");
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("TRANSAKSI", "onResume");
+        attachDatabaseReadListener();
     }
 
     public void checkListEmpty(){

@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Pakaian {
-    private String nama, bahan, jenis, imageUrl, toko, gender, desainCustomUrl, keterangan;
+    private String nama, bahan, jenis, imageUrl, toko,
+            gender, desainCustomUrl, keterangan, catatan;
     private int harga;
     private List<Object> ukuranTersedia, warnaTersedia;
 
@@ -100,5 +101,13 @@ public class Pakaian {
 
     public void setKeterangan(String keterangan) {
         this.keterangan = keterangan;
+    }
+
+    public String getCatatan() {
+        return catatan;
+    }
+
+    public void setCatatan(String catatan) {
+        this.catatan = catatan;
     }
 }

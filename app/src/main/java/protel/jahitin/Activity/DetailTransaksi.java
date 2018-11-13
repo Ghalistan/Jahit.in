@@ -11,6 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,7 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,6 +35,7 @@ import protel.jahitin.Fragment.TransaksiPembelianFragment;
 import protel.jahitin.Model.Pakaian;
 import protel.jahitin.Model.Transaksi;
 import protel.jahitin.R;
+import protel.jahitin.Utils.ProgressBarUtils;
 
 public class DetailTransaksi extends AppCompatActivity implements View.OnClickListener {
     Toolbar toolbar;
@@ -45,14 +48,20 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
     private FirebaseUser mUser;
 
     private Intent intent;
-    private String keyTransaksi = "";
+    private String keyTransaksi = "", keyToko = "";
     private Transaksi transaksi;
 
     private TextView statusTV, tanggalTV, caraPembayaranTV, kurirTV, alamatTV,
                       hargaBarangTV, hargaKurirTv, totalHargaTV;
     private RecyclerView recyclerView;
+    private LinearLayout rootView;
+    private Button btnSelesai;
+    private ProgressBar loadingIndicator;
+    private ProgressBarUtils pbUtils;
 
     private DetailTransaksiAdapter adapter;
+
+    public static final String DETAILTRANSAKSI_EXTRA = "detail_transaksi";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +72,7 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
         setToolbar();
         initUIComponent();
         initRecyclerView();
+        pbUtils = new ProgressBarUtils();
 
         intent = getIntent();
         if(intent.hasExtra(TransaksiPembelianFragment.EXTRA_DETAIL_TRANSAKSI)){
@@ -95,11 +105,21 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_selesai_detail_transaksi:
+                Intent intent = new Intent(getApplicationContext(), Ulasan.class);
+                intent.putExtra(DETAILTRANSAKSI_EXTRA, keyTransaksi);
+                startActivity(intent);
+                break;
 
+        }
     }
 
     public void attachDatabaseReadListener(){
         if(transaksiValue == null){
+            pbUtils.showLoadingIndicator(loadingIndicator);
+            rootView.setVisibility(View.GONE);
+
             transaksiValue = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -124,11 +144,15 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
                                 .addListenerForSingleValueEvent(
                                         createValueListener((Long) listAllJumlah.get(i)));
                     }
+
+                    pbUtils.hideLoadingIndicator(loadingIndicator);
+                    rootView.setVisibility(View.VISIBLE);
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    pbUtils.hideLoadingIndicator(loadingIndicator);
+                    rootView.setVisibility(View.VISIBLE);
                 }
             };
 
@@ -146,6 +170,10 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
             pakaianRef.removeEventListener(pakaianValue);
             pakaianValue = null;
         }
+
+        listPakaian.clear();
+        listJumlah.clear();
+        listAllJumlah.clear();
     }
 
     public ValueEventListener createValueListener(final long jumlahBarang){
@@ -157,7 +185,6 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
                 // this method to get the index is retarded
                 listJumlah.add(jumlahBarang);
                 adapter.notifyDataSetChanged();
-                pakaianRef.removeEventListener(pakaianValue);
             }
 
             @Override
@@ -175,6 +202,12 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
         detachDatabaseListener();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        attachDatabaseReadListener();
+    }
+
     public void initUIComponent(){
         statusTV = findViewById(R.id.detail_status);
         tanggalTV = findViewById(R.id.detail_tanggal_pemesanan);
@@ -185,6 +218,12 @@ public class DetailTransaksi extends AppCompatActivity implements View.OnClickLi
         hargaBarangTV = findViewById(R.id.total_harga_barang);
         hargaKurirTv = findViewById(R.id.harga_kurir);
         totalHargaTV = findViewById(R.id.total_harga);
+
+        btnSelesai = findViewById(R.id.btn_selesai_detail_transaksi);
+        btnSelesai.setOnClickListener(this);
+
+        rootView = findViewById(R.id.root_view_detail_transaksi);
+        loadingIndicator = findViewById(R.id.pb_detail_transaksi);
     }
 
     public String getStringTanggal(long currentTime){

@@ -18,7 +18,7 @@ import java.util.List;
 import protel.jahitin.Model.Pakaian;
 import protel.jahitin.R;
 
-public class PakaianJadiAdapter extends RecyclerView.Adapter<PakaianJadiAdapter.PakaianJadiViewHolder> {
+public class  PakaianJadiAdapter extends RecyclerView.Adapter<PakaianJadiAdapter.PakaianJadiViewHolder> {
     private List<Pakaian> listPakaian;
     private Context mContext;
     private PakaianJadiClickListener listener;
@@ -77,6 +77,7 @@ public class PakaianJadiAdapter extends RecyclerView.Adapter<PakaianJadiAdapter.
 
             //btnLike.setOnClickListener(this);
             btnTambah.setOnClickListener(this);
+            namaItem.setOnClickListener(this);
         }
 
         @Override
@@ -89,12 +90,17 @@ public class PakaianJadiAdapter extends RecyclerView.Adapter<PakaianJadiAdapter.
                 case R.id.btn_tambah_pakaian_jadi:
                     listener.onTambahItemClick(position, view);
                     break;
+                case R.id.tv_nama_pakaian_jadi:
+                    listener.onBarangItemClick(position);
+                    break;
             }
         }
     }
 
     public interface PakaianJadiClickListener{
         void onTambahItemClick(int clickedItemIndex, View view);
+
+        void onBarangItemClick(int clickedItemIndex);
 
         //void onLikeItemClick(int clickedItemIndex, View view);
     }

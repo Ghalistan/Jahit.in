@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 import protel.jahitin.Activity.Beranda;
+import protel.jahitin.Activity.InformasiBarang;
 import protel.jahitin.Adapter.PakaianJadiAdapter;
 import protel.jahitin.Model.Keranjang;
 import protel.jahitin.Model.Pakaian;
@@ -57,6 +58,7 @@ public class PakaianJadiFragment extends Fragment
     private ProgressBarUtils pbUtils;
 
     public static int EXTRA_PAKAIAN_JADI_FRAGMENT = 1;
+    public static String EXTRA_INFORMASI_BARANG = "key_barang";
 
     private FirebaseDatabase firebaseDatabase;
     private FirebaseUser mUser;
@@ -111,6 +113,22 @@ public class PakaianJadiFragment extends Fragment
     public void onPause() {
         super.onPause();
         detachDatabaseReadListener();
+        clearList();
+    }
+
+    public void clearList(){
+        listPakaianDipilih.clear();
+        listBeli.clear();
+        listKeyPakaian.clear();
+        listKey.clear();
+        listKeranjang.clear();
+        listKeranjangDipilih.clear();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        attachDatabaseReadListener();
     }
 
     @Override
@@ -139,6 +157,13 @@ public class PakaianJadiFragment extends Fragment
         }else{
             tambahItem(clickedItemIndex, view);
         }
+    }
+
+    @Override
+    public void onBarangItemClick(int clickedItemIndex) {
+        Intent informasiBarangIntent = new Intent(getContext(), InformasiBarang.class);
+        informasiBarangIntent.putExtra(EXTRA_INFORMASI_BARANG, listKey.get(clickedItemIndex));
+        startActivity(informasiBarangIntent);
     }
 
 //    @Override

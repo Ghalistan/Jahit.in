@@ -60,10 +60,9 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Activity.BuatToko" />
         <activity android:name=".Activity.DetailTransaksi" />
-        <activity android:name=".Ulasan"></activity>
-        <activity android:name=".Activity.InformasiToko">
-
-        </activity>
+        <activity android:name=".Activity.Ulasan" />
+        <activity android:name=".Activity.InformasiToko"></activity>
+        <activity android:name=".Activity.InformasiBarang"></activity>
     </application>
 
 </manifest>

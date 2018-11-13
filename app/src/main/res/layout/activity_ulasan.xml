@@ -99,7 +99,7 @@
 
 
         <Button
-            android:id="@+id/button_ulasan"
+            android:id="@+id/button_kirim_ulasan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/orange_button_radius"

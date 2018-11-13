@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Activity.InformasiBarang">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/informasi_barang_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@null"
+                android:elevation="4dp"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+
+            <ImageView
+                android:id="@+id/iv_informasi_barang"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:src="@drawable/barang_1"
+                android:scaleType="fitXY"/>
+
+        </FrameLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:layout_margin="16dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/poppinssemibold"
+                    android:textColor="#424242"
+                    android:text="Deskripsi Produk"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#7fb3b3b3"
+                    android:layout_marginTop="8dp"/>
+
+                <TextView
+                    android:id="@+id/tv_nama_informasi_barang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Baju Kaos Have Body fit"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:textColor="#424242"
+                    android:layout_marginTop="8dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TableLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TableRow>
+                            <TextView
+                                android:text="Bahan"
+                                android:layout_weight="1"
+                                android:paddingRight="16dp"
+                                style="@style/LabelSpefikasi"/>
+
+                            <TextView
+                                android:text=":"
+                                android:layout_weight="1"
+                                android:paddingRight="16dp"
+                                style="@style/LabelSpefikasi"/>
+
+                            <TextView
+                                android:id="@+id/tv_bahan_informasi_barang"
+                                android:text="Katun"
+                                android:layout_weight="1"
+                                style="@style/LabelSpefikasi"/>
+                        </TableRow>
+
+                        <TableRow>
+                            <TextView
+                                android:text="Ukuran"
+                                android:layout_weight="1"
+                                android:paddingRight="16dp"
+                                style="@style/LabelSpefikasi"/>
+
+                            <TextView
+                                android:text=":"
+                                android:layout_weight="1"
+                                android:paddingRight="16dp"
+                                style="@style/LabelSpefikasi"/>
+
+                            <TextView
+                                android:id="@+id/tv_ukuran_informasi_barang"
+                                android:text="All Size"
+                                android:layout_weight="1"
+                                style="@style/LabelSpefikasi"/>
+                        </TableRow>
+                    </TableLayout>
+
+                    <TextView
+                        android:id="@+id/tv_harga_informasi_barang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:textSize="17sp"
+                        android:textColor="@color/colorAccent"
+                        android:fontFamily="@font/poppinssemibold"
+                        android:text="Rp 120.000"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_border_red"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/poppinssemibold"
+                    android:textColor="#424242"
+                    android:text="Catatan Penjual"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#7fb3b3b3"
+                    android:layout_marginTop="8dp"/>
+
+                <TextView
+                    android:id="@+id/tv_catatan_informasi_barang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:textColor="#707070"
+                    android:text="Untuk saat ini stock barang masih kosong, sehingga untuk setiap pemesanan akan memakan tambahan waktu 7 hari unruk melakukan produksi terhadap barang yang dipesan"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>

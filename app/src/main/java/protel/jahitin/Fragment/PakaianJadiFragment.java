@@ -293,7 +293,8 @@ public class PakaianJadiFragment extends Fragment
 
     public void hapusItem(int clickedItemIndex, View view){
         listBeli.set(clickedItemIndex, false);
-        listKeranjangDipilih.remove(listKeranjang.get(clickedItemIndex));
+        Keranjang keranjang = new Keranjang(listKey.get(clickedItemIndex), keyToko, 1);
+        listKeranjangDipilih.remove(keranjang);
 
         Button btnTambah = view.findViewById(R.id.btn_tambah_pakaian_jadi);
         btnTambah.setBackgroundResource(R.drawable.button_tambah_not_active);

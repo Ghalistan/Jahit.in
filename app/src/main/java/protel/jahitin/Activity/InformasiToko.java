@@ -49,7 +49,6 @@ public class InformasiToko extends AppCompatActivity implements View.OnClickList
 
         toolbar = findViewById(R.id.infotoko_toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Informasi Toko");
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

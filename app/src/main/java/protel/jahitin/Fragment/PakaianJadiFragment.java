@@ -48,11 +48,9 @@ public class PakaianJadiFragment extends Fragment
     private View view;
     private List<Pakaian> listPakaianDipilih = new ArrayList<>();
     private List<Boolean> listBeli = new ArrayList<>();
-    private Map<Integer, Integer> mapIndexKeranjang = new HashMap<>();
     private List<String> listKeyPakaian = new ArrayList<>();
     private List<String> listKey = new ArrayList<>();
     private List<Keranjang> listKeranjang = new ArrayList<>();
-    private List<Keranjang> listKeranjangDipilih = new ArrayList<>();
     private String keyToko;
 
     private ProgressBar progressBar;
@@ -123,7 +121,6 @@ public class PakaianJadiFragment extends Fragment
         listKeyPakaian.clear();
         listKey.clear();
         listKeranjang.clear();
-        listKeranjangDipilih.clear();
     }
 
     @Override
@@ -137,11 +134,15 @@ public class PakaianJadiFragment extends Fragment
         switch (view.getId()){
             case R.id.btn_checkout:
                 Map<String, Object> map = new HashMap<>();
-                for(Keranjang k : listKeranjangDipilih){
-                    if(!listKeranjang.contains(k)){
-                        map.put(k.getIdBarang(), k);
+                for(int i = 0; i < listBeli.size(); i++){
+                    if(listBeli.get(i)){
+                        Keranjang k = new Keranjang(listKey.get(i), keyToko, 1);
+                        if(!listKeranjang.contains(k)){
+                            map.put(k.getIdBarang(), k);
+                        }
                     }
                 }
+
                 keranjangDatabaseReference.updateChildren(map);
 
                 Intent intent = new Intent(getActivity(), Beranda.class);
@@ -283,9 +284,6 @@ public class PakaianJadiFragment extends Fragment
 
     public void tambahItem(int clickedItemIndex, View view){
         listBeli.set(clickedItemIndex, true);
-        Keranjang keranjang = new Keranjang(listKey.get(clickedItemIndex), keyToko, 1);
-        listKeranjangDipilih.add(keranjang);
-        mapIndexKeranjang.put(clickedItemIndex, listKeranjangDipilih.indexOf(keranjang));
 
 
         Button btnTambah = view.findViewById(R.id.btn_tambah_pakaian_jadi);
@@ -296,10 +294,6 @@ public class PakaianJadiFragment extends Fragment
 
     public void hapusItem(int clickedItemIndex, View view){
         listBeli.set(clickedItemIndex, false);
-        listKeranjangDipilih.remove(listKeranjangDipilih
-                .get(mapIndexKeranjang.get(clickedItemIndex)));
-
-        mapIndexKeranjang.remove(clickedItemIndex);
 
         Button btnTambah = view.findViewById(R.id.btn_tambah_pakaian_jadi);
         btnTambah.setBackgroundResource(R.drawable.button_tambah_not_active);

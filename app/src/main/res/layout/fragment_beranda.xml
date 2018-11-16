@@ -15,7 +15,12 @@
                     android:id="@+id/beranda_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:title="Jahit.in">
+                    app:title="">
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/logo_vert"/>
 
                 </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>

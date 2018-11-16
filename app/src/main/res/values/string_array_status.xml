@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="status_transaksi_array">
+        <item>Menunggu Pembayaran</item>
+        <item>Barang Diproses</item>
+        <item>Barang Dikirim</item>
+        <item>Barang Diterima</item>
+    </string-array>
+</resources>

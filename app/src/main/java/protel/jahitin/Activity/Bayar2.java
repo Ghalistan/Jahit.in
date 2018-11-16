@@ -133,6 +133,7 @@ public class Bayar2 extends AppCompatActivity implements View.OnClickListener{
                     Intent intent = new Intent(Bayar2.this, Beranda.class);
                     intent.putExtra(EXTRA_BAYAR_FRAGMENT, true);
                     startActivity(intent);
+                    finish();
                     keranjangDatabaseReference.removeValue();
                 }
 

@@ -216,7 +216,6 @@
                             android:id="@+id/alamat_user"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/alamat"
                             android:fontFamily="@font/poppinsmedium"
                             android:textColor="#707070"
                             android:textSize="14sp"/>

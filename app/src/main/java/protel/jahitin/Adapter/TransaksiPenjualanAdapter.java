@@ -18,50 +18,51 @@ import java.util.List;
 import protel.jahitin.Model.Transaksi;
 import protel.jahitin.R;
 
-public class TransaksiPembelianAdapter extends RecyclerView.Adapter<TransaksiPembelianAdapter.TransaksiPembelianVH> {
+public class TransaksiPenjualanAdapter extends RecyclerView.Adapter<TransaksiPenjualanAdapter.TransaksiPenjualanVH> {
+
     private Context mContext;
     private List<Transaksi> listTransaksi;
-    private TransaksiPembelianClickListener listener;
+    private TransaksiPenjualanClickListener listener;
     private Transaksi transaksi;
 
-    public TransaksiPembelianAdapter(Context mContext, List<Transaksi> listTransaksi, TransaksiPembelianClickListener listener) {
-        this.mContext = mContext;
-        this.listTransaksi = listTransaksi;
-        this.listener = listener;
-    }
+    public TransaksiPenjualanAdapter(Context mContext, List<Transaksi> listTransaksi, TransaksiPenjualanClickListener listener) {
+            this.mContext = mContext;
+            this.listTransaksi = listTransaksi;
+            this.listener = listener;
+            }
 
     @NonNull
     @Override
-    public TransaksiPembelianVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        View view = inflater.inflate(R.layout.item_transaksi_penjualan, parent, false);
-        return new TransaksiPembelianVH(view);
+    public TransaksiPenjualanVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            View view = inflater.inflate(R.layout.item_transaksi_penjualan, parent, false);
+            return new TransaksiPenjualanVH(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TransaksiPembelianVH holder, int position) {
-        transaksi = listTransaksi.get(position);
+    public void onBindViewHolder(@NonNull TransaksiPenjualanVH holder, int position) {
+            transaksi = listTransaksi.get(position);
 
-        holder.noRekTV.setText(transaksi.getRekTujuan());
-        String stringJumlahBayar = "Rp " + String.valueOf(transaksi.getTotalHarga());
-        holder.jumlahBayarTV.setText(stringJumlahBayar);
+            holder.noRekTV.setText(transaksi.getRekTujuan());
+            String stringJumlahBayar = "Rp " + String.valueOf(transaksi.getTotalHarga());
+            holder.jumlahBayarTV.setText(stringJumlahBayar);
 
-        setIconBank(holder);
-        setStatusPembayaran(holder);
+            setIconBank(holder);
+            setStatusPembayaran(holder);
     }
 
     @Override
     public int getItemCount() {
-        return listTransaksi.size();
+            return listTransaksi.size();
     }
 
-    public class TransaksiPembelianVH extends RecyclerView.ViewHolder
-        implements View.OnClickListener {
+    public class TransaksiPenjualanVH extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
         private TextView noRekTV, jumlahBayarTV, statusPembayaranTV;
         private ImageView iconBank;
         private CardView container;
 
-        public TransaksiPembelianVH(View itemView) {
+        public TransaksiPenjualanVH(View itemView) {
             super(itemView);
             noRekTV = itemView.findViewById(R.id.tv_norek_transaksi_penjualan);
             jumlahBayarTV = itemView.findViewById(R.id.tv_jumlah_bayar_transaksi_penjualan);
@@ -79,11 +80,11 @@ public class TransaksiPembelianAdapter extends RecyclerView.Adapter<TransaksiPem
         }
     }
 
-    public interface TransaksiPembelianClickListener{
+    public interface TransaksiPenjualanClickListener{
         void onItemClick(int clickedItemIndex);
     }
 
-    public void setIconBank(TransaksiPembelianVH holder){
+    public void setIconBank(TransaksiPenjualanAdapter.TransaksiPenjualanVH holder){
         int idIcon;
         switch (transaksi.getCaraBayar()){
             case "Mandiri":
@@ -101,7 +102,7 @@ public class TransaksiPembelianAdapter extends RecyclerView.Adapter<TransaksiPem
         }
     }
 
-    public void setStatusPembayaran(TransaksiPembelianVH holder){
+    public void setStatusPembayaran(TransaksiPenjualanAdapter.TransaksiPenjualanVH holder){
         if(transaksi.getStatus().equals("Menunggu Pembayaran")){
             holder.statusPembayaranTV.setTextColor(ContextCompat.getColor(mContext, R.color.menunggu_pembayaran));
         }else if(transaksi.getStatus().equals("Barang Diterima")){

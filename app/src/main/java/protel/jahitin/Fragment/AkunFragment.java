@@ -77,7 +77,8 @@ public class AkunFragment extends Fragment implements View.OnClickListener{
 
         user = new User();
         mAuth = FirebaseAuth.getInstance();
-        userRef = FirebaseDatabase.getInstance().getReference().child("user");
+
+        userRef = FirebaseDatabase.getInstance().getReference().child("user").child(mUser.getUid());
         attachDatabaseReadListener();
 
         return view;
@@ -199,7 +200,7 @@ public class AkunFragment extends Fragment implements View.OnClickListener{
         if(!alamat.isEmpty()){
             user.setAlamat(alamat);
             Map<String, Object> mapUser = new HashMap<>();
-            mapUser.put(mUser.getUid(), user);
+            mapUser.put("alamat", alamat);
 
             userRef.updateChildren(mapUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override

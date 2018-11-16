@@ -199,6 +199,7 @@ public class Bayar extends AppCompatActivity implements View.OnClickListener{
                     Intent intent = new Intent(Bayar.this, Bayar2.class);
                     intent.putExtra(EXTRA_TRANSAKSI_KEY, transaksiKey);
                     startActivity(intent);
+                    finish();
                     break;
                 }else{
                     Toast toast = Toast.makeText

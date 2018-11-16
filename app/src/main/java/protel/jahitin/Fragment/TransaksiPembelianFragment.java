@@ -98,7 +98,8 @@ public class TransaksiPembelianFragment extends Fragment
     public void attachDatabaseReadListener(){
         if(transaksiValueListener == null){
             pbUtils.showLoadingIndicator(progressBar);
-            transaksiValueListener = new ValueEventListener() {
+            transaksiValueListener =
+                    new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for(DataSnapshot data : dataSnapshot.getChildren()){

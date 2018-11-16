@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".Activity.DetailTransaksiPenjualan"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/dtransaksi_toolbar"
+        android:id="@+id/dtransaksi_toolbar_penjualan"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -23,17 +24,18 @@
             android:orientation="vertical">
 
             <ProgressBar
-                android:id="@+id/pb_detail_transaksi"
+                android:id="@+id/pb_detail_transaksi_penjualan"
                 style="@style/ProgressBar"
                 android:visibility="gone"
                 android:layout_marginTop="8dp"
                 android:layout_gravity="center"/>
 
             <LinearLayout
-                android:id="@+id/root_view_detail_transaksi"
+                android:id="@+id/root_view_detail_transaksi_penjualan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 //Menunggu Pembayaran
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
@@ -44,34 +46,41 @@
                         android:layout_height="wrap_content"
                         android:padding="17dp">
                         <RelativeLayout
-                            android:id="@+id/status_header"
+                            android:id="@+id/status_header_penjualan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <ImageView
-                                android:id="@+id/status_image"
+                                android:id="@+id/status_image_penjualan"
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:src="@drawable/status"
                                 android:adjustViewBounds="true"
                                 android:scaleType="fitCenter"/>
                             <LinearLayout
-                                android:layout_toRightOf="@id/status_image"
+                                android:layout_toRightOf="@id/status_image_penjualan"
                                 android:layout_width="match_parent"
                                 android:layout_height="32dp"
                                 android:gravity="center_vertical"
                                 android:layout_marginLeft="17dp">
-                                <TextView
-                                    android:id="@+id/detail_status"
+                                <!--<TextView-->
+                                    <!--android:id="@+id/detail_status_penjualan"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="Menunggu Pembayaran"-->
+                                    <!--android:fontFamily="@font/poppinsmedium"-->
+                                    <!--android:textSize="16sp"-->
+                                    <!--android:textColor="#424242"/>-->
+
+                                <Spinner
+                                    android:id="@+id/sp_status_transaksi"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Menunggu Pembayaran"
-                                    android:fontFamily="@font/poppinsmedium"
-                                    android:textSize="16sp"
-                                    android:textColor="#424242"/>
+                                    android:entries="@array/status_transaksi_array"/>
+
                             </LinearLayout>
 
                             <TextView
-                                android:layout_below="@id/status_image"
+                                android:layout_below="@id/status_image_penjualan"
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:background="#7fb3b3b3"
@@ -79,7 +88,7 @@
                         </RelativeLayout>
 
                         <LinearLayout
-                            android:layout_below="@id/status_header"
+                            android:layout_below="@id/status_header_penjualan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
@@ -92,7 +101,7 @@
                                 android:textColor="#424242"
                                 android:layout_marginTop="17dp"/>
                             <TextView
-                                android:id="@+id/detail_tanggal_pemesanan"
+                                android:id="@+id/detail_tanggal_pemesanan_penjualan"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="30 Oktober 2018"
@@ -110,7 +119,7 @@
                                 android:textColor="#424242"
                                 android:layout_marginTop="17dp"/>
                             <TextView
-                                android:id="@+id/detail_cara_pembayaran"
+                                android:id="@+id/detail_cara_pembayaran_penjualan"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Trf Bank Mandiri"
@@ -128,7 +137,7 @@
                                 android:textColor="#424242"
                                 android:layout_marginTop="17dp"/>
                             <TextView
-                                android:id="@+id/detail_kurir_pengiriman"
+                                android:id="@+id/detail_kurir_pengiriman_penjualan"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="TIKI Reguler"
@@ -146,7 +155,7 @@
                                 android:textColor="#424242"
                                 android:layout_marginTop="17dp"/>
                             <TextView
-                                android:id="@+id/detail_alamat_pengiriman"
+                                android:id="@+id/detail_alamat_pengiriman_penjualan"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/alamat"
@@ -154,6 +163,29 @@
                                 android:textSize="14sp"
                                 android:textColor="#a7a7a7"
                                 android:layout_marginTop="8dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Nomor Resi"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:textSize="14sp"
+                                android:textColor="#424242"
+                                android:layout_marginTop="17dp"
+                                android:layout_marginBottom="8dp"/>
+
+                            <EditText
+                                android:id="@+id/et_noresi_transaksi"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/orange_border_editext"
+                                android:gravity="top|left"
+                                android:hint="Masukkan nomor resi"
+                                android:textSize="14sp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"/>
                         </LinearLayout>
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -167,7 +199,7 @@
                     android:layout_marginBottom="17dp">
 
                     <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_detail"
+                        android:id="@+id/rv_detail_penjualan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -207,7 +239,7 @@
                                 android:textSize="14sp"
                                 android:textColor="#a7a7a7"/>
                             <TextView
-                                android:id="@+id/total_harga_barang"
+                                android:id="@+id/total_harga_barang_penjualan"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
@@ -229,7 +261,7 @@
                                 android:textSize="14sp"
                                 android:textColor="#a7a7a7"/>
                             <TextView
-                                android:id="@+id/harga_kurir"
+                                android:id="@+id/harga_kurir_penjualan"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
@@ -251,7 +283,7 @@
                                 android:textSize="14sp"
                                 android:textColor="#707070"/>
                             <TextView
-                                android:id="@+id/total_harga"
+                                android:id="@+id/total_harga_penjualan"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
@@ -262,37 +294,8 @@
                         </RelativeLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
-
-                //Tanya Penjual
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/orange_border"
-                    android:textAllCaps="false"
-                    android:text="Tanya Penjual"
-                    android:fontFamily="@font/poppinssemibold"
-                    android:textSize="16sp"
-                    android:textColor="#f44336"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:layout_marginBottom="17dp"/>
-
-                //Selesai
-                <Button
-                    android:id="@+id/btn_selesai_detail_transaksi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/orange_button_radius"
-                    android:textAllCaps="false"
-                    android:text="Selesai"
-                    android:fontFamily="@font/poppinssemibold"
-                    android:textSize="16sp"
-                    android:textColor="#ffffff"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:layout_marginBottom="17dp"/>
-
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

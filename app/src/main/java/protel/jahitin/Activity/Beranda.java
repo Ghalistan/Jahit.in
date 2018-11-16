@@ -172,4 +172,5 @@ public class Beranda extends AppCompatActivity {
 
         item.setChecked(true);
     }
+
 }

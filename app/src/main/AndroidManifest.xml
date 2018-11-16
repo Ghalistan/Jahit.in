@@ -10,9 +10,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:screenOrientation="portrait">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".Activity.SplashScreen"
             android:screenOrientation="portrait"
@@ -61,12 +61,11 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Activity.BuatToko" />
         <activity android:name=".Activity.DetailTransaksi" />
-
         <activity android:name=".Activity.Ulasan" />
-        <activity android:name=".Activity.InformasiBarang"/>
-        <activity android:name=".Activity.InformasiToko"/>
-        <activity android:name=".Activity.DetailBarang"/>
-
+        <activity android:name=".Activity.InformasiBarang" />
+        <activity android:name=".Activity.InformasiToko" />
+        <activity android:name=".Activity.DetailBarang" />
+        <activity android:name=".Activity.DetailTransaksiPenjualan"></activity>
     </application>
 
 </manifest>

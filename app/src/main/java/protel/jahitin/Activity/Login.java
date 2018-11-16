@@ -151,4 +151,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 this.getCurrentFocus().getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+    }
 }

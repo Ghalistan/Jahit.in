@@ -97,7 +97,11 @@ public class TransaksiPembelianFragment extends Fragment
 
     public void attachDatabaseReadListener(){
         if(transaksiValueListener == null){
+
             pbUtils.showLoadingIndicator(progressBar);
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.GONE);
+
             transaksiValueListener =
                     new ValueEventListener() {
                 @Override

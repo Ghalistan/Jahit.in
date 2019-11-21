@@ -62,7 +62,7 @@ public class Pembelian extends AppCompatActivity
 
     public void setupViewPager(ViewPager viewPager){
         PembelianPagerAdapater fragmentPagerAdapter = new PembelianPagerAdapater(getSupportFragmentManager(), this);
-        fragmentPagerAdapter.addFrag(new PakaianCustomFragment());
+//        fragmentPagerAdapter.addFrag(new PakaianCustomFragment());
         fragmentPagerAdapter.addFrag(new PakaianJadiFragment());
         viewPager.setAdapter(fragmentPagerAdapter);
     }

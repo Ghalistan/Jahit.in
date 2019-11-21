@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "956980192606-d4u99740b4s258ej4o6i2o0lad5c0soh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "protel.jahitin",
+            "certificate_hash": "1240b8b15200b340bef612275727d301efadb94e"
+          }
+        },
+        {
           "client_id": "956980192606-9pus1gbgp48neqlm31aqbhqcbjkkumd4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -33,20 +41,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "956980192606-c9n4s93ojb9n6cgqov1cvrldrhm72bje.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }
